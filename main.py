@@ -8,9 +8,10 @@ def main():
 
 
 
-def cargoreader(csv):
+def reader(cargocsv, shipcsv):
     "this function takes in a cargo csv file. and turns it into a dictionary"
-    df = pd.read_csv(csv)
+    df = pd.read_csv(cargocsv)
+    fd = pd.read_csv(shipcsv)
     columnnames = []
 
     for i in df:
@@ -33,6 +34,7 @@ def cargoreader(csv):
                 fulldict[x] = [workdict[x]]
 
     return fulldict
+    print(fd.head())
 
 
-cargoreader('CargoList1.csv')
+reader('CargoList1.csv','SpaceCraft1.csv')
