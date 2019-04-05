@@ -1,0 +1,5 @@
+spacecraft,nation,payload,volume,mass,cost,ftw
+Cygnus,USA,2000,18.9,7400,390000000,0.73
+Progress,Russia,2400,7.6,7020,175000000,0.74
+Kounotori,Japan,5200,14,10500,420000000,0.71
+Dragon,USA,6000,10,12200,347000000,0.72
