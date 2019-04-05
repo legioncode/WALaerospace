@@ -33,7 +33,8 @@ def reader(cargocsv, shipcsv):
             else:
                 fulldict[x] = [workdict[x]]
 
-    return fulldict
+    print(df.head())
+    print()
     print(fd.head())
 
 
