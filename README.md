@@ -1,6 +1,8 @@
-# WALaerospace
+# WALaerospace :rocket:
 
-## Upper- and lowerbound(s)
+## The Problem
+
+## Upper- and Lowerbound(s)
 **For problem a,b,c**\
 The costs for transport using four fully loaded spaceships are $1.469.436.478 (upperbound).
 
