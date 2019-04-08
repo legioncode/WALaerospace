@@ -8,9 +8,6 @@ from code.helperfunctions.readers import loadships
 def main(cargocsv, shipcsv):
     parcellist = loadparcels(cargocsv)
     shiplist = loadships(shipcsv)
-    print(parcellist)
-    print()
-    print()
-    print(shiplist)
-
+    workcraft = shiplist[0]
+    print([i.name for i in shiplist])
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
