@@ -24,7 +24,6 @@ def cargoreader(cargocsv):
     return cargodict
 
 
-
 def shipreader(csv):
     df = pd.read_csv(csv)
     transportdict = pd.DataFrame.to_dict(df, orient = 'index')
@@ -64,7 +63,7 @@ def parcelassign(parceldict):
                 massname = name
             elif value == 'volume (m^3)':
                 sizename = name
-            elif: value == 'mw':
+            elif value == 'mw':
                 mwname = name
             else:
                 break
