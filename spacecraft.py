@@ -1,5 +1,5 @@
-class Spacecraft(object):
-    def __init__(name, nation, payload, volume, mass, cost, ftw):
+class Spacecraft:
+    def __init__(self, name, nation, payload, volume, mass, cost, ftw):
         self.name = name
         self.nation = nation
         self.payload = payload
