@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-from spacecraft import *
-from cargo import *
+from code.classes.spacecraft import *
+from code.classes.cargo import *
 
 def loadships(shipcsv):
     shipdict = shipreader(shipcsv)
