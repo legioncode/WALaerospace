@@ -1,8 +1,8 @@
 from code.classes.cargo import *
 import numpy as np
 import pandas as pd
-from code.helperfunctions.readers import cargoreader
-from code.helperfunctions.readers import shipreader
+from code.helperfunctions.readers import loadparcels
+from code.helperfunctions.readers import loadships
 
 
 def main(cargocsv, shipcsv):
@@ -13,4 +13,4 @@ def main(cargocsv, shipcsv):
     print()
     print(shiplist)
 
-main('CargoList1.csv', 'SpaceCraft1.csv')
+main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
