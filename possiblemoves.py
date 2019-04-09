@@ -34,3 +34,10 @@ def possiblemovesC(shiplist, parcellist):
                 else:
                     possiblemoves[x] = [i]
     return possiblemoves
+
+
+def checkmove(parcel, ship):
+    if parcel.mass <= ship.payload and parcel.size <= ship.volume:
+        return True
+    else:
+        return False
