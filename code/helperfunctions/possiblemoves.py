@@ -15,9 +15,9 @@ def possiblemovesB(shiplist, parcellist):
         for x in shiplist:
             if i.mass <= x.payload and i.size <= x.volume:
                 if i in possiblemoves.keys():
-                    shiplist = possiblemoves[i]
-                    shiplist.append(x)
-                    possiblemoves[i] = shiplist
+                    spacelist = possiblemoves[i]
+                    spacelist.append(x)
+                    possiblemoves[i] = spacelist
                 else:
                     possiblemoves[i] = [x]
     return possiblemoves
