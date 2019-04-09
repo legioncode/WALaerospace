@@ -8,7 +8,10 @@ from code.helperfunctions.possiblemoves import *
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import returnLastParcel
 
+
 def main(cargocsv, shipcsv):
     parcellist = loadparcels(cargocsv)
     shiplist = loadships(shipcsv)
+
+
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')

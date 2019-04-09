@@ -1,17 +1,20 @@
+from code.classes.cargo import Cargo
+from code.classes.spacecraft import Spacecraft
 import pandas as pd
 import numpy as np
-from code.classes.spacecraft import *
-from code.classes.cargo import *
+
 
 def loadships(shipcsv):
     shipdict = shipreader(shipcsv)
     availableShips = craftassign(shipdict)
     return availableShips
 
+
 def loadparcels(parcelcsv):
     parceldict = cargoreader(parcelcsv)
     availableparcels = parcelassign(parceldict)
     return availableparcels
+
 
 def cargoreader(cargocsv):
     "this function takes in a cargo csv file. and turns it into a dictionary"
@@ -19,15 +22,16 @@ def cargoreader(cargocsv):
     columnnames = [i for i in df]
 
     df['mw'] = df[columnnames[1]] / df[columnnames[2]]
-    df = df.sort_values(by = ['mw'], ascending = False)
-    cargodict = pd.DataFrame.to_dict(df, orient = 'index')
+    df = df.sort_values(by=['mw'], ascending=False)
+    cargodict = pd.DataFrame.to_dict(df, orient='index')
     return cargodict
 
 
 def shipreader(csv):
     df = pd.read_csv(csv)
-    transportdict = pd.DataFrame.to_dict(df, orient = 'index')
+    transportdict = pd.DataFrame.to_dict(df, orient='index')
     return transportdict
+
 
 def craftassign(shipdict):
     shiplist = []
@@ -49,9 +53,11 @@ def craftassign(shipdict):
                 ftwname = name
             else:
                 break
-        spacecraft = Spacecraft(spacecraftname,nationname,payloadname,volumename,massname,costname,ftwname)
+        spacecraft = Spacecraft(spacecraftname, nationname, payloadname,
+                                volumename, massname, costname, ftwname)
         shiplist.append(spacecraft)
     return shiplist
+
 
 def parcelassign(parceldict):
     cargolist = []
@@ -67,6 +73,6 @@ def parcelassign(parceldict):
                 mwname = name
             else:
                 break
-        parcellist = Cargo(id_name,massname,sizename,mwname)
+        parcellist = Cargo(id_name, massname, sizename, mwname)
         cargolist.append(parcellist)
     return cargolist
