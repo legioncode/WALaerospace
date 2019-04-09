@@ -9,6 +9,7 @@ def assign(ship, parcel):
     ship.volume = ship.volume - parcel.size
     ship.payload = ship.payload - parcel.mass
     ship.mass = ship.mass + parcel.mass
+    ship.ratio()
 
 
 def returnLastParcel(ship):
@@ -16,4 +17,5 @@ def returnLastParcel(ship):
     ship.volume = ship.volume + parcel.size
     ship.payload = ship.payload + parcel.mass
     ship.mass = ship.mass - parcel.mass
+    ship.ratio()
     return parcel

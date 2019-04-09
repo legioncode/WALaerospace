@@ -7,14 +7,14 @@ from code.helperfunctions.readers import loadships
 from code.helperfunctions.possiblemoves import *
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import returnLastParcel
-from code.algoritmes.heekstra import heekstra
 
 
 def dhl(shiplist, parcellist):
+    print(shiplist[0].mw)
     extralist = []
     for i in parcellist:
         shipmw = [x.mw for x in shiplist]
-        defaultship = (0,400)
+        defaultship = (0, 400)
 
         for z in range(len(shipmw)):
             difference = max(shipmw[z], i.mw) - min(shipmw[z], i.mw)
@@ -27,7 +27,30 @@ def dhl(shiplist, parcellist):
             extralist.append(i)
 
 
+
+    finallist = []
+    for c in extralist:
+        shipmw = [x.mw for x in shiplist]
+        while True:
+            defaultship = (0, 400)
+
+            for z in range(len(shipmw)):
+                difference = max(shipmw[z], i.mw) - min(shipmw[z], i.mw)
+                if difference < defaultship[1]:
+                    defaultship = (z, difference)
+
+            if checkmove(i, shiplist[defaultship[0]]):
+                assign(shiplist[defaultship[0]], i)
+                break
+            else:
+                shipmw.pop(defaultship[0])
+            if len(shipmw) == 0:
+                finallist.append(i)
+                break
+
+
     for y in shiplist:
-        print('ship' + str(y.name) + str(y.assigned))
+        print('ship' + str(y.name) + str(len(y.assigned)) + '    ' + str(y.payload) + ' ' + str(y.volume))
     print('--------------------------------------------')
-    print(possiblemovesA(shiplist, extralist))
+    print('finallistlength:' + str(len(finallist)))
+    print(shiplist[0].mw)
