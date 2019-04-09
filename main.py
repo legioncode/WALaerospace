@@ -7,6 +7,7 @@ from code.helperfunctions.readers import loadships
 from code.helperfunctions.possiblemoves import *
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import returnLastParcel
+from code.algoritmes.heekstra import heekstra
 
 def main(cargocsv, shipcsv):
     parcellist = loadparcels(cargocsv)
