@@ -7,3 +7,4 @@ class Spacecraft:
         self.mass = mass
         self.cost = cost
         self.ftw = ftw
+        self.assinged = []
