@@ -18,4 +18,4 @@ Transporting the lightest cargo from cargolist 1 (CL1#38) with the least expensi
 
 Transporting the lightest cargo from cargolist 2 (CL2#67) with the least expensive spacecraft (Progress) costs $195 303 607,692 (lowerbound).
 
-> (((7020 + 113,7) x 0,74 / (1 - 0,74)) x 1000) + 175.000.000 = $195 303 607,692
+> (((7020 + 113,7) x 0,74 / (1 - 0,74)) x 1000) + 175.000.000 = $195.303.607,692
