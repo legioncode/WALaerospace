@@ -9,6 +9,7 @@ def assign(ship, parcel):
     ship.volume = ship.volume - parcel.size
     ship.payload = ship.payload - parcel.mass
 
+
 def returnLastParcel(ship):
     parcel = ship.assigned.pop(-1)
     ship.volume = ship.volume + parcel.size

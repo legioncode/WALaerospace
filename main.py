@@ -9,7 +9,10 @@ from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import returnLastParcel
 from code.algoritmes.heekstra import heekstra
 
+
 def main(cargocsv, shipcsv):
     parcellist = loadparcels(cargocsv)
     shiplist = loadships(shipcsv)
+
+
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
