@@ -8,10 +8,12 @@ def assign(ship, parcel):
     ship.assigned = worklist
     ship.volume = ship.volume - parcel.size
     ship.payload = ship.payload - parcel.mass
+    ship.mass = ship.mass + parcel.mass
 
 
 def returnLastParcel(ship):
     parcel = ship.assigned.pop(-1)
     ship.volume = ship.volume + parcel.size
     ship.payload = ship.payload + parcel.mass
+    ship.mass = ship.mass - parcel.mass
     return parcel
