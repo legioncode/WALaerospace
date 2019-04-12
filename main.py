@@ -13,5 +13,4 @@ def main(cargocsv, shipcsv):
     shiplist = loadships(shipcsv)
     dhl(shiplist, parcellist)
 
-
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
