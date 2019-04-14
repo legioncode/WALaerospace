@@ -1,7 +1,5 @@
 from code.classes.cargo import *
 from code.classes.spacecraft import *
-import numpy as np
-import pandas as pd
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from possiblemoves import *
