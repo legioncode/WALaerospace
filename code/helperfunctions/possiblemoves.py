@@ -1,13 +1,15 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 
+
 def possiblemovesA(shiplist, parcellist):
     possiblemoves = []
     for i in parcellist:
         for x in shiplist:
             if i.mass <= x.payload and i.size <= x.volume:
-                possiblemoves.append([i,x])
+                possiblemoves.append([i, x])
     return possiblemoves
+
 
 def possiblemovesB(shiplist, parcellist):
     possiblemoves = {}
@@ -15,12 +17,13 @@ def possiblemovesB(shiplist, parcellist):
         for x in shiplist:
             if i.mass <= x.payload and i.size <= x.volume:
                 if i in possiblemoves.keys():
-                    shiplist = possiblemoves[i]
-                    shiplist.append(x)
-                    possiblemoves[i] = shiplist
+                    spacelist = possiblemoves[i]
+                    spacelist.append(x)
+                    possiblemoves[i] = spacelist
                 else:
                     possiblemoves[i] = [x]
     return possiblemoves
+
 
 def possiblemovesC(shiplist, parcellist):
     possiblemoves = {}
@@ -34,3 +37,10 @@ def possiblemovesC(shiplist, parcellist):
                 else:
                     possiblemoves[x] = [i]
     return possiblemoves
+
+
+def checkmove(parcel, ship):
+    if parcel.mass <= ship.payload and parcel.size <= ship.volume:
+        return True
+    else:
+        return False

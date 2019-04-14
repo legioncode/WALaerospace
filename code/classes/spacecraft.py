@@ -7,3 +7,9 @@ class Spacecraft:
         self.mass = mass
         self.cost = cost
         self.ftw = ftw
+        self.assigned = []
+        self.ratio()
+
+
+    def ratio(self):
+        self.mw = self.payload / float(self.volume)
