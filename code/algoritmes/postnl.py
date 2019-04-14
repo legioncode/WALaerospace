@@ -1,10 +1,9 @@
 from code.helperfunctions.readers import *
 
 def postnl(shiplist, parcellist):
-    # sort the parcellist based on mw ratio
+    # sort the parcellist based on mv ratio
     sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mw, reverse=False)
     sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mw, reverse=False)
-
     # create an extra list for remaining parcels
     remainders = []
 
@@ -12,9 +11,9 @@ def postnl(shiplist, parcellist):
     half = len(sorted_parcels) / 2
     for parcel in sorted_parcels[half:]:
         if checkmove(parcel, sorted_ships[2]):
-            assign(shiplist[], parcel)
+            assign(shiplist[2], parcel)
         elif checkmove(parcel, sorted_ships[3]):
-            assign(shiplist[], parcel)
+            assign(shiplist[3], parcel)
         else:
             remainders.append(parcel)
 
@@ -22,8 +21,8 @@ def postnl(shiplist, parcellist):
     half = len(sorted_parcels) / 2
     for parcel in sorted_parcels[half, 0, -1]:
         if checkmove(parcel, sorted_ships[1]):
-            assign(shiplist[], parcel)
+            assign(shiplist[1], parcel)
         elif checkmove(parcel, sorted_ships[0]):
-            assign(shiplist[], parcel)
+            assign(shiplist[0], parcel)
         else:
             remainders.append(parcel)
