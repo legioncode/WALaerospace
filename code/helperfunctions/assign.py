@@ -1,7 +1,6 @@
 from code.classes.cargo import *
 from code.classes.spacecraft import *
 
-
 def assign(ship, parcel):
     worklist = ship.assigned
     worklist.append(parcel)
@@ -26,5 +25,7 @@ def solution(shiplist):
         solutiondict[i] = i.assigned
     return solutiondict
 
-def totalcost(shiplist) =
+def updatemw(shiplist):
+    return [x.mw for x in shiplist]
     
+#def totalcost(shiplist) =
