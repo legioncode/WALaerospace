@@ -19,3 +19,9 @@ def returnLastParcel(ship):
     ship.mass = ship.mass - parcel.mass
     ship.ratio()
     return parcel
+
+def solution(shiplist):
+    solutiondict = {}
+    for i in shiplist:
+        solutiondict[i] = i.assigned
+    return solutiondict
