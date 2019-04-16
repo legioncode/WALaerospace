@@ -25,3 +25,6 @@ def solution(shiplist):
     for i in shiplist:
         solutiondict[i] = i.assigned
     return solutiondict
+
+def totalcost(shiplist) =
+    

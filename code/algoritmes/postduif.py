@@ -2,11 +2,18 @@ from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 import numpy as np
 import pandas as pd
-from code.helperfunctions.readers import loadparcels
-from code.helperfunctions.readers import loadships
-from code.helperfunctions.possiblemoves import checkmove
+from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import returnLastParcel
 
 
-def postduif(shiplist, parcellist)
+def spacepidgeon(shiplist, parcellist)
+    while True:
+        possiblemoveset = possiblemovesA(shiplist, parcllist)
+
+
+
+
+def iterate(possiblemoveset, shiplist, parcellist):
+    move = possiblemoveset
+    
