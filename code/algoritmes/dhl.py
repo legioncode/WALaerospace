@@ -26,8 +26,6 @@ def dhl(shiplist, parcellist):
         else:
             extralist.append(i)
 
-
-
     finallist = []
     for c in extralist:
         shipmw = [x.mw for x in shiplist]
@@ -48,9 +46,11 @@ def dhl(shiplist, parcellist):
                 finallist.append(i)
                 break
 
-
     for y in shiplist:
-        print('ship' + str(y.name) + str(len(y.assigned)) + '    ' + str(y.payload) + ' ' + str(y.volume))
+        print('ship' + str(y.name) + str(len(y.assigned)) +
+              '    ' + str(y.payload) + ' ' + str(y.volume))
     print('--------------------------------------------')
     print('finallistlength:' + str(len(finallist)))
     print(shiplist[0].mw)
+    for i in finallist:
+        print(i.id, i.mass, i.size)
