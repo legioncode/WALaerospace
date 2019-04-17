@@ -27,5 +27,6 @@ def solution(shiplist):
 
 def updatemw(shiplist):
     return [x.mw for x in shiplist]
-    
-#def totalcost(shiplist) =
+
+def calculatetotal(shiplist):
+    return sum([i.calculate for i in shiplist])
