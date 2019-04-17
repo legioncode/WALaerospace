@@ -36,4 +36,10 @@ def clearships(shiplist):
     for i in shiplist:
         i.clear()
 
+
+def assignfromdict(shipdict):
+    for i in shipdict.keys():
+        shipdict[i].assigned = shipdict[i]
+
+
 # def totalcost(shiplist) =

@@ -10,7 +10,10 @@ from code.helperfunctions.assign import returnLastParcel, solution, clearships
 import random
 
 
-# def ups(shiplist, parcellist):
+def ups(shiplist, parcellist):
+
+    return
+
 
 def randomsolver(shiplist, parcellist):
     movelist = [1]
@@ -36,4 +39,4 @@ def rnjesus(shiplist, parcellist):
             topsolutionnumber = solutions
             topsolution = solution(shiplist)
         clearships(shiplist)
-    return topsolutionnumber
+    return topsoluion
