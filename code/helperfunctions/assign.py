@@ -1,5 +1,5 @@
-from code.classes.cargo import *
-from code.classes.spacecraft import *
+from code.classes.cargo import Cargo
+from code.classes.spacecraft import Spacecraft
 
 
 def assign(ship, parcel):
@@ -8,7 +8,6 @@ def assign(ship, parcel):
     ship.assigned = worklist
     ship.volume = ship.volume - parcel.size
     ship.payload = ship.payload - parcel.mass
-    ship.mass = ship.mass + parcel.mass
     ship.ratio()
 
 
@@ -16,10 +15,8 @@ def returnLastParcel(ship):
     parcel = ship.assigned.pop(-1)
     ship.volume = ship.volume + parcel.size
     ship.payload = ship.payload + parcel.mass
-    ship.mass = ship.mass - parcel.mass
     ship.ratio()
     return parcel
-
 
 def solution(shiplist):
     solutiondict = {}
@@ -43,4 +40,7 @@ def assignfromdict(shipdict):
 
 def calculatetotal(shiplist):
     return sum([i.calculate for i in shiplist])
+
+def calculatepackages(shiplist):
+    return sum(len(i.assigned) for i in shiplist)
 # def totalcost(shiplist) =
