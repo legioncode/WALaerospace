@@ -2,9 +2,11 @@ from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
 import random
 
+
 def sortparcels(parcellist):
     sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mw, reverse=False)
     return sorted_parcels
+
 
 def sortspacecrafts(shiplist):
     sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mw, reverse=False)

@@ -7,7 +7,7 @@ def possiblemovesA(shiplist, parcellist):
     for i in parcellist:
         for x in shiplist:
             if i.mass <= x.payload and i.size <= x.volume:
-                possiblemoves.append([(i, x)])
+                possiblemoves.append((x, i))
     return possiblemoves
 
 
