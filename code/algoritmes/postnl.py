@@ -1,13 +1,16 @@
 from code.helperfunctions.possiblemoves import checkmove
 from code.helperfunctions.assign import assign
 
+
 def sortparcels(parcellist):
     sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mw, reverse=False)
     return sorted_parcels
 
+
 def sortspacecrafts(shiplist):
     sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mw, reverse=False)
     return sorted_ships
+
 
 def postnl(shiplist, parcellist):
     # get sorted lists
