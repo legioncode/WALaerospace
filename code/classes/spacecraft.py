@@ -16,7 +16,7 @@ class Spacecraft:
         self.mw = self.payload / float(self.volume)
 
     def calculate(self):
-        self.cost = sum([i.mass for i in self.assinged]) + self.mass
+        self.cost = (sum([i.mass for i in self.assinged]) + self.mass) * self.ftw / (1-self.ftw)
 
     def clear(self):
         self.assigned = []

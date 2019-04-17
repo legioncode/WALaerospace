@@ -1,18 +1,14 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
-import numpy as np
-import pandas as pd
-from code.helperfunctions.readers import loadparcels
-from code.helperfunctions.readers import loadships
 from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
-from code.helperfunctions.assign import returnLastParcel, solution, clearships
+from code.helperfunctions.assign import solution, clearships, assignfromdict
 import random
 
 
 def ups(shiplist, parcellist):
-
-    return
+    upsships = assignfromdict(rnjesus(shiplist, parcellist))
+    print(upsships)
 
 
 def randomsolver(shiplist, parcellist):
@@ -39,4 +35,4 @@ def rnjesus(shiplist, parcellist):
             topsolutionnumber = solutions
             topsolution = solution(shiplist)
         clearships(shiplist)
-    return topsoluion
+    return topsolution
