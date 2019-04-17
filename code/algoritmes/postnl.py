@@ -14,15 +14,25 @@ def sortspacecrafts(shiplist):
 
 def dorandommove(shiplist, extralist):
     possiblelist =[1]
-    while possiblelist != []:
+    while len(possiblelist) != 0:
         possiblelist = possiblemovesA(shiplist, extralist)
-        (print(f"possiblelist={possiblelist}"))
-        chosenmove = possiblelist[random.randint(0,len(possiblelist))]
-        print(f"chosenmove0cargo {chosenmove[0]}")
-        print(f"chosenmove1space {chosenmove[1]}")
-        assign(chosenmove[1],chosenmove[0])
-        remainders.remove(chosenmove[0])
-    print(f"remainders2: {len(remainders)}")
+        if len(possiblelist) == 0:
+            break
+        chosenmove = possiblelist[random.randint(0,len(possiblelist)) - 1]
+        assign(chosenmove[0], chosenmove[1])
+        extralist.remove(chosenmove[1])
+    print(f"remainders2: {len(extralist)}")
+
+def dofirstmove(shiplist, extralist):
+    possiblelist =[1]
+    while len(possiblelist) != 0:
+        possiblelist = possiblemovesA(shiplist, extralist)
+        if len(possiblelist) == 0:
+            break
+        chosenmove = possiblelist[0]
+        assign(chosenmove[0], chosenmove[1])
+        extralist.remove(chosenmove[1])
+    print(f"remainders3: {len(extralist)}")
 
 def postnl(shiplist, parcellist):
     # get sorted lists
@@ -60,4 +70,4 @@ def postnl(shiplist, parcellist):
     #print(f"space0 assigned/weight/vol: {len(sorted_ships[0].assigned)}/{sorted_ships[0].payload}/{sorted_ships[0].volume}")
     #print(f"space1 assigned/weight/vol: {len(sorted_ships[1].assigned)}/{sorted_ships[1].payload}/{sorted_ships[1].volume}")
     #print(possiblemovesA(shiplist, remainders))
-    dorandommove(shiplist, remainders)
+    dofirstmove(shiplist, remainders)
