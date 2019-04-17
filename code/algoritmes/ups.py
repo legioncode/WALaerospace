@@ -6,7 +6,7 @@ from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
-from code.helperfunctions.assign import returnLastParcel
+from code.helperfunctions.assign import returnLastParcel, solution, clearships
 import random
 
 
@@ -20,7 +20,20 @@ def randomsolver(shiplist, parcellist):
             randomchoice = random.randint(0, len(movelist))
             randomchoice -= 1
             move = movelist[randomchoice]
-            print(move)
             assign(move[0], move[1])
+    totalnumber = 0
     for i in shiplist:
-        print(i.assigned)
+        totalnumber += len(i.assigned)
+    return totalnumber
+
+
+def rnjesus(shiplist, parcellist):
+    topsolutionnumber = 0
+    topsolution = {}
+    for i in range(0, 500):
+        solutions = randomsolver(shiplist, parcellist)
+        if solutions > topsolutionnumber:
+            topsolutionnumber = solutions
+            topsolution = solution(shiplist)
+        clearships(shiplist)
+    return topsolutionnumber
