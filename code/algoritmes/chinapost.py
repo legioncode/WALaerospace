@@ -15,7 +15,7 @@ def postnl(shiplist, parcellist):
     sorted_ships = sortspacecrafts(shiplist)
 
     # create an extra list for remaining parcels
-    remainders = []
+    remainderschina = []
 
     # start iterating back from half of list, append to spacecrafts 0 & 1
     half = len(sorted_parcels) / 2
@@ -27,7 +27,7 @@ def postnl(shiplist, parcellist):
         elif checkmove(worklist[parcel], sorted_ships[0]):
             assign(sorted_ships[0], worklist[parcel])
         else:
-            remainders.append(worklist[parcel])
+            remainderschina.append(worklist[parcel])
 
     # start iterating at half of list, append to spacecrafts 2 & 3
     for parcel in sorted_parcels[int(half):]:
@@ -36,7 +36,7 @@ def postnl(shiplist, parcellist):
         elif checkmove(parcel, sorted_ships[3]):
             assign(sorted_ships[3], parcel)
         else:
-            remainders.append(parcel)
+            remainderschina.append(parcel)
 
     # prints
     print(f"remainders: {len(remainders)}")
