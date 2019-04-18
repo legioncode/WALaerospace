@@ -1,32 +1,37 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 from code.helperfunctions.possiblemoves import possiblemovesA
-from code.helperfunctions.assign import assign, calculatepackages, returnLastParcel, solution
+from code.helperfunctions.assign import assign, calculatepackages, returnLastParcel, solution, undomove
 
 def depth(shiplist, cargolist):
     sol = (0, {})
     children = possiblemovesA(shiplist, cargolist)
-    nCargo = len(cargolist)
+    nParcels = len(cargolist)
+    movelist = []
 
     while children != []:
-        print('hoi')
-        move = children[0]
+        move = children.pop(0)
         assign(move[0], move[1])
         cargolist.remove(move[1])
-        iterate = possiblemovesA(shiplist, cargolist) + children
-        if len(iterate) == len(children):
-            number = calculatepackages(shiplist)
-            if number > sol[0]:
-                sol = (number, solution(shiplist))
-            if number == nCargo:
-                break
-            lastparcel = returnLastParcel(move[0])
-            cargolist = [lastparcel] + cargolist
-        iterate.pop(0)
-        children = iterate
+        newkids = possiblemovesA(shiplist, cargolist)
 
+        if len(newkids) == 0:
+            undomove(move[0], move[1])
+            lastmove = movelist.pop(-1)
+            cargolist.append(lastmove[1])
+            if len(movelist) > sol[0]:
+                sol = (len(movelist), solution(shiplist))
+                if len(movelist) == nParcels:
+                    print('hoi')
+                    break
+        else:
+            movelist.append(move)
+            children = newkids + children
+
+
+    print('answer ='+ str(sol[0]))
     for i in sol[1]:
         print(i.payload)
         print(i.volume)
-        print(i.assigned)
+        print(len(i.assigned))
         print('---------------------')
