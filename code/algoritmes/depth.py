@@ -25,27 +25,27 @@ def depth(shiplist, cargolist):
         nextlist = possiblemovesA(shiplist, cargolist) #berekent de kinderen van de move die net gedaan is
 
         if len(movelist) > sol[0]:  #kijkt of de huidige situatie beter is dan de beste situatie van voorheen
-            sol = (len(movelist), solution(shiplist) )  #maakt een nieuwe solution als de huidige situatie beter is
+            sol = (len(movelist), solution(shiplist) )  #maakt een nieuwe solution als de huidige situatie beter
+            print(sol[0])
             if len(movelist) == nParcels:   #als je movelist even lang is als de hoeveelheid pakketjes hebje de optimal solution
                 break
         if len(nextlist) > 0: #kijkt of er een move gedaan kan worden, anders moet hij terug
             children = nextlist + children
-        else:       #er kan geen move gedaan worden dus haalt hij de laatste move op, voegt het terug toe aan cargolist
-            lastmove = movelist.pop(-1)
-            undomove(lastmove[0], lastmove[1]) #zet het systeem terug na je laatste move
-            cargolist = [lastmove[1]] + cargolist
+        else:
+            checkmove = children[0]
+            while checkmove[1] not in cargolist:
+                lastmove = movelist.pop(-1)
+                undomove(lastmove[0], lastmove[1])
+                cargolist = [lastmove[1]] + cargolist
 
-        checkmove = children[0] #hier zit dus hetprobleem, als hij twee stapjes in een keer terug moet probeert dit stukje dat
-        #te fixen door te zeggen, okay als de move die hierna gedaan wordt niet in cargolist zit moest je twee terug dus dat doen we nog even
-        if checkmove[1] not in cargolist:
-            lastmove = movelist.pop(-1)
-            undomove(lastmove[0], lastmove[1])
-            cargolist = [lastmove[1]] + cargolist
+
+    for i in movelist:
+        print(i[0].name)
+        print(i[1].id)
 
 
     print('answer ='+ str(sol[0]))
     for i in sol[1]:
-        print(i.payload)
-        print(i.volume)
-        print(len(i.assigned))
+        print(i.name)
+        print('assigned mass: ' + str(sum([x.mass for x in i.assigned])))
         print('---------------------')
