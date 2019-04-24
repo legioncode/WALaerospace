@@ -7,21 +7,9 @@ def sortparcels(parcellist):
     sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mw, reverse=False)
     return sorted_parcels
 
-
 def sortspacecrafts(shiplist):
     sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mw, reverse=False)
     return sorted_ships
-
-def dorandommove(shiplist, extralist):
-    possiblelist =[1]
-    while len(possiblelist) != 0:
-        possiblelist = possiblemovesA(shiplist, extralist)
-        if len(possiblelist) == 0:
-            break
-        chosenmove = possiblelist[random.randint(0,len(possiblelist)) - 1]
-        assign(chosenmove[0], chosenmove[1])
-        extralist.remove(chosenmove[1])
-    print(f"remainders2: {len(extralist)}")
 
 def dofirstmove(shiplist, extralist):
     possiblelist =[1]
