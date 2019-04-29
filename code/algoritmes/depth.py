@@ -13,7 +13,7 @@ def depth(shiplist, cargolist):
     c = 0
     while children != []:
         c += 1
-        if c == 1000:
+        if c > 1000:
             break
         move = children.pop(0)
         assign(move[0], move[1])
@@ -26,11 +26,11 @@ def depth(shiplist, cargolist):
         if len(nextlist) > 0:
             children = nextlist + children
         else:
-            checkmove = children[0]
-            while checkmove[1] not in cargolist:
+            while True:
                 lastmove = movelist.pop(-1)
                 undomove(lastmove[0], lastmove[1])
-                cargolist = [lastmove[1]] + cargolist
+                set = possiblemovesA(shiplist,cargolist)
+                if set[-1] == movelist(-1):
 
 
     print('answer ='+ str(sol[0]))
