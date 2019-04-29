@@ -8,6 +8,7 @@ def assign(ship, parcel):
     ship.assigned = worklist
     ship.volume = ship.volume - parcel.size
     ship.payload = ship.payload - parcel.mass
+    parcel.ship = ship
     ship.ratio()
 
 
@@ -16,6 +17,8 @@ def undomove(ship, parcel):
         newassign = ship.assigned.remove(parcel)
         ship.volume = ship.volume + parcel.size
         ship.payload = ship.payload + parcel.mass
+        parcel.ship = None
+
 
 def returnLastParcel(ship):
     parcel = ship.assigned.pop(-1)
@@ -23,6 +26,7 @@ def returnLastParcel(ship):
     ship.payload = ship.payload + parcel.mass
     ship.ratio()
     return parcel
+
 
 def solution(shiplist):
     solutiondict = {}
@@ -44,8 +48,10 @@ def assignfromdict(shipdict):
     for i in shipdict.keys():
         shipdict[i].assigned = shipdict[i]
 
+
 def calculatetotal(shiplist):
     return sum([i.calculate for i in shiplist])
+
 
 def calculatepackages(shiplist):
     return sum(len(i.assigned) for i in shiplist)
