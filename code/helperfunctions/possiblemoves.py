@@ -42,26 +42,26 @@ def possiblemovesC(shiplist, parcellist):
 
 
 def possibleswaps(shipdict):
-    for i in shipdict:
-        if i.name == 'Cygnus':
-            for a in i.assigned:
-                removed_Cygnus = i.assigned.pop((random.randint(0, len(i.assigned)) - 1))
-        elif i.name == 'Progress':
-            for a in i.assigned:
-                removed_Progress = i.assigned.pop((random.randint(0, len(i.assigned)) - 1))
-        elif i.name == 'Kounotori':
-            for a in i.assigned:
-                removed_Kounotori = i.assigned.pop((random.randint(0, len(i.assigned)) - 1))
-        elif i.name == 'Dragon':
-            for a in i.assigned:
-                removed_Dragon = i.assigned.pop((random.randint(0, len(i.assigned)) - 1))
-        else:
-            break
-        if i.name == 'Cygnus':
-            print(i.assigned)
-        # if checkmove(removed_Cygnus, (i.name == 'Progress')) == True:
-        #        assign(removed_Cygnus, (i.name == 'Progress'))
-        # elif checkmove(removed_Cygnus)
+    newlist = []
+    newship = []
+    for y in shipdict.keys():
+        newlist.append(y)
+    random.shuffle(newlist)
+    newship = newlist[0].assigned
+    removed_parcel = newship.pop()
+    if checkmove(removed_parcel, newlist[1]):
+        assign(newlist[1], removed_parcel)
+        print('YAY!')
+    elif checkmove(removed_parcel, newlist[2]):
+        assign(newlist[2], removed_parcel)
+        print('YAY!')
+    elif checkmove(removed_parcel, newlist[3]):
+        assign(newlist[3], removed_parcel)
+        print('YAY!')
+    else:
+        print("There isn't any solution found")
+
+    # assign(removed_Cygnus, (i.name == 'Progress'))
 
 def checkmove(parcel, ship):
     if parcel.mass <= ship.payload and parcel.size <= ship.volume:

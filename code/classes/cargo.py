@@ -4,3 +4,4 @@ class Cargo(object):
         self.mass = mass
         self.size = size
         self.mw = mw
+        self.ship = None
