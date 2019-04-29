@@ -3,7 +3,6 @@ from code.helperfunctions.readers import loadships
 from code.algoritmes.dhl import dhl
 from code.algoritmes.ups import ups
 from code.algoritmes.postnl import postnl
-from code.algoritmes.chinapost import chinapost
 from code.algoritmes.depth import depth
 from code.algoritmes.flessenpost import flessenpost
 

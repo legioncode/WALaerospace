@@ -13,8 +13,6 @@ def possiblemovesA(shiplist, parcellist):
     return possiblemoves
 
 
-<<<<<<< HEAD
-=======
 def possiblemovesB(shiplist, parcellist):
     possiblemoves = {}
     for i in parcellist:
@@ -65,8 +63,6 @@ def possibleswaps(shipdict):
         #        assign(removed_Cygnus, (i.name == 'Progress'))
         # elif checkmove(removed_Cygnus)
 
-
->>>>>>> 84b3be91bf2a857bcaaedb1f83c044924fb075cf
 def checkmove(parcel, ship):
     if parcel.mass <= ship.payload and parcel.size <= ship.volume:
         return True
