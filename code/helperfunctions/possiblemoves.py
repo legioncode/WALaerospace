@@ -1,5 +1,7 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
+from code.helperfunctions.assign import assign
+import random
 
 
 def possiblemovesA(shiplist, parcellist):
@@ -37,6 +39,29 @@ def possiblemovesC(shiplist, parcellist):
                 else:
                     possiblemoves[x] = [i]
     return possiblemoves
+
+
+def possibleswaps(shipdict):
+    for i in shipdict:
+        if i.name == 'Cygnus':
+            for a in i.assigned:
+                removed_Cygnus = i.assigned.pop((random.randint(0, len(i.assigned)) - 1))
+        elif i.name == 'Progress':
+            for a in i.assigned:
+                removed_Progress = i.assigned.pop((random.randint(0, len(i.assigned)) - 1))
+        elif i.name == 'Kounotori':
+            for a in i.assigned:
+                removed_Kounotori = i.assigned.pop((random.randint(0, len(i.assigned)) - 1))
+        elif i.name == 'Dragon':
+            for a in i.assigned:
+                removed_Dragon = i.assigned.pop((random.randint(0, len(i.assigned)) - 1))
+        else:
+            break
+        if i.name == 'Cygnus':
+            print(i.assigned)
+        # if checkmove(removed_Cygnus, (i.name == 'Progress')) == True:
+        #        assign(removed_Cygnus, (i.name == 'Progress'))
+        # elif checkmove(removed_Cygnus)
 
 
 def checkmove(parcel, ship):

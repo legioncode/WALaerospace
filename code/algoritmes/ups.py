@@ -1,14 +1,16 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
-from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
+from code.helperfunctions.possiblemoves import checkmove, possiblemovesA, possibleswaps
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import solution, clearships, assignfromdict
 import random
 
 
 def ups(shiplist, parcellist):
-    upsships = assignfromdict(rnjesus(shiplist, parcellist))
-    print(upsships)
+    # upsships = assignfromdict(rnjesus(shiplist, parcellist))
+    # print(upsships)
+    possibleswaps(rnjesus(shiplist, parcellist))
+    # print(randomsolver(shiplist, parcellist))
 
 
 def randomsolver(shiplist, parcellist):
@@ -34,5 +36,5 @@ def rnjesus(shiplist, parcellist):
         if solutions > topsolutionnumber:
             topsolutionnumber = solutions
             topsolution = solution(shiplist)
-        clearships(shiplist)
+        # clearships(shiplist)
     return topsolution

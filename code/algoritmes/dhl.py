@@ -8,6 +8,7 @@ from code.helperfunctions.possiblemoves import *
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import returnLastParcel
 
+
 def dhl(shiplist, parcellist):
     print(shiplist[0].mw)
     extralist = []
