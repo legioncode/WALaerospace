@@ -10,8 +10,8 @@ from code.algoritmes.flessenpost import flessenpost
 def main(cargocsv, shipcsv):
     parcellist = loadparcels(cargocsv)
     shiplist = loadships(shipcsv)
-    ups(shiplist, parcellist)
-    #depth(shiplist, parcellist)
+    #ups(shiplist, parcellist)
+    depth(shiplist, parcellist)
     #postnl(shiplist, parcellist)
     #flessenpost(shiplist, parcellist)
 

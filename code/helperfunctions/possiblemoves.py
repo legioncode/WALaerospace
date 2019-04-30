@@ -13,6 +13,15 @@ def possiblemovesA(shiplist, parcellist):
     return possiblemoves
 
 
+def depthmoves(shiplist, parcellist, depth):
+    possiblemoves = []
+    for i in parcellist:
+        for x in shiplist:
+            if i.mass <= x.payload and i.size <= x.volume:
+                possiblemoves.append((x, i, depth))
+    return possiblemoves
+
+
 def possiblemovesB(shiplist, parcellist):
     possiblemoves = {}
     for i in parcellist:
