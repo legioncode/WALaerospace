@@ -49,7 +49,7 @@ def possiblemovesC(shiplist, parcellist):
                     possiblemoves[x] = [i]
     return possiblemoves
 
-
+# je doet nu alleen swaps die mogelijk zijn, wat niet perse een ideale oplossing oplevert
 def possibleswaps(shipdict):
     newlist = []
     newship = []
@@ -57,9 +57,10 @@ def possibleswaps(shipdict):
         newlist.append(y)
     random.shuffle(newlist)
     newship = newlist[0].assigned
-    removed_parcel = newship.pop()
+    removed_parcel = newship.pop() #je haalt hem er twee keer uit
     print(removed_parcel.ship.name)
     undomove(newlist[0], removed_parcel)
+
     for i in newlist:
         print(i.name)
     if checkmove(removed_parcel, newlist[1]):
