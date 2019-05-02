@@ -47,13 +47,13 @@ def craftassign(shipdict):
             elif value == 'mass':
                 massname = name
             elif value == 'cost':
-                costname = name
+                basecostname = name
             elif value == 'ftw':
                 ftwname = name
             else:
                 break
         spacecraft = Spacecraft(spacecraftname, nationname, payloadname,
-                                volumename, massname, costname, ftwname)
+                                volumename, massname, basecostname, ftwname)
         shiplist.append(spacecraft)
     return shiplist
 
