@@ -1,6 +1,6 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
-
+import copy
 
 def assign(ship, parcel):
     worklist = ship.assigned
@@ -50,7 +50,10 @@ def assignfromdict(shipdict):
 
 
 def calculatetotal(shiplist):
-    return sum([i.calculate for i in shiplist])
+    cost = 0
+    for i in shiplist:
+        cost += i.cost
+    return cost
 
 
 def calculatepackages(shiplist):

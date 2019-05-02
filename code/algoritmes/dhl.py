@@ -5,7 +5,7 @@ import pandas as pd
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.possiblemoves import *
-from code.helperfunctions.assign import assign, solution, returnLastParcel
+from code.helperfunctions.assign import assign, solution, returnLastParcel,  calculatetotal
 import random
 
 def dhl(shiplist, parcellist):
@@ -55,6 +55,7 @@ def dhl(shiplist, parcellist):
 
 
 def dhlonsteroids(shiplist, parcellist):
-
-    for i in range(500):
-        dhl(shiplist, parcellist)
+    sol = (0, 0, {})
+    currentsol = dhl(shiplist, parcellist)
+    currentcost = calculatetotal(shiplist)
+    print(currentcost)
