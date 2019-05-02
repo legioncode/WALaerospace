@@ -5,12 +5,10 @@ import pandas as pd
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.possiblemoves import *
-from code.helperfunctions.assign import assign
-from code.helperfunctions.assign import returnLastParcel
-
+from code.helperfunctions.assign import assign, solution, returnLastParcel
+import random
 
 def dhl(shiplist, parcellist):
-    print(shiplist[0].mw)
     extralist = []
     for i in parcellist:
         shipmw = [x.mw for x in shiplist]
@@ -46,11 +44,17 @@ def dhl(shiplist, parcellist):
                 finallist.append(i)
                 break
 
-    for y in shiplist:
-        print('ship' + str(y.name) + str(len(y.assigned)) +
-              '    ' + str(y.payload) + ' ' + str(y.volume))
-    print('--------------------------------------------')
-    print('finallistlength:' + str(len(finallist)))
-    print(shiplist[0].mw)
-    for i in finallist:
-        print(i.id, i.mass, i.size)
+    #for y in shiplist:
+        #print('ship' + str(y.name) + str(len(y.assigned)) +
+        #      '    ' + str(y.payload) + ' ' + str(y.volume))
+    #print('--------------------------------------------')
+    #print('finallistlength:' + str(len(finallist)))
+    #print(shiplist[0].mw)
+    return solution(shiplist)
+
+
+
+def dhlonsteroids(shiplist, parcellist):
+
+    for i in range(500):
+        dhl(shiplist, parcellist)
