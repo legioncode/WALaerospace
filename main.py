@@ -5,6 +5,7 @@ from code.algoritmes.ups import ups
 from code.algoritmes.postnl import postnl
 from code.algoritmes.depth import depth
 from code.algoritmes.flessenpost import flessenpost
+import math
 
 
 def main(cargocsv, shipcsv):
