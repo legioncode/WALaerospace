@@ -58,7 +58,6 @@ def possibleswaps(shipdict):
     random.shuffle(newlist)
     for i in range(0, 3):
         for a in newlist[i].assigned:
-            parcel1 = newlist[i].assigned[a]
 
     '''if checkmove(parcel1, newlist[1]):
         print('j')

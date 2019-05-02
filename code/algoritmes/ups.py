@@ -10,6 +10,7 @@ def ups(shiplist, parcellist):
     # upsships = assignfromdict(rnjesus(shiplist, parcellist))
     # print(upsships)
     possibleswaps(rnjesus(shiplist, parcellist))
+
     # print(randomsolver(shiplist, parcellist))
 
 

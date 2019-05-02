@@ -11,10 +11,11 @@ import math
 def main(cargocsv, shipcsv):
     parcellist = loadparcels(cargocsv)
     shiplist = loadships(shipcsv)
-    #ups(shiplist, parcellist)
+    ups(shiplist, parcellist)
     #depth(shiplist, parcellist)
     #postnl(shiplist, parcellist)
     #flessenpost(shiplist, parcellist)
-    dhlonsteroids(shiplist, parcellist)
+    #dhlonsteroids(shiplist, parcellist)
+
 
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
