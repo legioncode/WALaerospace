@@ -53,32 +53,28 @@ def possiblemovesC(shiplist, parcellist):
 # je doet nu alleen swaps die mogelijk zijn, wat niet perse een ideale oplossing oplevert
 def possibleswaps(shipdict):
     newlist = []
-    newship = []
     for y in shipdict.keys():
         newlist.append(y)
     random.shuffle(newlist)
-    newship = newlist[0].assigned
-    removed_parcel = newship.pop()  # je haalt hem er twee keer uit
-    print(removed_parcel.ship.name)
-    undomove(newlist[0], removed_parcel)
+    for i in range(0, 3):
+        for a in newlist[i].assigned:
+            parcel1 = newlist[i].assigned[a]
 
-    for i in newlist:
-        print(i.name)
-    if checkmove(removed_parcel, newlist[1]):
+    '''if checkmove(parcel1, newlist[1]):
         print('j')
-        assign(newlist[1], removed_parcel)
+        assign(newlist[1], parcel1)
         print('YAY!')
-    elif checkmove(removed_parcel, newlist[2]):
+    elif checkmove(parcel1, newlist[2]):
         print('k')
-        assign(newlist[2], removed_parcel)
+        assign(newlist[2], parcel1)
         print('YAY!')
-    elif checkmove(removed_parcel, newlist[3]):
+    elif checkmove(parcel1, newlist[3]):
         print('f')
-        assign(newlist[3], removed_parcel)
+        assign(newlist[3], parcel1)
         print('YAY!')
     else:
-        print(removed_parcel.id, removed_parcel.mass, removed_parcel.size, removed_parcel.ship.name)
-        print("There isn't any solution found")
+        print(parcel1.id, parcel1.mass, parcel1.size)
+        print("There isn't any solution found")'''
 
 
 def checkmove(parcel, ship):
