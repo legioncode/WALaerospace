@@ -22,4 +22,4 @@ Transporting the lightest cargo from cargolist 2 (CL2#67) with the least expensi
 
 For the second part of the project (problem d and e) there are two more spacecrafts added.
 > TianZhou: (((13500 + 6500) x 0,75 / (1 - 0,75)) x 1000) + 412.000.000 = $ 472.000.000\
-> Verne ATV: (((20500 + 7500) x 0,72 / (1 - 0,72)) x 1000) + 1.080.000.000 = $ 1.152.000.000\
+> Verne ATV: (((20500 + 7500) x 0,72 / (1 - 0,72)) x 1000) + 1.080.000.000 = $ 1.152.000.000
