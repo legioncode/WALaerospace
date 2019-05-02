@@ -21,7 +21,9 @@ def dofirstmove(shiplist, extralist):
         chosenmove = possiblelist[0]
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
-    print(f"remainders3: {len(extralist)}")
+    for i in extralist:
+        print(f" over: {i.id}")
+    print(f"remainders: {len(extralist)}")
 
 def flessenpost(shiplist, parcellist):
     # get sorted lists
@@ -59,15 +61,3 @@ def flessenpost(shiplist, parcellist):
     #print(possiblemovesA(shiplist, remainders))
     dofirstmove(shiplist, remainders)
     dofirstmove(shiplist, outliers)
-    #cs0 = shiplist[0].cost
-    #print(f"{shiplist[0].name} costs {cs0}")
-    #cs1 = shiplist[1].cost
-    #print(f"{shiplist[1].name} costs {cs1}")
-    #cs2 = shiplist[2].cost
-    #print(f"{shiplist[2].name} costs {cs2}")
-    #cs3 = shiplist[3].cost
-    #print(f"{shiplist[3].name} costs {cs3}")
-    #cst = cs0 + cs1 + cs2 + cs3
-    #print(f"totalcosts are {cst}")
-    for i in outliers:
-        print(f" outlier: {i.id}")

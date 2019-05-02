@@ -12,8 +12,9 @@ def main(cargocsv, shipcsv):
     shiplist = loadships(shipcsv)
     #ups(shiplist, parcellist)
     #depth(shiplist, parcellist)
-    postnl(shiplist, parcellist)
+    #postnl(shiplist, parcellist)
     #flessenpost(shiplist, parcellist)
+    dhl(shiplist, parcellist)
 
 
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
