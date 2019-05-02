@@ -1,6 +1,7 @@
 from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
-from code.helperfunctions.assign import assign
+from code.helperfunctions.assign import assign, calculatetotal
 import random
+from code.classes.spacecraft import Spacecraft
 
 
 def sortparcels(parcellist):
@@ -21,10 +22,13 @@ def dofirstmove(shiplist, extralist):
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
     print(f"remainders3: {len(extralist)}")
+#    for i in extralist:
+#        print(f"overgebleven = {i.id}")
 
 def postnl(shiplist, parcellist):
     # get sorted lists
     sorted_parcels = sortparcels(parcellist)
+    print(f"sorted parcels = {sorted_parcels}")
     sorted_ships = sortspacecrafts(shiplist)
 
     # create an extra list for remaining parcels
@@ -33,6 +37,9 @@ def postnl(shiplist, parcellist):
     # start iterating back from half of list, append to spacecrafts 0 & 1
     half = len(sorted_parcels) / 2
     worklist = sorted_parcels[0: int(half)]
+    #print(f"length worklist = {len(worklist)}")
+    #for i in worklist:
+        #print(f"parcels worklist = {worklist.id}")
     for parcel in range(len(worklist)):
         parcel -= (parcel+1)
         if checkmove(worklist[parcel], sorted_ships[1]):
@@ -58,4 +65,14 @@ def postnl(shiplist, parcellist):
     #print(f"space0 assigned/weight/vol: {len(sorted_ships[0].assigned)}/{sorted_ships[0].payload}/{sorted_ships[0].volume}")
     #print(f"space1 assigned/weight/vol: {len(sorted_ships[1].assigned)}/{sorted_ships[1].payload}/{sorted_ships[1].volume}")
     #print(possiblemovesA(shiplist, remainders))
-    dofirstmove(shiplist, remainders)
+    #dofirstmove(shiplist, remainders)
+    #cs0 = sorted_ships[0].cost
+    #print(f"{sorted_ships[0].name} costs {cs0}")
+    #cs1 = sorted_ships[1].cost
+    #print(f"{sorted_ships[1].name} costs {cs1}")
+    #cs2 = sorted_ships[2].cost
+    #print(f"{sorted_ships[2].name} costs {cs2}")
+    #cs3 = sorted_ships[3].cost
+    #print(f"{sorted_ships[3].name} costs {cs3}")
+    #cst = cs0 + cs1 + cs2 + cs3
+    #print(f"totalcosts are {cst}")

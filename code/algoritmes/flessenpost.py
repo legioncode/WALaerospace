@@ -29,6 +29,7 @@ def flessenpost(shiplist, parcellist):
     sorted_ships = sortspacecrafts(shiplist)
     # create an extra list for remaining parcels
     remainders = []
+    outliers = []
     extra = []
     length = len(sorted_parcels)
     #worklist = sorted_parcels[0:int(length)]
@@ -37,7 +38,7 @@ def flessenpost(shiplist, parcellist):
         #print(f"mass = {sorted_parcels[parcel].mass}")
         if sorted_parcels[parcel].mw > 1600:
             print("te groot")
-            remainders.append(sorted_parcels[parcel])
+            outliers.append(sorted_parcels[parcel])
         elif checkmove(sorted_parcels[parcel], sorted_ships[3]):
             assign(sorted_ships[3], sorted_parcels[parcel])
         elif checkmove(sorted_parcels[parcel], sorted_ships[2]):
@@ -57,3 +58,16 @@ def flessenpost(shiplist, parcellist):
     #print(f"space3 assigned/weight/vol: {sorted_ships[3].name}{len(sorted_ships[3].assigned)}/{sorted_ships[3].payload}/{sorted_ships[3].volume}")
     #print(possiblemovesA(shiplist, remainders))
     dofirstmove(shiplist, remainders)
+    dofirstmove(shiplist, outliers)
+    #cs0 = shiplist[0].cost
+    #print(f"{shiplist[0].name} costs {cs0}")
+    #cs1 = shiplist[1].cost
+    #print(f"{shiplist[1].name} costs {cs1}")
+    #cs2 = shiplist[2].cost
+    #print(f"{shiplist[2].name} costs {cs2}")
+    #cs3 = shiplist[3].cost
+    #print(f"{shiplist[3].name} costs {cs3}")
+    #cst = cs0 + cs1 + cs2 + cs3
+    #print(f"totalcosts are {cst}")
+    for i in outliers:
+        print(f" outlier: {i.id}")
