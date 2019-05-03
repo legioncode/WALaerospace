@@ -1,12 +1,13 @@
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
-from code.algoritmes.dhl import dhl, dhlonsteroids
-from code.algoritmes.ups import ups
-from code.algoritmes.postnl import postnl
-from code.algoritmes.depth import depth
-from code.algoritmes.flessenpost import flessenpost
+#from code.algoritmes.dhl import dhl, dhlonsteroids
+#from code.algoritmes.ups import ups
+#from code.algoritmes.postnl import postnl
+#from code.algoritmes.depth import depth
+#from code.algoritmes.flessenpost import flessenpost
 import math
-from code.helperfunctions.cargototals import totals
+#from code.helperfunctions.cargototals import totals
+from code.algoritmes.breadth import Breadth
 
 
 def main(cargocsv, shipcsv):
@@ -18,6 +19,7 @@ def main(cargocsv, shipcsv):
     #flessenpost(shiplist, parcellist)
     #dhlonsteroids(shiplist, parcellist)
     #totals(parcellist, shiplist)
+    Breadth(shiplist, parcellist)
 
 
 main('data/CargoList2.csv', 'data/SpaceCraft1.csv')
