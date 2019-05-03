@@ -22,4 +22,4 @@ def main(cargocsv, shipcsv):
     Breadth(shiplist, parcellist)
 
 
-main('data/CargoList2.csv', 'data/SpaceCraft1.csv')
+main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
