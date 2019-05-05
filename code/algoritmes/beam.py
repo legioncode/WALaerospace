@@ -20,8 +20,10 @@ def possiblemovesA(shiplist, parcellist):
     return possiblemoves
 
 def Beam(shiplist, parcellist):
+    beamwidth = 4
     # initialize an empty queue
     queue = []
+    waitinglist = []
 
     # compute first depth of nodes to fill queue with
     posmoves = possiblemovesA(shiplist, parcellist)
@@ -29,7 +31,13 @@ def Beam(shiplist, parcellist):
     # create a Packinglist object voor each move, and add to queue
     for i in range(len(posmoves)):
         stack = Packinglist(i, [posmoves[i]])
-        queue.append(stack)
+        waitinglist.append(stack)
+
+    sortedstack = sorted(waitinglist, key=lambda packinglist: packinglist.id, reverse=True)
+
+    for i in range(beamwidth):
+        candidate = sortedstack[i]
+        queue.append(candidate)
 
     # keep track of amount of customers in queue
     counter = len(queue)
@@ -38,11 +46,10 @@ def Beam(shiplist, parcellist):
     currentbestsolution = queue[0]
 
     # while there's customers in queue
-    # while len(queue) != 0:
-    for i in range(5):
-        nodes = len(queue)
-        waitinglist = []
-        for i in range(nodes):
+    while len(queue) != 0:
+        kidlist = []
+
+        for i in range(beamwidth):
             # remove and give to me the first customer in line
             firststack = queue.pop(0)
 
@@ -70,14 +77,16 @@ def Beam(shiplist, parcellist):
                 if len(newcustomer.moves) == 100:
                     break
 
-                # else, put the child in the back of the queue
+                # else, put the child in kidlist
                 else:
-                    waitinglist.append(newcustomer)
+                    kidlist.append(newcustomer)
 
-        # see which kids you want to keep in the queue
-        workque = sorted(waitinglist, key=lambda packinglist: packinglist.mass, reverse=False)
-        print(f"workque = {workque}")
+        # sort the kidlist
+        sortedkids = sorted(kidlist, key=lambda packinglist: packinglist.id, reverse=True)
+        # put 4 in the queue, forget about the rest
+        for i in range(beamwidth):
+            candidate = sortedkids[i]
+            queue.append(candidate)
 
-        # 4 is hardcoded now but should be the chosen width of the beamsearch
-        for i in range(4):
-            queue.append(workque[i])
+
+    print(f"done")
