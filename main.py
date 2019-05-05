@@ -8,6 +8,7 @@ from code.helperfunctions.readers import loadships
 import math
 #from code.helperfunctions.cargototals import totals
 from code.algoritmes.breadth import Breadth
+from code.algoritmes.beam import Beam
 
 
 def main(cargocsv, shipcsv):
@@ -19,7 +20,8 @@ def main(cargocsv, shipcsv):
     #flessenpost(shiplist, parcellist)
     #dhlonsteroids(shiplist, parcellist)
     #totals(parcellist, shiplist)
-    Breadth(shiplist, parcellist)
+    #Breadth(shiplist, parcellist)
+    Beam(shiplist, parcellist)
 
 
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')

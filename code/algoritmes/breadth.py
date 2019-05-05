@@ -45,28 +45,30 @@ def Breadth(shiplist, parcellist):
         firststack = queue.pop(0)
 
         # (temporarily) perform the moves this customer has with him already
+        worklist = list(parcellist)
         for i in range(len(firststack.moves)):
-            worklist = list(parcellist)
-            temporarilyAssign(firststack.moves[i][0], firststack.moves[0][1])
+            temporarilyAssign(firststack.moves[i][0], firststack.moves[i][1])
             worklist.remove(firststack.moves[0][1])
 
-            # compute this customer's children, and add them to the queue
-            posmoves = possiblemovesA(shiplist, worklist)
-            for move in posmoves:
-                move = [move]
-                updatedmoves = [firststack.moves + move]
-                newcustomer = Packinglist(counter, [updatedmoves])
-                counter += 1
+        # compute this customer's children
+        posmoves = possiblemovesA(shiplist, worklist)
 
-                # if child appends more parcels than the current best solution, make it the cbs
-                if len(newcustomer.moves) > len(currentbestsolution.moves):
-                    currentbestsolution = newcustomer
+        # create a packinglist object for each child
+        for move in posmoves:
+            move = [move]
+            updatedmoves = [firststack.moves + move]
+            newcustomer = Packinglist(counter, [updatedmoves])
+            counter += 1
 
-                # if this child is an optimal solution, stop
-                if len(newcustomer.moves) == 100:
-                    break
+            # if child appends more parcels than the current best solution, make it the cbs
+            if len(newcustomer.moves) > len(currentbestsolution.moves):
+                currentbestsolution = newcustomer
 
-                # else, put the child in the back of the queue
-                else:
-                    queue.append(newcustomer)
+            # if this child is an optimal solution, stop
+            if len(newcustomer.moves) == 100:
+                break
+
+            # else, put the child in the back of the queue
+            else:
+                queue.append(newcustomer)
     print(f"done")
