@@ -1,7 +1,5 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
-# maak een klasse "packing list (PL)" oid
-    # id(int), packed(list)
 from code.classes.packinglist import Packinglist
 #from code.helperfunctions.possiblemoves import possiblemovesA
 
@@ -38,25 +36,18 @@ def Breadth(shiplist, parcellist):
 
     # keep track of best Packinglist uptill now
     currentbestsolution = queue[0]
-    print(f"currentbestsolution = {currentbestsolution}")
 
     # while there's customers in queue
     # while len(queue) != 0:
-    for i in range(5):
-        print(f"i = {i}")
+    for i in range(3):
 
         # remove and give to me the first customer in line
-        print(f"length of que is {len(queue)}")
         firststack = queue.pop(0)
-        print(f"current stack working on = {firststack.id} with {len(firststack.moves)} moves in it")
 
         # (temporarily) perform the moves this customer has with him already
         for i in range(len(firststack.moves)):
+            worklist = list(parcellist)
             temporarilyAssign(firststack.moves[i][0], firststack.moves[0][1])
-            print(f"the id of the current parcel = {firststack.moves[0][1].id}")
-            worklist = parcellist
-            #for item in worklist:
-                #print(f"this item in worklist has id: {item.id}")
             worklist.remove(firststack.moves[0][1])
 
             # compute this customer's children, and add them to the queue
@@ -78,3 +69,4 @@ def Breadth(shiplist, parcellist):
                 # else, put the child in the back of the queue
                 else:
                     queue.append(newcustomer)
+    print(f"done")
