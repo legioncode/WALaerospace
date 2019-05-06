@@ -21,7 +21,7 @@ def cargoreader(cargocsv):
     df = pd.read_csv(cargocsv)
     columnnames = [i for i in df]
     print(columnnames)
-    df['mw'] = df[columnnames[1]] / df[columnnames[2]]
+    df['mv'] = df[columnnames[1]] / df[columnnames[2]]
     cargodict = pd.DataFrame.to_dict(df, orient='index')
     return cargodict
 
@@ -68,10 +68,10 @@ def parcelassign(parceldict):
                 massname = name
             elif value == 'volume (m^3)':
                 sizename = name
-            elif value == 'mw':
-                mwname = name
+            elif value == 'mv':
+                mvname = name
             else:
                 break
-        parcellist = Cargo(id_name, massname, sizename, mwname)
+        parcellist = Cargo(id_name, massname, sizename, mvname)
         cargolist.append(parcellist)
     return cargolist

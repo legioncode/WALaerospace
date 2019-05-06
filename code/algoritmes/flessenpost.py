@@ -4,15 +4,17 @@ import random
 
 
 def sortparcels(parcellist):
-    sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mw, reverse=False)
+    sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mv, reverse=False)
     return sorted_parcels
 
+
 def sortspacecrafts(shiplist):
-    sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mw, reverse=False)
+    sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mv, reverse=False)
     return sorted_ships
 
+
 def dofirstmove(shiplist, extralist):
-    possiblelist =[1]
+    possiblelist = [1]
     while len(possiblelist) != 0:
         possiblelist = possiblemovesA(shiplist, extralist)
         #print(f"possiblelist = {possiblelist}")
@@ -24,6 +26,7 @@ def dofirstmove(shiplist, extralist):
     for i in extralist:
         print(f" over: {i.id}")
     print(f"remainders: {len(extralist)}")
+
 
 def flessenpost(shiplist, parcellist):
     # get sorted lists
@@ -38,7 +41,7 @@ def flessenpost(shiplist, parcellist):
     for parcel in reversed(range(len(sorted_parcels))):
         #print(f"parcel {parcel}")
         #print(f"mass = {sorted_parcels[parcel].mass}")
-        if sorted_parcels[parcel].mw > 1600:
+        if sorted_parcels[parcel].mv > 1600:
             print("te groot")
             outliers.append(sorted_parcels[parcel])
         elif checkmove(sorted_parcels[parcel], sorted_ships[3]):

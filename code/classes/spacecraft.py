@@ -14,10 +14,11 @@ class Spacecraft(object):
         # self.calculate()
 
     def ratio(self):
-        self.mw = self.payload / float(self.volume)
+        self.mv = self.payload / float(self.volume)
 
     def calculate(self):
-        self.cost = (sum([i.mass for i in self.assigned]) + self.mass) * self.ftw / (1-self.ftw) + self.basecost
+        self.cost = (sum([i.mass for i in self.assigned]) + self.mass) * \
+            self.ftw / (1-self.ftw) + self.basecost
 
     def clear(self):
         self.assigned = []

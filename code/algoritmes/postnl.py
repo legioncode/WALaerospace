@@ -5,15 +5,17 @@ from code.classes.spacecraft import Spacecraft
 
 
 def sortparcels(parcellist):
-    sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mw, reverse=False)
+    sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mv, reverse=False)
     return sorted_parcels
 
+
 def sortspacecrafts(shiplist):
-    sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mw, reverse=False)
+    sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mv, reverse=False)
     return sorted_ships
 
+
 def dofirstmove(shiplist, extralist):
-    possiblelist =[1]
+    possiblelist = [1]
     while len(possiblelist) != 0:
         possiblelist = possiblemovesA(shiplist, extralist)
         if len(possiblelist) == 0:
@@ -24,6 +26,7 @@ def dofirstmove(shiplist, extralist):
     print(f"remainders3: {len(extralist)}")
     for i in extralist:
         print(f"overgebleven = {i.id}")
+
 
 def postnl(shiplist, parcellist):
     # get sorted lists
