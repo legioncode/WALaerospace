@@ -2,6 +2,7 @@ from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 import copy
 
+
 def assign(ship, parcel):
     worklist = ship.assigned
     worklist.append(parcel)
@@ -35,8 +36,8 @@ def solution(shiplist):
     return solutiondict
 
 
-def updatemw(shiplist):
-    return [x.mw for x in shiplist]
+def updatemv(shiplist):
+    return [x.mv for x in shiplist]
 
 
 def clearships(shiplist):
