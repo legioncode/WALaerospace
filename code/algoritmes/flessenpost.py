@@ -2,7 +2,6 @@ from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
 import random
 
-
 def sortparcels(parcellist):
     sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mv, reverse=False)
     return sorted_parcels
@@ -23,10 +22,7 @@ def dofirstmove(shiplist, extralist):
         chosenmove = possiblelist[0]
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
-    for i in extralist:
-        print(f" over: {i.id}")
     print(f"remainders: {len(extralist)}")
-
 
 def flessenpost(shiplist, parcellist):
     # get sorted lists
@@ -42,7 +38,6 @@ def flessenpost(shiplist, parcellist):
         #print(f"parcel {parcel}")
         #print(f"mass = {sorted_parcels[parcel].mass}")
         if sorted_parcels[parcel].mv > 1600:
-            print("te groot")
             outliers.append(sorted_parcels[parcel])
         elif checkmove(sorted_parcels[parcel], sorted_ships[3]):
             assign(sorted_ships[3], sorted_parcels[parcel])
@@ -56,11 +51,7 @@ def flessenpost(shiplist, parcellist):
             remainders.append(sorted_parcels[parcel])
 
     print("---------------------------------------")
-    print(f"remainders1: {len(remainders)}")
-    #print(f"space0 assigned/weight/vol: {sorted_ships[0].name}{len(sorted_ships[0].assigned)}/{sorted_ships[0].payload}/{sorted_ships[0].volume}")
-    #print(f"space1 assigned/weight/vol: {sorted_ships[1].name}{len(sorted_ships[1].assigned)}/{sorted_ships[1].payload}/{sorted_ships[1].volume}")
-    #print(f"space2 assigned/weight/vol: {sorted_ships[2].name}{len(sorted_ships[2].assigned)}/{sorted_ships[2].payload}/{sorted_ships[2].volume}")
-    #print(f"space3 assigned/weight/vol: {sorted_ships[3].name}{len(sorted_ships[3].assigned)}/{sorted_ships[3].payload}/{sorted_ships[3].volume}")
-    #print(possiblemovesA(shiplist, remainders))
+    #print(f"initial remainders: {len(remainders)}")
+
     dofirstmove(shiplist, remainders)
     dofirstmove(shiplist, outliers)
