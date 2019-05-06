@@ -24,4 +24,4 @@ def main(cargocsv, shipcsv):
     #Beam(shiplist, parcellist)
 
 
-main('data/CargoList3.csv', 'data/SpaceCraft2.csv')
+main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
