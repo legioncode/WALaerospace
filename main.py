@@ -21,7 +21,7 @@ def main(cargocsv, shipcsv):
     # flessenpost(shiplist, parcellist)
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
-    Breadth(shiplist, parcellist)
+    Breadth(shiplist, shortparcellist)
     #Beam(shiplist, parcellist)
 
 
