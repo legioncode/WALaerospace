@@ -5,5 +5,4 @@ import random
 
 # def popspacecraft():
 
-
-# def maersk(shiplist, cargolist):
+def maersk(shiplist, cargolist):
