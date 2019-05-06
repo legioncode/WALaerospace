@@ -1,12 +1,12 @@
 import random
-from code.helperfunctions.assign import assign, solution, returnLastParcel,  calculatetotal
-from code.helperfunctions.possiblemoves import *
+from code.helperfunctions.assign import assign, solution, returnLastParcel, calculatetotal, clearships
+from code.helperfunctions.possiblemoves import checkmove
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.readers import loadparcels
 import pandas as pd
 import numpy as np
 from code.classes.spacecraft import *
-sfrom code.classes.cargo import *
+from code.classes.cargo import *
 
 
 def dhl(shiplist, parcellist):
@@ -49,13 +49,27 @@ def dhl(shiplist, parcellist):
         # print('ship' + str(y.name) + str(len(y.assigned)) +
         #      '    ' + str(y.payload) + ' ' + str(y.volume))
     # print('--------------------------------------------')
-    #print('finallistlength:' + str(len(finallist)))
+    # print('finallistlength:' + str(len(finallist)))
     # print(shiplist[0].mv)
     return solution(shiplist)
 
 
 def dhlonsteroids(shiplist, parcellist):
     sol = (0, 0, {})
-    currentsol = dhl(shiplist, parcellist)
-    currentcost = calculatetotal(shiplist)
-    print(currentcost)
+    for i in range(5):
+        random.shuffle(parcellist)
+        currentsol = dhl(shiplist, parcellist)
+        currentcost = calculatetotal(shiplist)
+        xlist = []
+        for z in currentsol:
+            for y in currentsol[z]:
+                xlist.append(y)
+
+        if len(xlist) == sol[1]:
+            if currentcost < sol[1]:
+                sol = (len(xlist), currentcost, currentsol)
+        elif len(xlist) > sol[1]:
+            sol = (len(xlist), currentcost, currentsol)
+
+        clearships(shiplist)
+    print(sol[1])
