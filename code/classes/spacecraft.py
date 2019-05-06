@@ -18,7 +18,7 @@ class Spacecraft(object):
 
     def calculate(self):
         self.cost = (sum([i.mass for i in self.assigned]) + self.mass) * \
-            self.ftw / (1-self.ftw) + self.basecost
+            self.ftw / (1-self.ftw) * 1000 + self.basecost
 
     def clear(self):
         self.assigned = []

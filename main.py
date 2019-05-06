@@ -15,6 +15,8 @@ from code.algoritmes.maersk import *
 def main(cargocsv, shipcsv):
     parcellist = loadparcels(cargocsv)
     shiplist = loadships(shipcsv)
+    parcellist = loadparcels(cargocsv)
+    shiplist = loadships(shipcsv)
     # ups(shiplist, parcellist)
     # depth(shiplist, parcellist)
     # postnl(shiplist, parcellist)
@@ -25,4 +27,4 @@ def main(cargocsv, shipcsv):
     #Beam(shiplist, parcellist)
 
 
-main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
+main('data/CargoList3.csv', 'data/SpaceCraft2.csv')
