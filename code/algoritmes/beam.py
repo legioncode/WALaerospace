@@ -1,6 +1,7 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 from code.classes.packinglist import Packinglist
+import copy
 #from code.helperfunctions.possiblemoves import possiblemovesA
 
 def temporarilyAssign(ship, parcel):
@@ -39,8 +40,11 @@ def Beam(shiplist, parcellist):
         candidate = sortedstack[i]
         queue.append(candidate)
 
+    print(f"length queue = {len(queue)}")
+
     # keep track of amount of customers in queue
     counter = len(queue)
+    print(f"counter = {counter}")
 
     # keep track of best Packinglist uptill now
     currentbestsolution = queue[0]
@@ -55,18 +59,22 @@ def Beam(shiplist, parcellist):
 
             # (temporarily) perform the moves this customer has with him already
             worklist = list(parcellist)
+            #print(f"moves of firststack: {firststack.moves}")
             for i in range(len(firststack.moves)):
                 temporarilyAssign(firststack.moves[i][0], firststack.moves[i][1])
-                worklist.remove(firststack.moves[0][1])
+                worklist.remove(firststack.moves[i][1])
 
             # compute this customer's children
             posmoves = possiblemovesA(shiplist, worklist)
 
             # create a packinglist object for each child
             for move in posmoves:
-                move = [move]
-                updatedmoves = [firststack.moves + move]
-                newcustomer = Packinglist(counter, [updatedmoves])
+                copymoves = copy.deepcopy(firststack.moves)
+                print(f"copymoves = {copymoves}")
+                print(f"move = {move}")
+                copymoves.append(move)
+                print(f"updatedmoves = {copymoves}")
+                newcustomer = Packinglist(counter, [copymoves])
                 counter += 1
 
                 # if child appends more parcels than the current best solution, make it the cbs
