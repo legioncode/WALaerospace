@@ -23,15 +23,22 @@ def Breadth(shiplist, parcellist):
     currentbestsolution = queue[0]
 
     # while there's customers in queue
-    # while len(queue) != 0:
-    for i in range(3):
+    ronde = 0
+    while len(queue) != 0:
+    #for i in range(3):
+        ronde += 1
+        print(f"{ronde}")
 
         # remove and give to me the first customer in line
         firststack = queue.pop(0)
 
         # perform the moves this customer has with him already
         worklist = list(parcellist)
+        #print(f"length moves firststack = {len(firststack.moves)}")
         for i in range(len(firststack.moves)):
+            #for i in range(len(worklist)):
+            #    print(f"worklist = {worklist[i].id}")
+            #print(f"id of parcel = {firststack.moves[i][1].id}")
             assign(firststack.moves[i][0], firststack.moves[i][1])
             worklist.remove(firststack.moves[0][1])
 

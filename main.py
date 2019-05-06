@@ -9,12 +9,11 @@ import math
 #from code.helperfunctions.cargototals import totals
 from code.algoritmes.breadth import Breadth
 #from code.algoritmes.beam import Beam
-from code.algoritmes.maersk import *
+#from code.algoritmes.maersk import *
+from code.algoritmes.breadth2 import Breadth2
 
 
 def main(cargocsv, shipcsv):
-    parcellist = loadparcels(cargocsv)
-    shiplist = loadships(shipcsv)
     parcellist = loadparcels(cargocsv)
     shiplist = loadships(shipcsv)
     # ups(shiplist, parcellist)
@@ -23,8 +22,9 @@ def main(cargocsv, shipcsv):
     # flessenpost(shiplist, parcellist)
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
-    Breadth(shiplist, shortparcellist)
+    Breadth(shiplist, parcellist)
     #Beam(shiplist, parcellist)
+    Breadth2(shiplist, parcellist)
 
 
-main('data/CargoList3.csv', 'data/SpaceCraft2.csv')
+main('data/CargoListSmall.csv', 'data/SpaceCraft2.csv')

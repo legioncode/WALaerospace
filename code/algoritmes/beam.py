@@ -4,7 +4,7 @@ from code.classes.packinglist import Packinglist
 from code.helperfunctions.possiblemoves import possiblemovesA
 from code.helperfunctions.assign import assign
 
-def Breadth(shiplist, parcellist):
+def Beam(shiplist, parcellist):
     # initialize an empty queue
     queue = []
 
