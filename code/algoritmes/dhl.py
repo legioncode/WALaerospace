@@ -56,7 +56,7 @@ def dhl(shiplist, parcellist):
 
 def dhlonsteroids(shiplist, parcellist):
     sol = (0, 0, {})
-    for i in range(5):
+    for i in range(1):
         random.shuffle(parcellist)
         currentsol = dhl(shiplist, parcellist)
         currentcost = calculatetotal(shiplist)
@@ -72,4 +72,4 @@ def dhlonsteroids(shiplist, parcellist):
             sol = (len(xlist), currentcost, currentsol)
 
         clearships(shiplist)
-    print(sol[1])
+    return sol[2]
