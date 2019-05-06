@@ -10,7 +10,7 @@ import math
 from code.algoritmes.breadth import Breadth
 #from code.algoritmes.beam import Beam
 #from code.algoritmes.maersk import *
-from code.algoritmes.breadth2 import Breadth2
+#from code.algoritmes.breadth2 import Breadth2
 
 
 def main(cargocsv, shipcsv):
@@ -24,7 +24,7 @@ def main(cargocsv, shipcsv):
     # totals(parcellist, shiplist)
     Breadth(shiplist, parcellist)
     #Beam(shiplist, parcellist)
-    Breadth2(shiplist, parcellist)
+    #Breadth2(shiplist, parcellist)
 
 
 main('data/CargoListSmall.csv', 'data/SpaceCraft2.csv')
