@@ -57,5 +57,13 @@ def calculatetotal(shiplist):
     return cost
 
 
+def loadstate(solution, shiplist):
+    for i in solution.keys():
+        for x in shiplist:
+            if i.name == x.name:
+                x.assigned = solution[i]
+                x.ratio()
+
+
 def calculatepackages(shiplist):
     return sum(len(i.assigned) for i in shiplist)

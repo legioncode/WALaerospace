@@ -2,7 +2,8 @@ from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 from code.classes.packinglist import Packinglist
 from code.helperfunctions.possiblemoves import possiblemovesA
-from code.helperfunctions.assign import assign
+from code.helperfunctions.assign import assign, undomove
+import copy
 
 def Breadth(shiplist, parcellist):
     # initialize an empty queue
@@ -20,47 +21,44 @@ def Breadth(shiplist, parcellist):
     counter = len(queue)
 
     # keep track of best Packinglist uptill now
-    currentbestsolution = queue[0]
+    solution = queue[0]
 
     # while there's customers in queue
-    ronde = 0
     while len(queue) != 0:
-    #for i in range(3):
-        ronde += 1
-        print(f"{ronde}")
 
         # remove and give to me the first customer in line
-        firststack = queue.pop(0)
+        first = queue.pop(0)
 
         # perform the moves this customer has with him already
-        worklist = list(parcellist)
-        #print(f"length moves firststack = {len(firststack.moves)}")
-        for i in range(len(firststack.moves)):
-            #for i in range(len(worklist)):
-            #    print(f"worklist = {worklist[i].id}")
-            #print(f"id of parcel = {firststack.moves[i][1].id}")
-            assign(firststack.moves[i][0], firststack.moves[i][1])
-            worklist.remove(firststack.moves[0][1])
+        numbermoves = len(first.moves)
+        for i in range(numbermoves):
+            print(f"first.moves = {first.moves}")
+            assign(first.moves[i][0], first.moves[i][1])
+            parcellist.remove(first.moves[0][1])
 
         # compute this customer's children
-        posmoves = possiblemovesA(shiplist, worklist)
+        kids = possiblemovesA(shiplist, parcellist)
 
         # create a packinglist object for each child
-        for move in posmoves:
-            move = [move]
-            updatedmoves = [firststack.moves + move]
-            newcustomer = Packinglist(counter, [updatedmoves])
+        for move in kids:
+            base = copy.deepcopy(first.moves)
+            base.append(move)
+            kid = Packinglist(counter, [base])
             counter += 1
 
             # if child appends more parcels than the current best solution, make it the cbs
-            if len(newcustomer.moves) > len(currentbestsolution.moves):
-                currentbestsolution = newcustomer
+            if len(kid.moves) > len(solution.moves):
+                solution = newcustomer
 
             # if this child is an optimal solution, stop
-            if len(newcustomer.moves) == 100:
+            if len(kid.moves) == 100:
                 break
 
             # else, put the child in the back of the queue
             else:
-                queue.append(newcustomer)
+                queue.append(kid)
+
+        for i in range(numbermoves):
+            undomove(first.moves[i][0], first.moves[i][1])
+            parcellist.append(first.moves[0][1])
     print(f"done")

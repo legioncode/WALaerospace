@@ -49,7 +49,17 @@ def possiblemovesC(shiplist, parcellist):
                     possiblemoves[x] = [i]
     return possiblemoves
 
- # je doet nu alleen swaps die mogelijk zijn, wat niet perse een ideale oplossing oplevert
+
+def possiblemovecost(shiplist, parcellist):
+    possiblemoves = []
+    for i in parcellist:
+        for x in shiplist:
+            if i.mass <= x.payload and i.size <= x.volume:
+                z = calculatemovecost(x, i)
+                possiblemoves.append((x, i, z))
+    return possiblemoves
+
+ # je doet nu alleen swaps die mogelijk zijn, wat niet perse een ideale oplossing oplever
 
 
 def possibleswaps(shipdict):
@@ -82,3 +92,7 @@ def checkmove(parcel, ship):
         return True
     else:
         return False
+
+
+def calculatemovecost(ship, parcel):
+    return (parcel.mass * ship.ftw / (1 - ship.ftw) * 1000)

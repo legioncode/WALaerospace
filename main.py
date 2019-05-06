@@ -7,9 +7,9 @@ from code.helperfunctions.readers import loadships
 #from code.algoritmes.flessenpost import flessenpost
 import math
 #from code.helperfunctions.cargototals import totals
-from code.algoritmes.breadth import Breadth
+#from code.algoritmes.breadth import Breadth
 #from code.algoritmes.beam import Beam
-#from code.algoritmes.maersk import *
+from code.algoritmes.maersk import *
 #from code.algoritmes.breadth2 import Breadth2
 
 
@@ -22,9 +22,10 @@ def main(cargocsv, shipcsv):
     # flessenpost(shiplist, parcellist)
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
-    Breadth(shiplist, parcellist)
+    #Breadth(shiplist, parcellist)
     #Beam(shiplist, parcellist)
     #Breadth2(shiplist, parcellist)
+    maersk(shiplist, parcellist)
 
 
-main('data/CargoListSmall.csv', 'data/SpaceCraft2.csv')
+main('data/CargoList3.csv', 'data/SpaceCraft2.csv')

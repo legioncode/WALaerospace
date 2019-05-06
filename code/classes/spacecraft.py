@@ -12,6 +12,7 @@ class Spacecraft(object):
         self.clear()
         self.calculate()
         # self.calculate()
+        self.launches = 0
 
     def ratio(self):
         self.mv = self.payload / float(self.volume)
