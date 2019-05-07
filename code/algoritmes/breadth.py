@@ -33,7 +33,9 @@ def Breadth(shiplist, parcellist):
         numbermoves = len(first.moves)
         for i in range(numbermoves):
             assign(first.moves[i][0], first.moves[i][1])
-            parcellist.remove(first.moves[i][1])
+            for parcel in parcellist:
+                if first.moves[i][1].id == parcel.id:
+                    parcellist.remove(parcel)
 
         # compute this customer's children
         kids = possiblemovesA(shiplist, parcellist)
