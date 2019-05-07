@@ -10,7 +10,7 @@ def assign(ship, parcel):
     ship.volume = ship.volume - parcel.size
     ship.payload = ship.payload - parcel.mass
     parcel.ship = ship
-    ship.ratio()
+    # ship.ratio()
 
 
 def undomove(ship, parcel):

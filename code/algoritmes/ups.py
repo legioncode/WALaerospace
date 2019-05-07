@@ -4,6 +4,7 @@ from code.helperfunctions.possiblemoves import checkmove, possiblemovesA, possib
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import solution, clearships, assignfromdict
 import random
+import pickle
 
 
 def ups(shiplist, parcellist):
@@ -32,6 +33,10 @@ def rnjesus(shiplist, parcellist):
         solutions = randomsolver(shiplist, parcellist)
         if solutions > topsolutionnumber:
             topsolutionnumber = solutions
-            topsolution = solution(shiplist)
+            topsolution = shiplist
+            pickle.dump(topsolution, open('topsolutionwithrnjesuss.p', 'wb'))
         clearships(shiplist)
+    # pickle.dump(topsolution, open('topsolutionwithrnjesus.p', 'wb'))
+    # open deze met
+    # laad = pickle.load(open("topsolutionwithrnjesus.p", "rb"))
     return topsolutionnumber
