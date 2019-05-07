@@ -12,7 +12,7 @@ def sortspacecrafts(shiplist):
     return sorted_ships
 
 
-def dofirstmove(shiplist, extralist):
+def packremainders(shiplist, extralist):
     possiblelist = [1]
     while len(possiblelist) != 0:
         possiblelist = possiblemovesA(shiplist, extralist)
@@ -22,7 +22,7 @@ def dofirstmove(shiplist, extralist):
         chosenmove = possiblelist[0]
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
-    print(f"remainders: {len(extralist)}")
+    #print(f"remainders: {len(extralist)}")
 
 def flessenpost(shiplist, parcellist):
     # get sorted lists
@@ -53,5 +53,6 @@ def flessenpost(shiplist, parcellist):
     print("---------------------------------------")
     #print(f"initial remainders: {len(remainders)}")
 
-    dofirstmove(shiplist, remainders)
-    dofirstmove(shiplist, outliers)
+    packremainders(shiplist, remainders)
+    packremainders(shiplist, outliers)
+    return shiplist
