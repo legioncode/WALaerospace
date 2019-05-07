@@ -1,5 +1,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from code.helperfunctions.assign import clearships
+from code.algoritmes.ups import randomsolver
+from collections import Counter
 
 
 def visualpackages(shiplist):
@@ -24,7 +27,8 @@ def massvolumeperc(shiplist):
     y_pos = np.arange(len(shipbars))
     width = 0.35
     opacity = 0.8
-    rects1 = plt.bar(y_pos, payloadbar, width, alpha=opacity, color='b', label='weight')
+    rects1 = plt.bar(y_pos, payloadbar, width, alpha=opacity, color='b',
+                     label='weight')
     rects2 = plt.bar(y_pos + width, volumebar, width, alpha=opacity, color='g',
                      label='volume')
     plt.xlabel('Ships')
@@ -33,4 +37,18 @@ def massvolumeperc(shiplist):
     plt.xticks(y_pos + width, shipbars)
     plt.legend()
     plt.tight_layout()
+    plt.show()
+
+
+def randomplot(shiplist, parcellist):
+    solutions = []
+    for i in range(100):
+        solutions.append(randomsolver(shiplist, parcellist))
+        clearships(shiplist)
+    labels, values = zip(*sorted(Counter(solutions).items()))
+    indexes = np.arange(len(labels))
+    width = 1
+
+    plt.bar(indexes, values, width)
+    plt.xticks(indexes + width * 0.5, labels)
     plt.show()

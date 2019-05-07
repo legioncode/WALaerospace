@@ -42,7 +42,10 @@ def updatemv(shiplist):
 
 def clearships(shiplist):
     for i in shiplist:
-        i.clear()
+        i.assigned = []
+        i.payload = i.firstpayload
+        i.volume = i.firstvolume
+        i.mv = i.payload / float(i.volume)
 
 
 def assignfromdict(shipdict):

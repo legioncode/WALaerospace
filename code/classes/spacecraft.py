@@ -13,7 +13,6 @@ class Spacecraft(object):
         self.ratio()
         self.clear()
         self.calculate()
-        # self.calculate()
         self.launches = 0
 
     def ratio(self):

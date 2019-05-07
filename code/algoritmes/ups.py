@@ -7,11 +7,7 @@ import random
 
 
 def ups(shiplist, parcellist):
-    # upsships = assignfromdict(rnjesus(shiplist, parcellist))
-    # print(upsships)
-    possibleswaps(rnjesus(shiplist, parcellist))
-
-    # print(randomsolver(shiplist, parcellist))
+    return rnjesus(shiplist, parcellist)
 
 
 def randomsolver(shiplist, parcellist):
@@ -32,10 +28,10 @@ def randomsolver(shiplist, parcellist):
 def rnjesus(shiplist, parcellist):
     topsolutionnumber = 0
     topsolution = {}
-    for i in range(0, 500):
+    for i in range(0, 20000):
         solutions = randomsolver(shiplist, parcellist)
         if solutions > topsolutionnumber:
             topsolutionnumber = solutions
             topsolution = solution(shiplist)
-        # clearships(shiplist)
-    return topsolution
+        clearships(shiplist)
+    return topsolutionnumber
