@@ -3,7 +3,9 @@ class Spacecraft(object):
         self.name = name
         self.nation = nation
         self.payload = payload
+        self.firstpayload = payload
         self.volume = volume
+        self.firstvolume = volume
         self.mass = mass
         self.basecost = basecost
         self.ftw = ftw
