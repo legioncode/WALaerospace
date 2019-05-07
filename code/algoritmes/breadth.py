@@ -6,6 +6,9 @@ from code.helperfunctions.assign import assign, undomove
 import copy
 
 def Breadth(shiplist, parcellist):
+    # compute amount of moves optimal solution
+    maxmoves = len(parcellist)
+
     # initialize an empty queue
     queue = []
 
@@ -28,10 +31,11 @@ def Breadth(shiplist, parcellist):
 
         # remove and give to me the first customer in line
         first = queue.pop(0)
+        #for parcel in parcellist:
+        #    print(f"parcellist before: {parcel.id}")
 
         # perform the moves this customer has with him already
-        numbermoves = len(first.moves)
-        for i in range(numbermoves):
+        for i in range(len(first.moves)):
             assign(first.moves[i][0], first.moves[i][1])
             for parcel in parcellist:
                 if first.moves[i][1].id == parcel.id:
@@ -53,15 +57,31 @@ def Breadth(shiplist, parcellist):
                 queue.append(kid)
 
             # if this child is an optimal solution, stop
-            if len(kid.moves) == 100:
+            if len(kid.moves) == maxmoves:
                 break
 
             # else, put the child in the back of the queue
             else:
                 queue.append(kid)
 
-        for i in range(numbermoves):
+        for i in range(len(first.moves)):
             undomove(first.moves[i][0], first.moves[i][1])
-            parcellist.append(first.moves[0][1])
+            parcellist.append(first.moves[i][1])
 
-    print(f"done")
+        #for parcel in parcellist:
+            #print(f"parcellist after: {parcel.id}")
+
+    print(f"solution = {solution}")
+    print(f"solutionid = {solution.id}")
+    print(f"solution moves = {len(solution.moves)}")
+    for move in solution.moves:
+        print(f"{move[1].id} in {move[0].name}")
+    # perform the moves this customer has with him already
+    for i in range(len(solution.moves)):
+        assign(solution.moves[i][0], solution.moves[i][1])
+        for parcel in parcellist:
+            if solution.moves[i][1].id == parcel.id:
+                parcellist.remove(parcel)
+    for ship in shiplist:
+        print(f"ship {ship.name} carries {len(ship.assigned)} packages")
+    print(f"parcellist has {len(parcellist)} packages")
