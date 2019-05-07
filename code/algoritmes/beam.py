@@ -2,9 +2,27 @@ from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 from code.classes.packinglist import Packinglist
 from code.helperfunctions.possiblemoves import possiblemovesA
-from code.helperfunctions.assign import assign
+#from code.helperfunctions.assign import assign, undomove
+import copy
 
-def Beam(shiplist, parcellist):
+def AssignBreadth(shiplist, spacecraft, parcel):
+    for ship in shiplist:
+        if spacecraft.name == ship.name:
+            ship.assigned.append(parcel)
+            ship.volume = ship.volume - parcel.size
+            ship.payload = ship.payload - parcel.mass
+
+def UndoBreadth(shiplist, spacecraft, parcel):
+    for ship in shiplist:
+        if spacecraft.name == ship.name:
+            ship.assigned.remove(parcel)
+            ship.volume = ship.volume + parcel.size
+            ship.payload = ship.payload + parcel.mass
+
+def Breadth(shiplist, parcellist):
+    # compute amount of moves optimal solution
+    maxmoves = len(parcellist)
+
     # initialize an empty queue
     queue = []
 
@@ -13,47 +31,61 @@ def Beam(shiplist, parcellist):
 
     # create a Packinglist object voor each move, and add to queue
     for i in range(len(posmoves)):
-        stack = Packinglist(i, [posmoves[i]])
-        queue.append(stack)
+        object = Packinglist(i, [posmoves[i]])
+        queue.append(object)
 
     # keep track of amount of customers in queue
     counter = len(queue)
 
     # keep track of best Packinglist uptill now
-    currentbestsolution = queue[0]
+    solution = queue[0]
 
     # while there's customers in queue
-    # while len(queue) != 0:
-    for i in range(3):
+    while len(queue) != 0:
 
         # remove and give to me the first customer in line
-        firststack = queue.pop(0)
+        first = queue.pop(0)
+        #for parcel in parcellist:
+        #    print(f"parcellist before: {parcel.id}")
 
         # perform the moves this customer has with him already
-        worklist = list(parcellist)
-        for i in range(len(firststack.moves)):
-            assign(firststack.moves[i][0], firststack.moves[i][1])
-            worklist.remove(firststack.moves[0][1])
+        for i in range(len(first.moves)):
+            AssignBreadth(shiplist, first.moves[i][0], first.moves[i][1])
+            for parcel in parcellist:
+                if first.moves[i][1].id == parcel.id:
+                    parcellist.remove(parcel)
 
         # compute this customer's children
-        posmoves = possiblemovesA(shiplist, worklist)
+        kids = possiblemovesA(shiplist, parcellist)
 
         # create a packinglist object for each child
-        for move in posmoves:
-            move = [move]
-            updatedmoves = [firststack.moves + move]
-            newcustomer = Packinglist(counter, [updatedmoves])
+        for move in kids:
+            base = copy.deepcopy(first.moves)
+            base.append(move)
+            kid = Packinglist(counter, base)
             counter += 1
 
             # if child appends more parcels than the current best solution, make it the cbs
-            if len(newcustomer.moves) > len(currentbestsolution.moves):
-                currentbestsolution = newcustomer
+            if len(kid.moves) > len(solution.moves):
+                solution = kid
+                queue.append(kid)
 
             # if this child is an optimal solution, stop
-            if len(newcustomer.moves) == 100:
+            if len(kid.moves) == maxmoves:
                 break
 
             # else, put the child in the back of the queue
             else:
-                queue.append(newcustomer)
-    print(f"done")
+                queue.append(kid)
+
+        for i in range(len(first.moves)):
+            UndoBreadth(shiplist, first.moves[i][0], first.moves[i][1])
+            parcellist.append(first.moves[i][1])
+
+    print("done")
+    print(f"solution = {solution} with id {solution.id} with {len(solution.moves)} moves in it")
+    print(f"these moves are {solution.moves}")
+    for move in solution.moves:
+        AssignBreadth(shiplist, move[0], move[1])
+    for ship in shiplist:
+        print(f"ship {ship.name} carries {len(ship.assigned)} packages")

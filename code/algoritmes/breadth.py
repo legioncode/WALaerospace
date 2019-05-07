@@ -11,6 +11,7 @@ def AssignBreadth(shiplist, spacecraft, parcel):
             ship.assigned.append(parcel)
             ship.volume = ship.volume - parcel.size
             ship.payload = ship.payload - parcel.mass
+            parcel.ship = ship
 
 def UndoBreadth(shiplist, spacecraft, parcel):
     for ship in shiplist:
@@ -18,6 +19,7 @@ def UndoBreadth(shiplist, spacecraft, parcel):
             ship.assigned.remove(parcel)
             ship.volume = ship.volume + parcel.size
             ship.payload = ship.payload + parcel.mass
+            parcel.ship = None
 
 def Breadth(shiplist, parcellist):
     # compute amount of moves optimal solution
