@@ -14,8 +14,8 @@ def Breadth(shiplist, parcellist):
 
     # create a Packinglist object voor each move, and add to queue
     for i in range(len(posmoves)):
-        stack = Packinglist(i, [posmoves[i]])
-        queue.append(stack)
+        object = Packinglist(i, [posmoves[i]])
+        queue.append(object)
 
     # keep track of amount of customers in queue
     counter = len(queue)
@@ -32,9 +32,8 @@ def Breadth(shiplist, parcellist):
         # perform the moves this customer has with him already
         numbermoves = len(first.moves)
         for i in range(numbermoves):
-            print(f"first.moves = {first.moves}")
             assign(first.moves[i][0], first.moves[i][1])
-            parcellist.remove(first.moves[0][1])
+            parcellist.remove(first.moves[i][1])
 
         # compute this customer's children
         kids = possiblemovesA(shiplist, parcellist)
@@ -43,12 +42,13 @@ def Breadth(shiplist, parcellist):
         for move in kids:
             base = copy.deepcopy(first.moves)
             base.append(move)
-            kid = Packinglist(counter, [base])
+            kid = Packinglist(counter, base)
             counter += 1
 
             # if child appends more parcels than the current best solution, make it the cbs
             if len(kid.moves) > len(solution.moves):
-                solution = newcustomer
+                solution = kid
+                queue.append(kid)
 
             # if this child is an optimal solution, stop
             if len(kid.moves) == 100:
@@ -61,4 +61,5 @@ def Breadth(shiplist, parcellist):
         for i in range(numbermoves):
             undomove(first.moves[i][0], first.moves[i][1])
             parcellist.append(first.moves[0][1])
+
     print(f"done")
