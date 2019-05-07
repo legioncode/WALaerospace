@@ -4,7 +4,8 @@ from code.helperfunctions.readers import loadships
 #from code.algoritmes.ups import ups
 #from code.algoritmes.postnl import postnl
 #from code.algoritmes.depth import depth
-#from code.algoritmes.flessenpost import flessenpost
+from code.algoritmes.flessenpost import flessenpost
+from code.helperfunctions.visualization import visual
 import math
 #from code.helperfunctions.cargototals import totals
 from code.algoritmes.breadth import Breadth
@@ -19,7 +20,7 @@ def main(cargocsv, shipcsv):
     # ups(shiplist, parcellist)
     # depth(shiplist, parcellist)
     # postnl(shiplist, parcellist)
-    # flessenpost(shiplist, parcellist)
+    visual(flessenpost(shiplist, parcellist))
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
     Breadth(shiplist, parcellist)

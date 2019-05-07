@@ -2,6 +2,7 @@ from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
 import random
 
+
 def sortparcels(parcellist):
     sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mv, reverse=False)
     return sorted_parcels
@@ -23,6 +24,7 @@ def packremainders(shiplist, extralist):
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
     #print(f"remainders: {len(extralist)}")
+
 
 def flessenpost(shiplist, parcellist):
     # get sorted lists
@@ -50,7 +52,6 @@ def flessenpost(shiplist, parcellist):
         else:
             remainders.append(sorted_parcels[parcel])
 
-    print("---------------------------------------")
     #print(f"initial remainders: {len(remainders)}")
 
     packremainders(shiplist, remainders)
