@@ -4,8 +4,8 @@ from code.helperfunctions.readers import loadships
 #from code.algoritmes.ups import ups
 #from code.algoritmes.postnl import postnl
 #from code.algoritmes.depth import depth
-from code.algoritmes.flessenpost import flessenpost
-from code.helperfunctions.visualization import visualpackages, massvolumeperc
+#from code.algoritmes.flessenpost import flessenpost
+#from code.helperfunctions.visualization import visualpackages, massvolumeperc
 import math
 #from code.helperfunctions.cargototals import totals
 from code.algoritmes.breadth import Breadth
@@ -20,13 +20,13 @@ def main(cargocsv, shipcsv):
     # ups(shiplist, parcellist)
     # depth(shiplist, parcellist)
     # postnl(shiplist, parcellist)
-    massvolumeperc(flessenpost(shiplist, parcellist))
+    #massvolumeperc(flessenpost(shiplist, parcellist))
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
-    #Breadth(shiplist, parcellist)
+    Breadth(shiplist, parcellist)
     #Beam(shiplist, parcellist)
     #Breadth2(shiplist, parcellist)
     #maersk(shiplist, parcellist)
 
 
-main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
+main('data/CargoListSmall.csv', 'data/SpaceCraft1.csv')

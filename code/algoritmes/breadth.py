@@ -2,8 +2,22 @@ from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 from code.classes.packinglist import Packinglist
 from code.helperfunctions.possiblemoves import possiblemovesA
-from code.helperfunctions.assign import assign, undomove
+#from code.helperfunctions.assign import assign, undomove
 import copy
+
+def AssignBreadth(shiplist, spacecraft, parcel):
+    for ship in shiplist:
+        if spacecraft.name == ship.name:
+            ship.assigned.append(parcel)
+            ship.volume = ship.volume - parcel.size
+            ship.payload = ship.payload - parcel.mass
+
+def UndoBreadth(shiplist, spacecraft, parcel):
+    for ship in shiplist:
+        if spacecraft.name == ship.name:
+            ship.assigned.remove(parcel)
+            ship.volume = ship.volume + parcel.size
+            ship.payload = ship.payload + parcel.mass
 
 def Breadth(shiplist, parcellist):
     # compute amount of moves optimal solution
@@ -36,7 +50,7 @@ def Breadth(shiplist, parcellist):
 
         # perform the moves this customer has with him already
         for i in range(len(first.moves)):
-            assign(first.moves[i][0], first.moves[i][1])
+            AssignBreadth(shiplist, first.moves[i][0], first.moves[i][1])
             for parcel in parcellist:
                 if first.moves[i][1].id == parcel.id:
                     parcellist.remove(parcel)
@@ -65,23 +79,13 @@ def Breadth(shiplist, parcellist):
                 queue.append(kid)
 
         for i in range(len(first.moves)):
-            undomove(first.moves[i][0], first.moves[i][1])
+            UndoBreadth(shiplist, first.moves[i][0], first.moves[i][1])
             parcellist.append(first.moves[i][1])
 
-        #for parcel in parcellist:
-            #print(f"parcellist after: {parcel.id}")
-
-    print(f"solution = {solution}")
-    print(f"solutionid = {solution.id}")
-    print(f"solution moves = {len(solution.moves)}")
+    print("done")
+    print(f"solution = {solution} with id {solution.id} with {len(solution.moves)} moves in it")
+    print(f"these moves are {solution.moves}")
     for move in solution.moves:
-        print(f"{move[1].id} in {move[0].name}")
-    # perform the moves this customer has with him already
-    for i in range(len(solution.moves)):
-        assign(solution.moves[i][0], solution.moves[i][1])
-        for parcel in parcellist:
-            if solution.moves[i][1].id == parcel.id:
-                parcellist.remove(parcel)
+        AssignBreadth(shiplist, move[0], move[1])
     for ship in shiplist:
         print(f"ship {ship.name} carries {len(ship.assigned)} packages")
-    print(f"parcellist has {len(parcellist)} packages")
