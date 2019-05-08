@@ -10,8 +10,8 @@ from code.helperfunctions.readers import loadships
 # from code.helperfunctions.visualization import visualpackages, massvolumeperc
 import math
 # from code.helperfunctions.cargototals import totals
-from code.algoritmes.breadth import Breadth
-# from code.algoritmes.beam import Beam, CheckSol
+# from code.algoritmes.breadth import Breadth
+from code.algoritmes.beam import Beam, CheckSol
 # from code.algoritmes.maersk import *
 #import pickle
 #from collections import Counter
@@ -35,8 +35,8 @@ def main(cargocsv, shipcsv):
     # massvolumeperc(flessenpost(shiplist, parcellist))
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
-    Breadth(shiplist, parcellist)
-    # Beam(shiplist, parcellist)
+    # Breadth(shiplist, parcellist)
+    Beam(shiplist, parcellist)
     # maersk(shiplist, parcellist)
 
 

@@ -48,7 +48,8 @@ def Beam(shiplist, parcellist):
 
     # while there's objects in queue
     while len(queue) != 0:
-
+        print(f"length queue = {len(queue)}")
+        print("newround")
         for object in queue:
             # remove and get the first object of queue
             first = queue.pop(0)
@@ -82,6 +83,7 @@ def Beam(shiplist, parcellist):
 
         # choose beamwidth amount of children you want to keep
         for i in range(beamwidth):
+            print("object appended to queue")
             queue.append(sortedkids[i])
 
             # if child appends more parcels than the current best solution, make it the cbs
@@ -106,7 +108,11 @@ def Beam(shiplist, parcellist):
     #    print(f"parcel {move[1].id} goes in {move[0].name}")
     print("shiplist after beamsearch = ")
     for ship in shiplist:
+        ship.assigned.clear()
         print(f"ship {ship.name} carries {len(ship.assigned)} packages")
+    print("parcellist after beamsearch = ")
+    for parcel in parcellist:
+        print(f"parcel {parcel.id}")
     print("_________________________________________________________")
     return solution
 
