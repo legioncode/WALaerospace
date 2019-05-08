@@ -11,7 +11,7 @@ from code.helperfunctions.readers import loadships
 import math
 # from code.helperfunctions.cargototals import totals
 from code.algoritmes.breadth import Breadth
-# from code.algoritmes.beam import Beam
+# from code.algoritmes.beam import Beam, CheckSol
 # from code.algoritmes.maersk import *
 #import pickle
 #from collections import Counter

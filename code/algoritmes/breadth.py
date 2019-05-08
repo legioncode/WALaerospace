@@ -1,7 +1,7 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 from code.classes.packinglist import Packinglist
-from code.helperfunctions.possiblemoves import possiblemovesA
+from code.helperfunctions.possiblemoves import possiblemovesA, checkmove
 #from code.helperfunctions.assign import assign, undomove
 import copy
 
@@ -76,6 +76,8 @@ def Breadth(shiplist, parcellist):
     print(f"solution = {solution} with id {solution.id} with {len(solution.moves)} moves in it")
     print(f"these moves are {solution.moves}")
     for move in solution.moves:
-        AssignBreadth(shiplist, move[0], move[1])
+        if checkmove(move[1], move[0]):
+            AssignBreadth(shiplist, move[0], move[1])
     for ship in shiplist:
         print(f"ship {ship.name} carries {len(ship.assigned)} packages")
+    return shiplist
