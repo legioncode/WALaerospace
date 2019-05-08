@@ -27,19 +27,9 @@ def Breadth(shiplist, parcellist):
 
     # initialize an empty queue
     queue = []
-
-    # compute first depth of nodes to fill queue with
-    posmoves = possiblemovesA(shiplist, parcellist)
-
-    # create a Packinglist object voor each move, and add to queue
-    for i in range(len(posmoves)):
-        object = Packinglist(i, [posmoves[i]])
-        queue.append(object)
-
-    # keep track of amount of customers in queue
     counter = len(queue)
-
-    # keep track of best Packinglist uptill now
+    object = Packinglist(counter, [])
+    queue.append(object)
     solution = queue[0]
 
     # while there's customers in queue
@@ -47,8 +37,6 @@ def Breadth(shiplist, parcellist):
 
         # remove and give to me the first customer in line
         first = queue.pop(0)
-        #for parcel in parcellist:
-        #    print(f"parcellist before: {parcel.id}")
 
         # perform the moves this customer has with him already
         for i in range(len(first.moves)):
