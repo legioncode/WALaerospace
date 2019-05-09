@@ -8,9 +8,13 @@ def depth (shiplist, cargolist):
     sol = (0 , {})
     depth = 0
     kids = depthmoves(shiplist, cargolist,depth)
+    c =0
     movelist = []
 
     while kids != []:
+        c += 1
+        if c == 10000:
+            break
         move = kids.pop(0)
         assign(move[0], move[1])
         movelist.append(move)

@@ -3,7 +3,7 @@ from code.helperfunctions.readers import loadships
 # from code.algoritmes.dhl import dhl, dhlonsteroids
 #from code.algoritmes.ups import ups, randomsolver
 # from code.algoritmes.postnl import postnl
-# from code.algoritmes.depth import depth
+from code.algoritmes.depth import depth
 #from code.algoritmes.flessenpost import flessenpost
 #from code.helperfunctions.visualization import visualpackages, massvolumeperc, randomplot
 # from code.algoritmes.flessenpost import flessenpost
@@ -23,7 +23,7 @@ def main(cargocsv, shipcsv):
     # print(ups(shiplist, parcellist))
     # print(parcellist)
     # print(i.assigned)
-    # depth(shiplist, parcellist)
+    depth(shiplist, parcellist)
     # postnl(shiplist, parcellist)
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
