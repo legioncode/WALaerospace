@@ -5,10 +5,11 @@ from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import solution, clearships, assignfromdict
 import random
 import pickle
+import copy
 
 
-def ups(shiplist, parcellist):
-    return rnjesus(shiplist, parcellist)
+def ups(shiplist, cargolist):
+    return rnjesus(shiplist, cargolist)
 
 
 def randomsolver(shiplist, parcellist):
@@ -20,17 +21,20 @@ def randomsolver(shiplist, parcellist):
             randomchoice -= 1
             move = movelist[randomchoice]
             assign(move[0], move[1])
+            parcellist.remove(move[1])
     totalnumber = 0
     for i in shiplist:
         totalnumber += len(i.assigned)
+    # clearships(shiplist)
     return totalnumber
 
 
-def rnjesus(shiplist, parcellist):
+def rnjesus(shiplist, cargolist):
     topsolutionnumber = 0
     topsolution = {}
     for i in range(0, 20000):
-        solutions = randomsolver(shiplist, parcellist)
+        deeplist = copy.deepcopy(cargolist)
+        solutions = randomsolver(shiplist, deeplist)
         if solutions > topsolutionnumber:
             topsolutionnumber = solutions
             topsolution = shiplist

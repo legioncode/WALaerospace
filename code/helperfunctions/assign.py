@@ -10,7 +10,7 @@ def assign(ship, parcel):
     ship.volume = ship.volume - parcel.size
     ship.payload = ship.payload - parcel.mass
     parcel.ship = ship
-    # ship.ratio()
+    ship.ratio()
 
 
 def undomove(ship, parcel):
@@ -43,8 +43,8 @@ def updatemv(shiplist):
 def clearships(shiplist):
     for i in shiplist:
         i.assigned = []
-        i.payload = i.firstpayload
-        i.volume = i.firstvolume
+        i.payload = copy.deepcopy(i.firstpayload)
+        i.volume = copy.deepcopy(i.firstvolume)
         i.mv = i.payload / float(i.volume)
 
 

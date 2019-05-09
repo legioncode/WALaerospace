@@ -3,6 +3,7 @@ import numpy as np
 from code.helperfunctions.assign import clearships
 from code.algoritmes.ups import randomsolver
 from collections import Counter
+import copy
 
 
 def visualpackages(shiplist):
@@ -11,7 +12,9 @@ def visualpackages(shiplist):
     y_pos = np.arange(len(shipbars))
     # Create bars
     plt.bar(y_pos, shipheight)
-
+    plt.xlabel('Ships')
+    plt.ylabel('Parcels')
+    plt.title('Number of parcels in ships')
     # Create names on the x-axis
     plt.xticks(y_pos, shipbars)
 
@@ -40,10 +43,11 @@ def massvolumeperc(shiplist):
     plt.show()
 
 
-def randomplot(shiplist, parcellist):
+def randomplot(shiplist, cargolist):
     solutions = []
     for i in range(100):
-        solutions.append(randomsolver(shiplist, parcellist))
+        deeplist = copy.deepcopy(cargolist)
+        solutions.append(randomsolver(shiplist, deeplist))
         clearships(shiplist)
     labels, values = zip(*sorted(Counter(solutions).items()))
     indexes = np.arange(len(labels))

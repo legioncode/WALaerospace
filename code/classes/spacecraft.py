@@ -16,6 +16,9 @@ class Spacecraft(object):
         self.launches = 0
 
     def ratio(self):
+        # this is needed to make sure that if the space ship has an optimal assignment (payload = 0) that `mw doesnt crash`
+        if self.volume == 0:
+            self.volume = 0.000000000000000000000000000000001
         self.mv = self.payload / float(self.volume)
 
     def calculate(self):
