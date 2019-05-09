@@ -11,9 +11,9 @@ from code.helperfunctions.readers import loadships
 import math
 # from code.helperfunctions.cargototals import totals
 #from code.algoritmes.breadth import Breadth
-from code.algoritmes.beam import Beam, CheckSol
+from code.algoritmes.beam import Beam
 # from code.algoritmes.maersk import *
-#import pickle
+import pickle
 #from collections import Counter
 
 
@@ -36,9 +36,9 @@ def main(cargocsv, shipcsv):
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
     #Breadth(shiplist, parcellist)
-    solution = Beam(shiplist, parcellist)
-    CheckSol(shiplist, parcellist, solution)
+    #Beam(shiplist, parcellist)
+    laad = pickle.load(open("beamsolution.p", "rb"))
+    print(f"solution.moves = {len(laad[0].moves)}")
     # maersk(shiplist, parcellist)
-
 
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')

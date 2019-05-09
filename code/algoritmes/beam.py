@@ -3,6 +3,7 @@ from code.classes.spacecraft import Spacecraft
 from code.classes.packinglist import Packinglist
 from code.helperfunctions.possiblemoves import possiblemovesA, checkmove
 import copy
+import pickle
 
 def GetInput(shiplist, parcellist):
     maxamount = len(possiblemovesA(shiplist, parcellist))
@@ -35,6 +36,7 @@ def UndoBreadth(shiplist, parcellist, spacecraft, parcel):
                     parcellist.append(package)
 
 def Beam(shiplist, parcellist):
+    reached_optimal = 0
     # get beamwidth
     beamwidth = GetInput(shiplist, parcellist)
 
@@ -43,10 +45,11 @@ def Beam(shiplist, parcellist):
 
     # initialize queue with empty Parcellist object
     queue = []
+    solutions = []
     counter = len(queue)
     object = Packinglist(counter, [])
     queue.append(object)
-    solution = queue[0]
+    solutions.append(object)
     kidlist = []
 
     # while there's objects in queue
@@ -83,32 +86,36 @@ def Beam(shiplist, parcellist):
             queue.append(sortedkids[i])
 
             # if child appends more parcels than the current best solution, make it the cbs
-            if len(sortedkids[i].moves) > len(solution.moves):
-                solution = sortedkids[i]
+            for sol in solutions:
+                if len(sortedkids[i].moves) > len(sol.moves):
+                    solutions.append(sortedkids[i])
+                    break
+
+            for sol in solutions:
+                if len(sortedkids[i].moves) > len(sol.moves):
+                    solutions.remove(sol)
 
             # if this child is an optimal solution, stop
             if len(sortedkids[i].moves) == maxmoves:
-                break
+                reached_optimal = 1
 
         # undo the moves
         kidlist.clear()
         for i in range(len(first.moves)):
             UndoBreadth(shiplist, parcellist, first.moves[i][0], first.moves[i][1])
 
-    return solution
+        if reached_optimal == 1:
+            break
 
-def CheckSol(shiplist, parcellist, solution):
-    print(f"shiplist at begin of checksol")
-    for ship in shiplist:
-        #ship.assigned.clear()
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages has {ship.payload} kg and {ship.volume}m3 left")
-    print("_________________________________________________________")
-    for move in solution.moves:
-        print(f"package {move[1].id} weights {move[1].mass} kg and is {move[1].size} m3 and should go in {move[0].name}")
-        if checkmove(move[1], move[0]):
-            print("valid move")
-            AssignBreadth(shiplist, parcellist, move[0], move[1])
-        else:
-            print("invalid move")
-    for ship in shiplist:
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages has {ship.payload} kg and {ship.volume}m3 left")
+    print(solutions)
+    pickle.dump(solutions, open('beamsolution.p', 'wb'))
+    #    laad = pickle.load(open("beamsolution.p", "rb"))
+    #    print(f"solution.moves = {len(laad[0].moves)}")
+    return solutions
+
+#def CheckSol(shiplist, parcellist, solution):
+#    for move in solution.moves:
+#        if checkmove(move[1], move[0]):
+#            AssignBreadth(shiplist, parcellist, move[0], move[1])
+#    for ship in shiplist:
+#        print(f"ship {ship.name} carries {len(ship.assigned)} packages has {ship.payload} kg and {ship.volume}m3 left")
