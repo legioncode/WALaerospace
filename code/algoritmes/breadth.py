@@ -72,12 +72,11 @@ def Breadth(shiplist, parcellist):
             UndoBreadth(shiplist, first.moves[i][0], first.moves[i][1])
             parcellist.append(first.moves[i][1])
 
-    print("done")
+
     print(f"solution = {solution} with id {solution.id} with {len(solution.moves)} moves in it")
-    print(f"these moves are {solution.moves}")
     for move in solution.moves:
         if checkmove(move[1], move[0]):
             AssignBreadth(shiplist, move[0], move[1])
     for ship in shiplist:
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages")
+        print(f"ship {ship.name} carries {len(ship.assigned)} packages has {ship.payload}kg and {ship.volume}m3 left")
     return shiplist

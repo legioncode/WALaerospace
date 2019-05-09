@@ -2,7 +2,6 @@ from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 from code.classes.packinglist import Packinglist
 from code.helperfunctions.possiblemoves import possiblemovesA, checkmove
-#from code.helperfunctions.assign import assign, undomove
 import copy
 
 def GetInput(shiplist, parcellist):
@@ -15,21 +14,25 @@ def GetInput(shiplist, parcellist):
             print(f"Beamwidth should be between 1 and {maxamount}")
     return w
 
-def AssignBreadth(shiplist, spacecraft, parcel):
+def AssignBreadth(shiplist, parcellist, spacecraft, parcel):
     for ship in shiplist:
         if spacecraft.name == ship.name:
-            ship.assigned.append(parcel)
-            ship.volume = ship.volume - parcel.size
-            ship.payload = ship.payload - parcel.mass
-            parcel.ship = ship
+            for package in parcellist:
+                if package.id == parcel.id:
+                    ship.assigned.append(package)
+                    ship.volume = ship.volume - package.size
+                    ship.payload = ship.payload - package.mass
+                    parcellist.remove(package)
 
-def UndoBreadth(shiplist, spacecraft, parcel):
+def UndoBreadth(shiplist, parcellist, spacecraft, parcel):
     for ship in shiplist:
         if spacecraft.name == ship.name:
-            ship.assigned.remove(parcel)
-            ship.volume = ship.volume + parcel.size
-            ship.payload = ship.payload + parcel.mass
-            parcel.ship = None
+            for package in ship.assigned:
+                if package.id == parcel.id:
+                    ship.assigned.remove(package)
+                    ship.volume = ship.volume + package.size
+                    ship.payload = ship.payload + package.mass
+                    parcellist.append(package)
 
 def Beam(shiplist, parcellist):
     # get beamwidth
@@ -48,18 +51,13 @@ def Beam(shiplist, parcellist):
 
     # while there's objects in queue
     while len(queue) != 0:
-        print(f"length queue = {len(queue)}")
-        print("newround")
         for object in queue:
             # remove and get the first object of queue
             first = queue.pop(0)
 
             # perform the moves this object has with him already
             for i in range(len(first.moves)):
-                AssignBreadth(shiplist, first.moves[i][0], first.moves[i][1])
-                for parcel in parcellist:
-                    if first.moves[i][1].id == parcel.id:
-                        parcellist.remove(parcel)
+                AssignBreadth(shiplist, parcellist, first.moves[i][0], first.moves[i][1])
 
             # compute this object's children
             kids = possiblemovesA(shiplist, parcellist)
@@ -74,8 +72,7 @@ def Beam(shiplist, parcellist):
 
         if len(kidlist) == 0:
             for i in range(len(first.moves)):
-                UndoBreadth(shiplist, first.moves[i][0], first.moves[i][1])
-                parcellist.append(first.moves[i][1])
+                UndoBreadth(shiplist, parcellist, first.moves[i][0], first.moves[i][1])
             break
 
         # sort kidlist ascending based on weight
@@ -83,7 +80,6 @@ def Beam(shiplist, parcellist):
 
         # choose beamwidth amount of children you want to keep
         for i in range(beamwidth):
-            print("object appended to queue")
             queue.append(sortedkids[i])
 
             # if child appends more parcels than the current best solution, make it the cbs
@@ -97,32 +93,22 @@ def Beam(shiplist, parcellist):
         # undo the moves
         kidlist.clear()
         for i in range(len(first.moves)):
-            UndoBreadth(shiplist, first.moves[i][0], first.moves[i][1])
-            parcellist.append(first.moves[i][1])
+            UndoBreadth(shiplist, parcellist, first.moves[i][0], first.moves[i][1])
 
-    #for space in shiplist:
-    #    print(f"spacecraft {space.name} carries {len(space.assigned)} packages")
-    #print("------------------------")
-    #print(f"solution is {solution} with id {solution.id} and {len(solution.moves)} moves")
-    #for move in solution.moves:
-    #    print(f"parcel {move[1].id} goes in {move[0].name}")
-    print("shiplist after beamsearch = ")
-    for ship in shiplist:
-        ship.assigned.clear()
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages")
-    print("parcellist after beamsearch = ")
-    for parcel in parcellist:
-        print(f"parcel {parcel.id}")
-    print("_________________________________________________________")
     return solution
 
 def CheckSol(shiplist, parcellist, solution):
+    print(f"shiplist at begin of checksol")
     for ship in shiplist:
-        ship.assigned.clear()
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages")
+        #ship.assigned.clear()
+        print(f"ship {ship.name} carries {len(ship.assigned)} packages has {ship.payload} kg and {ship.volume}m3 left")
     print("_________________________________________________________")
     for move in solution.moves:
+        print(f"package {move[1].id} weights {move[1].mass} kg and is {move[1].size} m3 and should go in {move[0].name}")
         if checkmove(move[1], move[0]):
-            AssignBreadth(shiplist, move[0], move[1])
+            print("valid move")
+            AssignBreadth(shiplist, parcellist, move[0], move[1])
+        else:
+            print("invalid move")
     for ship in shiplist:
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages")
+        print(f"ship {ship.name} carries {len(ship.assigned)} packages has {ship.payload} kg and {ship.volume}m3 left")
