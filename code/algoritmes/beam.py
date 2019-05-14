@@ -87,7 +87,7 @@ def Beam(shiplist, parcellist):
 
             # if child appends more parcels than the current best solution, make it the cbs
             for sol in solutions:
-                if len(sortedkids[i].moves) > len(sol.moves):
+                if len(sortedkids[i].moves) >= len(sol.moves):
                     solutions.append(sortedkids[i])
                     break
 
