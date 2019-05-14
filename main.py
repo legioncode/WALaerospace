@@ -1,13 +1,13 @@
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
-# from code.algoritmes.dhl import dhl, dhlonsteroids
+from code.algoritmes.dhl import dhl, dhlonsteroids
 #from code.algoritmes.ups import ups, randomsolver
 # from code.algoritmes.postnl import postnl
-from code.algoritmes.depth import depth
-#from code.algoritmes.flessenpost import flessenpost
+# from code.algoritmes.depth import depth
+from code.algoritmes.flessenpost import flessenpost
 #from code.helperfunctions.visualization import visualpackages, massvolumeperc, randomplot
 # from code.algoritmes.flessenpost import flessenpost
-# from code.helperfunctions.visualization import visualpackages, massvolumeperc
+from code.helperfunctions.visualization import visualpackages, massvolumeperc
 import math
 # from code.helperfunctions.cargototals import totals
 #from code.algoritmes.breadth import Breadth
@@ -15,6 +15,7 @@ from code.algoritmes.beam import Beam
 # from code.algoritmes.maersk import *
 import pickle
 #from collections import Counter
+from code.algoritmes.hillclimber import hillclimber
 
 
 def main(cargocsv, shipcsv):
@@ -23,7 +24,7 @@ def main(cargocsv, shipcsv):
     # print(ups(shiplist, parcellist))
     # print(parcellist)
     # print(i.assigned)
-    depth(shiplist, parcellist)
+    # depth(shiplist, parcellist)
     # postnl(shiplist, parcellist)
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
@@ -37,8 +38,11 @@ def main(cargocsv, shipcsv):
     # totals(parcellist, shiplist)
     #Breadth(shiplist, parcellist)
     #Beam(shiplist, parcellist)
-    laad = pickle.load(open("beamsolution.p", "rb"))
-    print(f"solution.moves = {len(laad[0].moves)}")
+    laad = pickle.load(open("toppervandeweek2.p", "rb"))
+    massvolumeperc(laad)
+    #massvolumeperc(flessenpost(shiplist, parcellist))
+    #print(hillclimber(dhl(shiplist, parcellist), parcellist))
     # maersk(shiplist, parcellist)
+
 
 main('data/CargoList1.csv', 'data/SpaceCraft1.csv')
