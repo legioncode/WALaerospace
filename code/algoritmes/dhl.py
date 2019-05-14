@@ -45,18 +45,12 @@ def dhl(shiplist, parcellist):
                 finallist.append(i)
                 break
 
-    # for y in shiplist:
-        # print('ship' + str(y.name) + str(len(y.assigned)) +
-        #      '    ' + str(y.payload) + ' ' + str(y.volume))
-    # print('--------------------------------------------')
-    # print('finallistlength:' + str(len(finallist)))
-    # print(shiplist[0].mv)
-    return solution(shiplist)
+    return shiplist
 
 
 def dhlonsteroids(shiplist, parcellist):
     sol = (0, 0, {})
-    for i in range(1):
+    for i in range(10):
         random.shuffle(parcellist)
         currentsol = dhl(shiplist, parcellist)
         currentcost = calculatetotal(shiplist)

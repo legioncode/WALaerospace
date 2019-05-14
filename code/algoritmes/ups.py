@@ -1,6 +1,6 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
-from code.helperfunctions.possiblemoves import checkmove, possiblemovesA, possibleswaps
+from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import solution, clearships, assignfromdict
 import random

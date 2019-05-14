@@ -59,33 +59,6 @@ def possiblemovecost(shiplist, parcellist):
                 possiblemoves.append((x, i, z))
     return possiblemoves
 
- # je doet nu alleen swaps die mogelijk zijn, wat niet perse een ideale oplossing oplever
-
-
-def possibleswaps(shipdict):
-    newlist = []
-    for y in shipdict.keys():
-        newlist.append(y)
-    random.shuffle(newlist)
-    '''for i in range(0, 3):
-        for a in newlist[i].assigned:
-
-        if checkmove(parcel1, newlist[1]):
-            print('j')
-            assign(newlist[1], parcel1)
-            print('YAY!')
-        elif checkmove(parcel1, newlist[2]):
-            print('k')
-            assign(newlist[2], parcel1)
-            print('YAY!')
-        elif checkmove(parcel1, newlist[3]):
-            print('f')
-            assign(newlist[3], parcel1)
-            print('YAY!')
-        else:
-            print(parcel1.id, parcel1.mass, parcel1.size)
-            print("There isn't any solution found")'''
-
 
 def checkmove(parcel, ship):
     if parcel.mass <= ship.payload and parcel.size <= ship.volume:
