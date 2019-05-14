@@ -2,6 +2,7 @@ from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
 from code.classes.packinglist import Packinglist
 from code.helperfunctions.possiblemoves import possiblemovesA, checkmove
+from code.helperfunctions.assign import calculatetotal
 import copy
 import pickle
 
@@ -24,6 +25,7 @@ def AssignBreadth(shiplist, parcellist, spacecraft, parcel):
                     ship.volume = ship.volume - package.size
                     ship.payload = ship.payload - package.mass
                     parcellist.remove(package)
+                    ship.ratio()
 
 def UndoBreadth(shiplist, parcellist, spacecraft, parcel):
     for ship in shiplist:
@@ -34,9 +36,9 @@ def UndoBreadth(shiplist, parcellist, spacecraft, parcel):
                     ship.volume = ship.volume + package.size
                     ship.payload = ship.payload + package.mass
                     parcellist.append(package)
+                    ship.ratio()
 
 def Beam(shiplist, parcellist):
-    reached_optimal = 0
     # get beamwidth
     beamwidth = GetInput(shiplist, parcellist)
 
@@ -46,21 +48,23 @@ def Beam(shiplist, parcellist):
     # initialize queue with empty Parcellist object
     queue = []
     solutions = []
+    bestsolution = None
     counter = len(queue)
-    object = Packinglist(counter, [])
+    object = Packinglist(counter, [], 0)
     queue.append(object)
     solutions.append(object)
     kidlist = []
 
     # while there's objects in queue
     while len(queue) != 0:
-        for object in queue:
+        quelength = len(queue)
+        for i in range(quelength):
             # remove and get the first object of queue
             first = queue.pop(0)
 
             # perform the moves this object has with him already
-            for i in range(len(first.moves)):
-                AssignBreadth(shiplist, parcellist, first.moves[i][0], first.moves[i][1])
+            for j in range(len(first.moves)):
+                AssignBreadth(shiplist, parcellist, first.moves[j][0], first.moves[j][1])
 
             # compute this object's children
             kids = possiblemovesA(shiplist, parcellist)
@@ -69,53 +73,65 @@ def Beam(shiplist, parcellist):
             for move in kids:
                 base = copy.deepcopy(first.moves)
                 base.append(move)
-                kid = Packinglist(counter, base)
+                ratiodiff = abs(1 - (move[0].mv / move[1].mv))
+                kid = Packinglist(counter, base, ratiodiff)
                 counter += 1
                 kidlist.append(kid)
 
+            for k in range(len(first.moves)):
+                UndoBreadth(shiplist, parcellist, first.moves[k][0], first.moves[k][1])
+
         if len(kidlist) == 0:
-            for i in range(len(first.moves)):
-                UndoBreadth(shiplist, parcellist, first.moves[i][0], first.moves[i][1])
             break
 
         # sort kidlist ascending based on weight
-        sortedkids = sorted(kidlist, key=lambda packinglist: packinglist.weight, reverse=False)
+        sortedkids = sorted(kidlist, key=lambda packinglist: packinglist.ratiodiff, reverse=False)
 
         # choose beamwidth amount of children you want to keep
         for i in range(beamwidth):
-            queue.append(sortedkids[i])
+            if i < len(sortedkids):
+                queue.append(sortedkids[i])
 
-            # if child appends more parcels than the current best solution, make it the cbs
-            for sol in solutions:
-                if len(sortedkids[i].moves) >= len(sol.moves):
-                    solutions.append(sortedkids[i])
-                    break
+                # if child appends more parcels than the current best solution, make it the cbs
+                for sol in solutions:
+                    if len(sortedkids[i].moves) >= len(sol.moves):
+                        solutions.append(sortedkids[i])
+                        break
 
-            for sol in solutions:
-                if len(sortedkids[i].moves) > len(sol.moves):
-                    solutions.remove(sol)
+                for sol in solutions:
+                    if len(sortedkids[i].moves) > len(sol.moves):
+                        solutions.remove(sol)
+            else:
+                break
 
-            # if this child is an optimal solution, stop
-            if len(sortedkids[i].moves) == maxmoves:
-                reached_optimal = 1
-
-        # undo the moves
         kidlist.clear()
-        for i in range(len(first.moves)):
-            UndoBreadth(shiplist, parcellist, first.moves[i][0], first.moves[i][1])
 
-        if reached_optimal == 1:
-            break
 
-    print(solutions)
-    pickle.dump(solutions, open('beamsolution.p', 'wb'))
-    #    laad = pickle.load(open("beamsolution.p", "rb"))
-    #    print(f"solution.moves = {len(laad[0].moves)}")
-    return solutions
+    print(f"shiplist before checking a solution")
+    for ship in shiplist:
+        print(f"ship {ship.name} carries {len(ship.assigned)} packages and has {ship.payload} kg left and {ship.volume} m3 left")
 
-#def CheckSol(shiplist, parcellist, solution):
-#    for move in solution.moves:
-#        if checkmove(move[1], move[0]):
-#            AssignBreadth(shiplist, parcellist, move[0], move[1])
-#    for ship in shiplist:
-#        print(f"ship {ship.name} carries {len(ship.assigned)} packages has {ship.payload} kg and {ship.volume}m3 left")
+    for solution in solutions:
+        for move in solution.moves:
+            AssignBreadth(shiplist, parcellist, move[0], move[1])
+        cost = calculatetotal(shiplist)
+        solution.cost = cost
+        for move in solution.moves:
+            UndoBreadth(shiplist, parcellist, move[0], move[1])
+        print(f"shiplist after checking a solution")
+        for ship in shiplist:
+            print(f"ship {ship.name} carries {len(ship.assigned)} packages and has {ship.payload} kg left and {ship.volume} m3 left")
+
+    sortedsolutions = sorted(solutions, key=lambda packinglist: packinglist.cost, reverse=False)
+    bestsolution = sortedsolutions[0]
+    pickle.dump(bestsolution, open('beamsolution.p', 'wb'))
+    print(f"shiplist before assignment")
+    for ship in shiplist:
+        print(f"ship {ship.name} carries {len(ship.assigned)} packages and has {ship.payload} kg left and {ship.volume} m3 left")
+    for move in bestsolution.moves:
+        if checkmove(move[1], move[0]):
+            AssignBreadth(shiplist, parcellist, move[0], move[1])
+    print(f"bestsolution has a length of {len(bestsolution.moves)} and costs {bestsolution.cost}")
+    for ship in shiplist:
+        print(f"ship {ship.name} carries {len(ship.assigned)} packages and has {ship.payload} kg left and {ship.volume} m3 left")
+    return shiplist

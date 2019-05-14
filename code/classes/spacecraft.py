@@ -21,6 +21,7 @@ class Spacecraft(object):
             self.volume = 0.000000000000000000000000000000001
         self.mv = self.payload / float(self.volume)
 
+
     def calculate(self):
         self.cost = (sum([i.mass for i in self.assigned]) + self.mass) * \
             self.ftw / (1-self.ftw) * 1000 + self.basecost

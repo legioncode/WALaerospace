@@ -1,7 +1,9 @@
 class Packinglist(object):
-    def __init__(self, id, moves):
+    def __init__(self, id, moves, ratiodiff):
         self.id = id
         self.moves = moves
+        self.ratiodiff = ratiodiff
+        self.cost = None
         self.weight()
         self.volume()
 
