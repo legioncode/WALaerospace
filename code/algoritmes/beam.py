@@ -106,11 +106,6 @@ def Beam(shiplist, parcellist):
 
         kidlist.clear()
 
-
-    print(f"shiplist before checking a solution")
-    for ship in shiplist:
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages and has {ship.payload} kg left and {ship.volume} m3 left")
-
     for solution in solutions:
         for move in solution.moves:
             AssignBreadth(shiplist, parcellist, move[0], move[1])
@@ -118,20 +113,13 @@ def Beam(shiplist, parcellist):
         solution.cost = cost
         for move in solution.moves:
             UndoBreadth(shiplist, parcellist, move[0], move[1])
-        print(f"shiplist after checking a solution")
-        for ship in shiplist:
-            print(f"ship {ship.name} carries {len(ship.assigned)} packages and has {ship.payload} kg left and {ship.volume} m3 left")
 
     sortedsolutions = sorted(solutions, key=lambda packinglist: packinglist.cost, reverse=False)
     bestsolution = sortedsolutions[0]
-    pickle.dump(bestsolution, open('beamsolution.p', 'wb'))
-    print(f"shiplist before assignment")
-    for ship in shiplist:
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages and has {ship.payload} kg left and {ship.volume} m3 left")
+
+
     for move in bestsolution.moves:
         if checkmove(move[1], move[0]):
             AssignBreadth(shiplist, parcellist, move[0], move[1])
-    print(f"bestsolution has a length of {len(bestsolution.moves)} and costs {bestsolution.cost}")
-    for ship in shiplist:
-        print(f"ship {ship.name} carries {len(ship.assigned)} packages and has {ship.payload} kg left and {ship.volume} m3 left")
+    pickle.dump(shiplist, open('beamsolution.p', 'wb'))
     return shiplist

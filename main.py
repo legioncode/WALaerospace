@@ -2,7 +2,7 @@ from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 #from code.algoritmes.dhl import dhl, dhlonsteroids
 #from code.algoritmes.ups import ups, randomsolver
-# from code.algoritmes.postnl import postnl
+from code.algoritmes.postnl import postnl
 # from code.algoritmes.depth import depth
 #from code.algoritmes.flessenpost import flessenpost
 #from code.helperfunctions.visualization import visualpackages, massvolumeperc, randomplot
@@ -11,7 +11,7 @@ from code.helperfunctions.readers import loadships
 import math
 # from code.helperfunctions.cargototals import totals
 #from code.algoritmes.breadth import Breadth
-from code.algoritmes.beam import Beam
+#from code.algoritmes.beam import Beam
 # from code.algoritmes.maersk import *
 import pickle
 #from collections import Counter
@@ -25,7 +25,7 @@ def main(cargocsv, shipcsv):
     # print(parcellist)
     # print(i.assigned)
     # depth(shiplist, parcellist)
-    # postnl(shiplist, parcellist)
+    postnl(shiplist, parcellist)
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
     # Breadth(shiplist, parcellist)
@@ -37,8 +37,8 @@ def main(cargocsv, shipcsv):
     # dhlonsteroids(shiplist, parcellist)
     # totals(parcellist, shiplist)
     #Breadth(shiplist, parcellist)
-    solution = Beam(shiplist, parcellist)
-    print(f"made it! solution = {solution}")
+    #solution = Beam(shiplist, parcellist)
+    # print(f"made it! solution = {solution}")
     #laad = pickle.load(open("beamsolution.p", "rb"))
     #massvolumeperc(laad)
     #massvolumeperc(flessenpost(shiplist, parcellist))
