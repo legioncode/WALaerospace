@@ -13,6 +13,7 @@ def hillclimber(shiplist, parcellist):
     assignedparcellist = [e for i in shiplist for e in i.assigned]
     remainparcellist = [i for i in parcellist if i not in assignedparcellist]
     wholeparcellist = assignedparcellist + remainparcellist
+
     for c in range(10000000):
         ship1 = shiplist[random.randint(0, len(shiplist) - 1)]
         ship2 = shiplist[random.randint(0, len(shiplist) - 1)]
@@ -22,6 +23,7 @@ def hillclimber(shiplist, parcellist):
         package2 = ship2.assigned[random.randint(0, len(ship2.assigned) - 1)]
         undomove(ship1, package1)
         undomove(ship2, package2)
+
         if checkmove(package2, ship1) and checkmove(package1, ship2):
             assign(ship1, package2)
             assign(ship2, package1)
@@ -37,5 +39,7 @@ def hillclimber(shiplist, parcellist):
             assign(ship1, package1)
             assign(ship2, package2)
         loadstate(startsolution, shiplist)
+
+
     pickle.dump(shiplist, open('toppervandeweek2.p', 'wb'))
     return startpackages
