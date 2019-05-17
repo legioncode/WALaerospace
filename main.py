@@ -1,6 +1,6 @@
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
-#from code.algoritmes.dhl import dhl, dhlonsteroids
+from code.algoritmes.dhl import dhl, dhlonsteroids
 #from code.algoritmes.ups import ups, randomsolver
 #from code.algoritmes.postnl import postnl
 # from code.algoritmes.depth import depth
@@ -15,7 +15,7 @@ import math
 # from code.algoritmes.maersk import *
 import pickle
 #from collections import Counter
-#from code.algoritmes.hillclimber import hillclimber
+from code.algoritmes.hillclimber import hillclimber
 
 
 def main(cargocsv, shipcsv):
@@ -43,7 +43,7 @@ def main(cargocsv, shipcsv):
     #laad = pickle.load(open("beamsolution.p", "rb"))
     #massvolumeperc(laad)
     #massvolumeperc(flessenpost(shiplist, parcellist))
-    #print(hillclimber(dhl(shiplist, parcellist), parcellist))
+    print(hillclimber(dhl(shiplist, parcellist), parcellist))
     # maersk(shiplist, parcellist)
 
 

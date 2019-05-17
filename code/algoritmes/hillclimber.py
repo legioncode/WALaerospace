@@ -10,11 +10,10 @@ def hillclimber(shiplist, parcellist):
     startcost = calculatetotal(shiplist)
     startpackages = calculatepackages(shiplist)
     startsolution = solution(shiplist)
-    assignedparcellist = [e for i in shiplist for e in i.assigned]
-    remainparcellist = [i for i in parcellist if i not in assignedparcellist]
-    wholeparcellist = assignedparcellist + remainparcellist
 
     for c in range(10000000):
+        assignedparcellist = [e for i in shiplist for e in i.assigned]
+        remainparcellist = [i for i in parcellist if i not in assignedparcellist]
         ship1 = shiplist[random.randint(0, len(shiplist) - 1)]
         ship2 = shiplist[random.randint(0, len(shiplist) - 1)]
         while ship1 == ship2:
@@ -28,6 +27,7 @@ def hillclimber(shiplist, parcellist):
             assign(ship1, package2)
             assign(ship2, package1)
             shiplist = dhl(shiplist, remainparcellist)
+
             if startcost <= calculatetotal(shiplist):
                 startcost = calculatetotal(shiplist)
                 startsolution = solution(shiplist)
@@ -41,5 +41,5 @@ def hillclimber(shiplist, parcellist):
         loadstate(startsolution, shiplist)
 
 
-    pickle.dump(shiplist, open('toppervandeweek2.p', 'wb'))
+    pickle.dump(shiplist, open('toppervandeweek3.p', 'wb'))
     return startpackages
