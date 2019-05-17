@@ -23,10 +23,6 @@ def MoveRemainders(shiplist, extralist):
         chosenmove = possiblelist[0]
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
-    print(f"remainders after reassignment: {len(extralist)}")
-    for i in extralist:
-        print(f"overgebleven = {i.id}")
-
 
 def postnl(shiplist, parcellist):
     # get sorted lists
@@ -55,8 +51,6 @@ def postnl(shiplist, parcellist):
         if assigned == False:
             remainders.append(worklist[i])
 
-    print(f"tussenstand {len(remainders)}")
-
     # start iterating at half of list, append to spacecrafts 2 & 3
     worklist2 = sorted_parcels[int(half):]
     for i in range(int(half)):
@@ -69,11 +63,5 @@ def postnl(shiplist, parcellist):
         if assigned == False:
             remainders.append(worklist2[i])
 
-    # prints
-    print(f"remainders before reassignment: {len(remainders)}")
     MoveRemainders(shiplist, remainders)
-    print(f"{sorted_ships[0].name} costs {sorted_ships[0].cost} and carries {len(sorted_ships[0].assigned)}")
-    print(f"{sorted_ships[1].name} costs {sorted_ships[1].cost} and carries {len(sorted_ships[1].assigned)}")
-    print(f"{sorted_ships[2].name} costs {sorted_ships[2].cost} and carries {len(sorted_ships[2].assigned)}")
-    print(f"{sorted_ships[3].name} costs {sorted_ships[3].cost} and carries {len(sorted_ships[3].assigned)}")
     return shiplist

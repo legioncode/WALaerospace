@@ -20,7 +20,7 @@ def cargoreader(cargocsv):
     "this function takes in a cargo csv file. and turns it into a dictionary"
     df = pd.read_csv(cargocsv)
     columnnames = [i for i in df]
-    print(columnnames)
+    #print(columnnames)
     df['mv'] = df[columnnames[1]] / df[columnnames[2]]
     cargodict = pd.DataFrame.to_dict(df, orient='index')
     return cargodict

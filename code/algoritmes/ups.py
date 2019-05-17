@@ -9,8 +9,20 @@ import copy
 
 
 def ups(shiplist, cargolist):
-    return rnjesus(shiplist, cargolist)
-
+    topsolutionnumber = 0
+    topsolution = {}
+    for i in range(0, 20000):
+        deeplist = copy.deepcopy(cargolist)
+        solutions = randomsolver(shiplist, deeplist)
+        if solutions > topsolutionnumber:
+            topsolutionnumber = solutions
+            topsolution = shiplist
+            pickle.dump(topsolution, open('topsolutionwithrnjesuss.p', 'wb'))
+        clearships(shiplist)
+    # pickle.dump(topsolution, open('topsolutionwithrnjesus.p', 'wb'))
+    # open deze met
+    # laad = pickle.load(open("topsolutionwithrnjesus.p", "rb"))
+    return topsolutionnumber
 
 def randomsolver(shiplist, parcellist):
     movelist = [1]
@@ -27,20 +39,3 @@ def randomsolver(shiplist, parcellist):
         totalnumber += len(i.assigned)
     # clearships(shiplist)
     return totalnumber
-
-
-def rnjesus(shiplist, cargolist):
-    topsolutionnumber = 0
-    topsolution = {}
-    for i in range(0, 20000):
-        deeplist = copy.deepcopy(cargolist)
-        solutions = randomsolver(shiplist, deeplist)
-        if solutions > topsolutionnumber:
-            topsolutionnumber = solutions
-            topsolution = shiplist
-            pickle.dump(topsolution, open('topsolutionwithrnjesuss.p', 'wb'))
-        clearships(shiplist)
-    # pickle.dump(topsolution, open('topsolutionwithrnjesus.p', 'wb'))
-    # open deze met
-    # laad = pickle.load(open("topsolutionwithrnjesus.p", "rb"))
-    return topsolutionnumber
