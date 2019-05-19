@@ -12,6 +12,7 @@ from code.algoritmes.maersk import *
 import pickle
 from collections import Counter
 from code.algoritmes.hillclimber import hillclimber
+from code.helperfunctions.assign import calculatetotal, calculatepackages
 
 def getProblem():
     problem = input("Welcome to space freight! Choose problem 'a' or 'b': ")
@@ -87,7 +88,10 @@ def main():
             packedships = pickle.load(open(solution, "rb"))
             visualpackages(packedships)
             massvolumeperc(packedships)
-        print("Ready for takeoff!")
+
+        amount = calculatepackages(packedships)
+        cost = calculatetotal(packedships)
+        print(f"Ready for takeoff! You are bringing {amount} packages to a cost of ${cost}")
 
     else:
         print('under construction')
