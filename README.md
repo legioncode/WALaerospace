@@ -14,13 +14,20 @@ All code for this project is written in Python 3.???. All required packages to r
 pip install -r requirements.txt
 ```
 ### Structure
+All data we have available for this case can be found under **data**. Pythonscripts are divided into the categories **classes**, **helperfunctions** and **algorithms** all of which are accomodated in the **code** folder. Output of all different algorithms is available in the **output** folder.
 
 ### Testing
+If you want to run (part of) the code yourself, download the code from this repository, in your terminal navigate to the relevant directory and run the following command:
+
+```python
+python main.py
+```
+On the command line you can then indicate which optimization of the problem you want to focus on. If applicable, you will be asked to choose one of the available parcellists for your problem after which you get to choose which of the algorithms you want to run. Some algorithms require some additional input, in case for which you will be prompted. Last but not least, you get to define how you want to save your newly generated output and get the results both textually as visually.
 
 ## Authors
-• Axel Huting
-• Wytze Dijkstra
-• Lotte Heek
+• Axel Huting\
+• Wytze Dijkstra\
+• Lotte Heek\
 
 ## Acknowledgements
 • the course 'heuristieken' from UVA
