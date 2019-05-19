@@ -64,5 +64,9 @@ def postnl(shiplist, parcellist):
             remainders.append(worklist2[i])
 
     MoveRemainders(shiplist, remainders)
-    pickle.dump(shiplist, open('SOLPostnl.p', 'wb'))
-    return shiplist
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(filename) + '.p'
+    pickle.dump(shiplist, open(picklename, 'wb'))
+    return picklename

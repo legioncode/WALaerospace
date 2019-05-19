@@ -7,6 +7,9 @@ import copy
 
 
 def visualpackages(shiplist):
+    filename = input("Please name how you want to save this visualization: ")
+    while filename == "":
+        filename = input("Please name how you want to save this visualization: ")
     shipbars = [i.name for i in shiplist]
     shipheight = [len(i.assigned) for i in shiplist]
     y_pos = np.arange(len(shipbars))
@@ -19,10 +22,15 @@ def visualpackages(shiplist):
     plt.xticks(y_pos, shipbars)
 
     # Show graphic
+    plt.savefig(filename)
     plt.show()
 
 
+
 def massvolumeperc(shiplist):
+    filename = input("Please name how you want to save this visualization: ")
+    while filename == "":
+        filename = input("Please name how you want to save this visualization: ")
     shipbars = [i.name for i in shiplist]
     payloadbar = [(i.payload / i.firstpayload * 100) for i in shiplist]
     volumebar = [(i.volume / i.firstvolume * 100) for i in shiplist]
@@ -40,6 +48,7 @@ def massvolumeperc(shiplist):
     plt.xticks(y_pos + width, shipbars)
     plt.legend()
     plt.tight_layout()
+    plt.savefig(filename)
     plt.show()
 
 

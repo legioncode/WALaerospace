@@ -7,11 +7,14 @@ import pickle
 
 
 def hillclimber(shiplist, parcellist):
+    max = int(input("How many times do you want to run this algorithm: "))
+    while max == "":
+        max = int(input("How many times do you want to run this algorithm: "))
     startcost = calculatetotal(shiplist)
     startpackages = calculatepackages(shiplist)
     startsolution = solution(shiplist)
 
-    for c in range(100000000):
+    for c in range(max):
         assignedparcellist = [e for i in shiplist for e in i.assigned]
         remainparcellist = [i for i in parcellist if i not in assignedparcellist]
         ship1 = shiplist[random.randint(0, len(shiplist) - 1)]
@@ -40,6 +43,9 @@ def hillclimber(shiplist, parcellist):
             assign(ship2, package2)
         loadstate(startsolution, shiplist)
 
-
-    pickle.dump(shiplist, open('toppervandeweek.p', 'wb'))
-    return startpackages
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(filename) + '.p'
+    pickle.dump(shiplist, open(picklename, 'wb'))
+    return picklename

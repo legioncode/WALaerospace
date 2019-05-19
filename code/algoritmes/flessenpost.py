@@ -59,5 +59,9 @@ def flessenpost(shiplist, parcellist):
 
     packRemainders(shiplist, remainders)
     packRemainders(shiplist, outliers)
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(filename) + '.p'
     pickle.dump(shiplist, open('SOLFlessenpost.p', 'wb'))
-    return shiplist
+    return picklename

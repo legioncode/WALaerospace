@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 from code.classes.spacecraft import *
 from code.classes.cargo import *
+import pickle
 
 
 def dhl(shiplist, parcellist):
@@ -44,26 +45,33 @@ def dhl(shiplist, parcellist):
             if len(shipmv) == 0:
                 finallist.append(i)
                 break
-
     return shiplist
 
 
 def dhlonsteroids(shiplist, parcellist):
+    max = int(input("How many times do you want to run this algorithm: "))
+    while max == "":
+        max = int(input("How many times do you want to run this algorithm: "))
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(filename) + '.p'
     sol = (0, 0, {})
-    for i in range(10):
+    for i in range(max):
         random.shuffle(parcellist)
         currentsol = dhl(shiplist, parcellist)
         currentcost = calculatetotal(shiplist)
         xlist = []
         for z in currentsol:
-            for y in currentsol[z]:
+            for y in z.assigned:
                 xlist.append(y)
-
         if len(xlist) == sol[1]:
             if currentcost < sol[1]:
                 sol = (len(xlist), currentcost, currentsol)
+                pickle.dump(sol[2], open(picklename, 'wb'))
         elif len(xlist) > sol[1]:
             sol = (len(xlist), currentcost, currentsol)
-
+            pickle.dump(sol[2], open(picklename, 'wb'))
         clearships(shiplist)
-    return sol[2]
+
+    return picklename

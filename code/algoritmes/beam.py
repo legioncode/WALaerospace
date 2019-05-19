@@ -121,5 +121,9 @@ def Beam(shiplist, parcellist):
     for move in bestsolution.moves:
         if checkmove(move[1], move[0]):
             AssignBreadth(shiplist, parcellist, move[0], move[1])
-    pickle.dump(shiplist, open('beamsolution.p', 'wb'))
-    return shiplist
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(filename) + '.p'
+    pickle.dump(shiplist, open('SOLBeam.p', 'wb'))
+    return picklename

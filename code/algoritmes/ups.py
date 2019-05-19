@@ -9,20 +9,24 @@ import copy
 
 
 def ups(shiplist, cargolist):
+    max = int(input("How many times do you want to run this algorithm: "))
+    while max == "":
+        max = int(input("How many times do you want to run this algorithm: "))
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(filename) + '.p'
     topsolutionnumber = 0
     topsolution = {}
-    for i in range(0, 20000):
+    for i in range(0, max):
         deeplist = copy.deepcopy(cargolist)
         solutions = randomsolver(shiplist, deeplist)
         if solutions > topsolutionnumber:
             topsolutionnumber = solutions
             topsolution = shiplist
-            pickle.dump(topsolution, open('topsolutionwithrnjesuss.p', 'wb'))
+            pickle.dump(topsolution, open(picklename, 'wb'))
         clearships(shiplist)
-    # pickle.dump(topsolution, open('topsolutionwithrnjesus.p', 'wb'))
-    # open deze met
-    # laad = pickle.load(open("topsolutionwithrnjesus.p", "rb"))
-    return topsolutionnumber
+    return picklename
 
 def randomsolver(shiplist, parcellist):
     movelist = [1]

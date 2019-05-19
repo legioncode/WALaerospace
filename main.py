@@ -33,51 +33,61 @@ def getAlgorithm():
     while algorithm not in ('random', 'greedy', 'beamsearch'):
         algorithm = input("Please choose 'random', 'greedy' or 'beamsearch': ")
     if algorithm == 'greedy':
-        algorithm = input("Good choice! We have multiple greedy algorithms ready for you. Please choose 'postnl', 'dhl', 'dhlonsteroids' or 'flessenpost': ")
+        algorithm = input("Good choice! We have multiple greedy algorithms ready for you. Please choose 'postnl', 'dhl' or 'flessenpost': ")
         while algorithm not in ('postnl', 'dhl', 'flessenpost'):
             algorithm = input("Please choose 'postnl', 'dhl' or 'flessenpost': ")
     return algorithm
 
-def getHillclimber():
-    hillclimber = input("Do you want to try to bring more packages by running a hillclimber on this solution? Choose 'yes' or 'no': ")
-    while hillclimber not in ('yes', 'no'):
-        hillclimber = input("Please choose 'yes' or 'no': ")
-    return hillclimber
+def getHillclimber(shiplist, parcellist):
+    choice = input("Do you want to try to bring more packages by running a hillclimber on this solution? Choose 'yes' or 'no': ")
+    while choice not in ('yes', 'no'):
+        choice = input("Please choose 'yes' or 'no': ")
+    if choice == 'yes':
+        solution = hillclimber(shiplist, parcellist)
+        packedships = pickle.load(open(solution, "rb"))
+        visualpackages(packedships)
+        massvolumeperc(packedships)
 
 def main():
+    usedgreedy = None
     problem = getProblem()
     if problem == 'a':
         shiplist = loadships('data/SpaceCraft1.csv')
         parcels = getParcellist()
         parcellist = loadparcels(parcels)
         algorithm = getAlgorithm()
+
         if algorithm == 'random':
-            solution = randomsolver(shiplist, parcellist)
+            solution = ups(shiplist, parcellist)
+            packedships = pickle.load(open(solution, "rb"))
+            visualpackages(packedships)
+            massvolumeperc(packedships)
+
         elif algorithm == 'postnl':
             solution = postnl(shiplist, parcellist)
-            visualpackages(solution)
-            massvolumeperc(solution)
+            packedships = pickle.load(open(solution, "rb"))
+            visualpackages(packedships)
+            massvolumeperc(packedships)
+
         elif algorithm == 'dhl':
-            solution = dhl(shiplist, parcellist)
-        elif algorithm == 'dhlonsteroids':
             solution = dhlonsteroids(shiplist, parcellist)
+            packedships = pickle.load(open(solution, "rb"))
+            visualpackages(packedships)
+            massvolumeperc(packedships)
+            getHillclimber(packedships, parcellist)
+
         elif algorithm == 'flessenpost':
             solution = flessenpost(shiplist, parcellist)
-            visualpackages(solution)
-            massvolumeperc(solution)
+            packedships = pickle.load(open(solution, "rb"))
+            visualpackages(packedships)
+            massvolumeperc(packedships)
+
         elif algorithm == 'beamsearch':
             solution = Beam(shiplist, parcellist)
+            packedships = pickle.load(open(solution, "rb"))
+            visualpackages(packedships)
+            massvolumeperc(packedships)
         print("Ready for takeoff!")
-        total = 0
-        for ship in solution:
-            print(f"Spacecraft {ship.name} carries {len(ship.assigned)} packages")
-            for parcel in ship.assigned:
-                total += 1
-        print(f"In total you can bring {total} packages")
-
-        hillclimber = getHillclimber()
-        if hillclimber == 'yes':
-            hillclimber(solution, parcellist)
 
     else:
         print('under construction')
