@@ -1,7 +1,9 @@
-# WALaerospace :rocket:
+# Space Freight by WAL :rocket:
 
-## The Problem
-In Space Freight we want to find the optimal assignment of parcels to spacecrafts for transport to the International Space Station (ISS). The first problem is about assigning parcels from the first cargolist to four spacecrafts. More specifically, we want to find out whether it is possible to transport from this list 97 parcels. In the second problem, we want to find the maximum set of parcels that can be transported, where in case of multiple outcomes we go for the least expensive solution. This will be repeated for the third problem, now using the second cargolist. Now we get access to two more spacecrafts. For the fourth problem we compose a fleet of spacecrafts to transport the parcels of cargolist #3, whereby spacecrafts can do multiple flights and we look for the least expensive solution again. Lastly, in problem 5 we take into consideration a political constraint whereby spacecrafts from different countries must be used a comparable amount of times. Specifically, the difference in amount of flights between countries' spacecrafts can be no greater than 1. We aim for a solution where a maximum, if not thé maximum, amount of packages can be transported. If there are multiple assignment solutions, we go for the least expensive option.
+In Space Freight we find solutions for assignment of parcels to spacecrafts for transport to the International Space Station (ISS). This is a typical Constraint Optimization Problem (COP): there are multiple possible solutions, which are not necessarily all as good, and which have to meet certain requirements i.e. constraints. Depending on the constraints, solutions can be optimized based on the following outcomes:
+
+> 1: The amount of packages that can be transported
+> 2: The costs of the transport
 
 ## Upper- and Lowerbound(s)
 **For problem a,b,c**\
