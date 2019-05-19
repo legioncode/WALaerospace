@@ -2,6 +2,7 @@ from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
 import random
 import numpy as np
+import pickle
 
 
 def sortparcels(parcellist):
@@ -58,4 +59,5 @@ def flessenpost(shiplist, parcellist):
 
     packRemainders(shiplist, remainders)
     packRemainders(shiplist, outliers)
+    pickle.dump(shiplist, open('SOLFlessenpost.p', 'wb'))
     return shiplist

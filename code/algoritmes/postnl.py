@@ -2,7 +2,7 @@ from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign, calculatetotal
 import random
 from code.classes.spacecraft import Spacecraft
-
+import pickle
 
 def sortparcels(parcellist):
     sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mv, reverse=False)
@@ -64,4 +64,5 @@ def postnl(shiplist, parcellist):
             remainders.append(worklist2[i])
 
     MoveRemainders(shiplist, remainders)
+    pickle.dump(shiplist, open('SOLPostnl.p', 'wb'))
     return shiplist

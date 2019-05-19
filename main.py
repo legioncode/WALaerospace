@@ -3,9 +3,8 @@ from code.helperfunctions.readers import loadships
 from code.algoritmes.dhl import dhl, dhlonsteroids
 from code.algoritmes.ups import ups, randomsolver
 from code.algoritmes.postnl import postnl
-#from code.helperfunctions.visualization import visualpackages, massvolumeperc, randomplot
+from code.helperfunctions.visualization import visualpackages, massvolumeperc, randomplot
 from code.algoritmes.flessenpost import flessenpost
-#from code.helperfunctions.visualization import visualpackages, massvolumeperc
 import math
 from code.helperfunctions.cargototals import totals
 from code.algoritmes.beam import Beam
@@ -56,12 +55,16 @@ def main():
             solution = randomsolver(shiplist, parcellist)
         elif algorithm == 'postnl':
             solution = postnl(shiplist, parcellist)
+            visualpackages(solution)
+            massvolumeperc(solution)
         elif algorithm == 'dhl':
             solution = dhl(shiplist, parcellist)
         elif algorithm == 'dhlonsteroids':
             solution = dhlonsteroids(shiplist, parcellist)
         elif algorithm == 'flessenpost':
             solution = flessenpost(shiplist, parcellist)
+            visualpackages(solution)
+            massvolumeperc(solution)
         elif algorithm == 'beamsearch':
             solution = Beam(shiplist, parcellist)
         print("Ready for takeoff!")
