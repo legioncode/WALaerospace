@@ -50,6 +50,10 @@ def getHillclimber(shiplist, parcellist):
         massvolumeperc(packedships)
 
 def main():
+    packedships = pickle.load(open('SOL5Ups1.p', "rb"))
+    amount = calculatepackages(packedships)
+    cost = calculatetotal(packedships)
+    print(f"Ready for takeoff! You are bringing {amount} packages to a cost of ${cost}")
     usedgreedy = None
     problem = getProblem()
     if problem == 'a':

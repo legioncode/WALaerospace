@@ -11,7 +11,8 @@ import pickle
 
 
 def dhl(shiplist, parcellist):
-    """Greedy algorithm to assign parcels to spacecrafts"""
+    """Takes as input a clear shiplist and parcellist. Greedily assigns parcels to spacecrafts, based on mass-volume ratio.
+    Returns a shiplist of the solution."""
     # keep track of remainders
     extralist = []
 
@@ -57,7 +58,8 @@ def dhl(shiplist, parcellist):
 
 
 def dhlonsteroids(shiplist, parcellist):
-    """Generates n dhl solutions, keeps only the best"""
+    """Takes as input a clear shiplist and parcellist. Generates n dhl solutions.
+    Writes the shiplist of the best found solution to a pickle file the filename of which is returned ."""
     # get user input
     n = int(input("How many times do you want to run this algorithm: "))
     while n == "":
