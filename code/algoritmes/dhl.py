@@ -11,7 +11,11 @@ import pickle
 
 
 def dhl(shiplist, parcellist):
+    """Greedy algorithm to assign parcels to spacecrafts"""
+    # keep track of remainders
     extralist = []
+
+    # for each parcel, find the best move based on mass-volume ratio
     for i in parcellist:
         shipmv = [x.mv for x in shiplist]
         defaultship = (0, 400)
@@ -21,12 +25,16 @@ def dhl(shiplist, parcellist):
             if difference < defaultship[1]:
                 defaultship = (z, difference)
 
+        # check if the move is possible, else make this parcel a remainder
         if checkmove(i, shiplist[defaultship[0]]):
             assign(shiplist[defaultship[0]], i)
         else:
             extralist.append(i)
 
+    # keep track of final remainders
     finallist = []
+
+    # for each remainder, find a move, beginning with the best move possible based on mass-volume ratio
     for c in extralist:
         shipmv = [x.mv for x in shiplist]
         while True:
@@ -49,15 +57,21 @@ def dhl(shiplist, parcellist):
 
 
 def dhlonsteroids(shiplist, parcellist):
-    max = int(input("How many times do you want to run this algorithm: "))
-    while max == "":
-        max = int(input("How many times do you want to run this algorithm: "))
+    """Generates n dhl solutions, keeps only the best"""
+    # get user input
+    n = int(input("How many times do you want to run this algorithm: "))
+    while n == "":
+        n = int(input("How many times do you want to run this algorithm: "))
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
     picklename = str(filename) + '.p'
+
+    # keep track of the best solution
     sol = (0, 0, {})
-    for i in range(max):
+
+    # run dhl n times, save the best found solution
+    for i in range(n):
         random.shuffle(parcellist)
         currentsol = dhl(shiplist, parcellist)
         currentcost = calculatetotal(shiplist)
@@ -73,5 +87,4 @@ def dhlonsteroids(shiplist, parcellist):
             sol = (len(xlist), currentcost, currentsol)
             pickle.dump(sol[2], open(picklename, 'wb'))
         clearships(shiplist)
-
     return picklename

@@ -7,28 +7,9 @@ import random
 import pickle
 import copy
 
-
-def ups(shiplist, cargolist):
-    max = int(input("How many times do you want to run this algorithm: "))
-    while max == "":
-        max = int(input("How many times do you want to run this algorithm: "))
-    filename = input("Please name how you want to save this solution: ")
-    while filename == "":
-        filename = input("Please name how you want to save this solution: ")
-    picklename = str(filename) + '.p'
-    topsolutionnumber = 0
-    topsolution = {}
-    for i in range(0, max):
-        deeplist = copy.deepcopy(cargolist)
-        solutions = randomsolver(shiplist, deeplist)
-        if solutions > topsolutionnumber:
-            topsolutionnumber = solutions
-            topsolution = shiplist
-            pickle.dump(topsolution, open(picklename, 'wb'))
-        clearships(shiplist)
-    return picklename
-
 def randomsolver(shiplist, parcellist):
+    """Random algorithm to assign parcels to spacecrafts"""
+    # do random moves until no more moves possible
     movelist = [1]
     while movelist != []:
         movelist = possiblemovesA(shiplist, parcellist)
@@ -41,5 +22,31 @@ def randomsolver(shiplist, parcellist):
     totalnumber = 0
     for i in shiplist:
         totalnumber += len(i.assigned)
-    # clearships(shiplist)
     return totalnumber
+
+def ups(shiplist, cargolist):
+    """Generates n random solutions, keeps only the best"""
+    # get user input
+    n = int(input("How many times do you want to run this algorithm: "))
+    while n == "":
+        n = int(input("How many times do you want to run this algorithm: "))
+
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(filename) + '.p'
+
+    # keep track of the best solution
+    topsolutionnumber = 0
+    topsolution = {}
+
+    # run randomsolver n amount times, save the best solution
+    for i in range(0, n):
+        deeplist = copy.deepcopy(cargolist)
+        solutions = randomsolver(shiplist, deeplist)
+        if solutions > topsolutionnumber:
+            topsolutionnumber = solutions
+            topsolution = shiplist
+            pickle.dump(topsolution, open(picklename, 'wb'))
+        clearships(shiplist)
+    return picklename
