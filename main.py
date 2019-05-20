@@ -94,7 +94,9 @@ def main():
         print(f"Ready for takeoff! You are bringing {amount} packages to a cost of ${cost}")
 
     else:
-        print('under construction')
+        shiplist = loadships('data/SpaceCraft2.csv')
+        parcellist = loadparcels('data/CargoList3.csv')
+        maersk(shiplist, parcellist, False)
 
 if __name__ == "__main__":
     main()
