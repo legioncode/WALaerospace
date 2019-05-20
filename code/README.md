@@ -1,3 +1,3 @@
 # Code
 
-This file contains all python code for this project.
+This folder contains all python code for this project.
