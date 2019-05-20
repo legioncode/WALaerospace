@@ -37,9 +37,14 @@ def getAlgorithm():
     while algorithm not in ('random', 'greedy', 'beamsearch'):
         algorithm = input("Please choose 'random', 'greedy' or 'beamsearch': ")
     if algorithm == 'greedy':
+<<<<<<< HEAD
         algorithm = input(
             "Good choice! We have multiple greedy algorithms ready for you. Please choose 'postnl', 'dhl' or 'flessenpost': ")
         while algorithm not in ('postnl', 'dhl', 'flessenpost'):
+=======
+        algorithm = input("Good choice! We have multiple greedy algorithms ready for you. Please choose 'postnl', 'dhl' or 'flessenpost': ")
+        while algorithm not in ('postnl', 'dhl', 'flessenpost', 'd'):
+>>>>>>> d76f53c7e616eebecd3280b3893b1a07777e4467
             algorithm = input("Please choose 'postnl', 'dhl' or 'flessenpost': ")
     return algorithm
 
@@ -52,9 +57,19 @@ def getHillclimber(shiplist, parcellist):
     if choice == 'yes':
         solution = hillclimber(shiplist, parcellist)
         packedships = pickle.load(open(solution, "rb"))
+<<<<<<< HEAD
         visualpackages(packedships, 'hillclimber')
         massvolumeperc(packedships, 'hillclimber')
 
+=======
+        visualpackages(packedships)
+        massvolumeperc(packedships)
+        amount = calculatepackages(packedships)
+        for ship in packedships:
+            ship.calculate()
+        cost = calculatetotal(packedships)
+        print(f"Ready for takeoff! You are bringing {amount} packages to a cost of ${cost}")
+>>>>>>> d76f53c7e616eebecd3280b3893b1a07777e4467
 
 def main():
     usedgreedy = None
@@ -76,8 +91,13 @@ def main():
             algorithm == 'postnl'
             solution = postnl(shiplist, parcellist)
             packedships = pickle.load(open(solution, "rb"))
+<<<<<<< HEAD
             visualpackages(packedships, algorithm)
             massvolumeperc(packedships, algorithm)
+=======
+            visualpackages(packedships)
+            massvolumeperc(packedships)
+>>>>>>> d76f53c7e616eebecd3280b3893b1a07777e4467
 
         elif algorithm == 'dhl':
             algorithm == 'dhl'
