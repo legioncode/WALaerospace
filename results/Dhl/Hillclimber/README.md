@@ -1,4 +1,4 @@
-# Results DHL
+# Results Hillclimber
 
 Hillclimber is an iterative algorithm which takes as beginstate a solution from the dhl-algorithm. From this solution, the hillclimer
 randomly takes two packages from two different ships, checks whether they can be switched, and does so if this improves the current solution.
