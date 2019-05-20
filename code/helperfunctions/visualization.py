@@ -42,9 +42,7 @@ def randomplot(shiplist, cargolist):
         solutions.append(randomsolver(shiplist, deeplist))
         clearships(shiplist)
     labels, values = zip(*sorted(Counter(solutions).items()))
-    indexes = np.arange(len(labels))
-    width = 1
-
-    plt.bar(indexes, values, width)
-    plt.xticks(indexes + width * 0.5, labels)
-    plt.show()
+    data = [go.Bar(x=labels, y=values)]
+    layout = go.Layout(title=f'Randomplotter')
+    fig = go.Figure(data=data, layout=layout)
+    po.plot(fig)
