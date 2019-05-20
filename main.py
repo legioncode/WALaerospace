@@ -57,11 +57,7 @@ def getHillclimber(shiplist, parcellist):
 
 
 def main():
-    shiplist = loadships('data/SpaceCraft1.csv')
-    parcels = getParcellist()
-    parcellist = loadparcels(parcels)
-    randomplot(shiplist, parcellist)
-    '''usedgreedy = None
+    usedgreedy = None
     problem = getProblem()
     if problem == 'a':
         shiplist = loadships('data/SpaceCraft1.csv')
@@ -110,7 +106,6 @@ def main():
         shiplist = loadships('data/SpaceCraft2.csv')
         parcellist = loadparcels('data/CargoList3.csv')
         maersk(shiplist, parcellist, False)
-'''
 
 
 if __name__ == "__main__":
