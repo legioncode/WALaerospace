@@ -71,3 +71,11 @@ def loadstate(solution, shiplist):
 def calculatepackages(shiplist):
     """Takes in a shiplist of a solution, calculates and returns the amount of assigned packages."""
     return sum(len(i.assigned) for i in shiplist)
+
+def returnLastParcel(ship):
+    """Takes in a ship, removes and returns the last assigned parcel."""
+    parcel = ship.assigned.pop(-1)
+    ship.volume = ship.volume + parcel.size
+    ship.payload = ship.payload + parcel.mass
+    ship.ratio()
+    return parcel
