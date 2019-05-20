@@ -5,10 +5,10 @@ This folder contains all agorithms we wrote for this case. A short description o
 > ### Greedy
 > PostNL\
 > Flessenpost\ 
-> DHL\ 
+> DHL
 
 > ### Iterative
-> Hillclimber (use with DHL)\
+> Hillclimber (use with DHL)
 
 > ### Beamsearch
-> Beam\
+> Beam
