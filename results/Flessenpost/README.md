@@ -1,7 +1,6 @@
 # Results Flessenpost
 
-This folder contains the results of Flessenpost. Flessenpost is a greedy algorithm which takes in two arguments: a list of the available spacecrafts and a list of the parcels to be assigned. PostNL sorts both lists based on the mass-volume ratios of the objects they contain, and starts assigning parcels to spacecrafts beginning with the largest ratios, initially skipping the outliers of the parcellist.
-. Packages that could not be assigned initially are saved in a list and randomly assigned to the initial solution if possible, after which the outliers are taken into consideration as well. A short summary of the outcomes of Flessenpost:
+This folder contains the results of Flessenpost. Flessenpost is a greedy algorithm which takes in two arguments: a list of the available spacecrafts and a list of the parcels to be assigned. Flessenpost sorts both lists based on the mass-volume ratios of the objects they contain, and starts assigning parcels to spacecrafts beginning with the largest ratios, initially skipping the outliers of the parcellist. Packages that could not be assigned initially are saved in a list and randomly assigned to the initial solution if possible, after which the outliers are taken into consideration as well. A short summary of the outcomes of Flessenpost:
 
 > Packinglist 1\
 > Packages: 89\
