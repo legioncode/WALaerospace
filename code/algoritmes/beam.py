@@ -7,6 +7,7 @@ import copy
 import pickle
 
 def GetInput(shiplist, parcellist):
+    """Get user input for beamwidth"""
     maxamount = len(possiblemovesA(shiplist, parcellist))
     while True:
         w = int(input("Choose a beamwidth: "))
@@ -16,7 +17,8 @@ def GetInput(shiplist, parcellist):
             print(f"Beamwidth should be between 1 and {maxamount}")
     return w
 
-def AssignBreadth(shiplist, parcellist, spacecraft, parcel):
+def assignBeam(shiplist, parcellist, spacecraft, parcel):
+    """Assign package to parcel"""
     for ship in shiplist:
         if spacecraft.name == ship.name:
             for package in parcellist:
@@ -26,8 +28,10 @@ def AssignBreadth(shiplist, parcellist, spacecraft, parcel):
                     ship.payload = ship.payload - package.mass
                     parcellist.remove(package)
                     ship.ratio()
+    return shiplist, parcellist
 
-def UndoBreadth(shiplist, parcellist, spacecraft, parcel):
+def undoBeam(shiplist, parcellist, spacecraft, parcel):
+    """Remove package from parcel"""
     for ship in shiplist:
         if spacecraft.name == ship.name:
             for package in ship.assigned:
@@ -37,6 +41,7 @@ def UndoBreadth(shiplist, parcellist, spacecraft, parcel):
                     ship.payload = ship.payload + package.mass
                     parcellist.append(package)
                     ship.ratio()
+    return shiplist, parcellist
 
 def Beam(shiplist, parcellist):
     # get beamwidth
@@ -64,7 +69,7 @@ def Beam(shiplist, parcellist):
 
             # perform the moves this object has with him already
             for j in range(len(first.moves)):
-                AssignBreadth(shiplist, parcellist, first.moves[j][0], first.moves[j][1])
+                shiplist, parcellist = assignBeam(shiplist, parcellist, first.moves[j][0], first.moves[j][1])
 
             # compute this object's children
             kids = possiblemovesA(shiplist, parcellist)
@@ -79,7 +84,7 @@ def Beam(shiplist, parcellist):
                 kidlist.append(kid)
 
             for k in range(len(first.moves)):
-                UndoBreadth(shiplist, parcellist, first.moves[k][0], first.moves[k][1])
+                shiplist, parcellist = undoBeam(shiplist, parcellist, first.moves[k][0], first.moves[k][1])
 
         if len(kidlist) == 0:
             break
@@ -108,22 +113,23 @@ def Beam(shiplist, parcellist):
 
     for solution in solutions:
         for move in solution.moves:
-            AssignBreadth(shiplist, parcellist, move[0], move[1])
+            shiplist, parcellist = assignBeam(shiplist, parcellist, move[0], move[1])
         cost = calculatetotal(shiplist)
         solution.cost = cost
         for move in solution.moves:
-            UndoBreadth(shiplist, parcellist, move[0], move[1])
+            shiplist, parcellist = undoBeam(shiplist, parcellist, move[0], move[1])
 
     sortedsolutions = sorted(solutions, key=lambda packinglist: packinglist.cost, reverse=False)
     bestsolution = sortedsolutions[0]
+    print(f"len bestsol = {len(bestsolution)}")
 
 
     for move in bestsolution.moves:
         if checkmove(move[1], move[0]):
-            AssignBreadth(shiplist, parcellist, move[0], move[1])
+            shiplist, parcellist = assignBeam(shiplist, parcellist, move[0], move[1])
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
     picklename = str(filename) + '.p'
-    pickle.dump(shiplist, open('SOLBeam.p', 'wb'))
+    pickle.dump(shiplist, open(picklename, 'wb'))
     return picklename
