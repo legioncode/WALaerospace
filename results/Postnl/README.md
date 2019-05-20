@@ -4,10 +4,10 @@ PostNL is a greedy algorithm which takes in two arguments: a list of the availab
 
 > Parcellist 1\
 > Packages: 86\
-> Costs: $ 1.429.065.732,53
+> Costs: $ 1.467.338.973,03
 
 > Parcellist 2\
 > Packages: 78\
-> Costs: $ 1.429.065.732,53
+> Costs: $ 1.469.273.842,28
 
 Output files' names end with the number of the used parcellist.
