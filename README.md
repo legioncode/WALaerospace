@@ -8,7 +8,7 @@ In Space Freight we find solutions for assignment of parcels to spacecrafts for 
 ## Getting Started
 ### Prerequisites
 
-All code for this project is written in Python 3.???. All required packages to run this code can be found in requirements.txt and easily installed by running the following command:
+All code for this project is written in Python 3.7.1. All required packages to run this code can be found in requirements.txt and easily installed by running the following command:
 
 ```python
 pip install -r requirements.txt
