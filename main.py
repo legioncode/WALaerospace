@@ -34,7 +34,7 @@ def getAlgorithm():
         algorithm = input("Please choose 'random', 'greedy' or 'beamsearch': ")
     if algorithm == 'greedy':
         algorithm = input("Good choice! We have multiple greedy algorithms ready for you. Please choose 'postnl', 'dhl' or 'flessenpost': ")
-        while algorithm not in ('postnl', 'dhl', 'flessenpost'):
+        while algorithm not in ('postnl', 'dhl', 'flessenpost', 'd'):
             algorithm = input("Please choose 'postnl', 'dhl' or 'flessenpost': ")
     return algorithm
 
@@ -47,6 +47,11 @@ def getHillclimber(shiplist, parcellist):
         packedships = pickle.load(open(solution, "rb"))
         visualpackages(packedships)
         massvolumeperc(packedships)
+        amount = calculatepackages(packedships)
+        for ship in packedships:
+            ship.calculate()
+        cost = calculatetotal(packedships)
+        print(f"Ready for takeoff! You are bringing {amount} packages to a cost of ${cost}")
 
 def main():
     usedgreedy = None
@@ -68,7 +73,6 @@ def main():
             packedships = pickle.load(open(solution, "rb"))
             visualpackages(packedships)
             massvolumeperc(packedships)
-
 
         elif algorithm == 'dhl':
             solution = dhlonsteroids(shiplist, parcellist)
