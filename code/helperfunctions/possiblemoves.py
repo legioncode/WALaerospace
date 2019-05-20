@@ -5,6 +5,7 @@ import random
 
 
 def possiblemovesA(shiplist, parcellist):
+    """Takes in a shiplist and a parcellist, generates and returns the possible moves."""
     possiblemoves = []
     for i in parcellist:
         for x in shiplist:
@@ -13,44 +14,8 @@ def possiblemovesA(shiplist, parcellist):
     return possiblemoves
 
 
-def depthmoves(shiplist, parcellist, depth):
-    possiblemoves = []
-    for i in parcellist:
-        for x in shiplist:
-            if i.mass <= x.payload and i.size <= x.volume:
-                possiblemoves.append((x, i, depth))
-    return possiblemoves
-
-
-def possiblemovesB(shiplist, parcellist):
-    possiblemoves = {}
-    for i in parcellist:
-        for x in shiplist:
-            if i.mass <= x.payload and i.size <= x.volume:
-                if i in possiblemoves.keys():
-                    spacelist = possiblemoves[i]
-                    spacelist.append(x)
-                    possiblemoves[i] = spacelist
-                else:
-                    possiblemoves[i] = [x]
-    return possiblemoves
-
-
-def possiblemovesC(shiplist, parcellist):
-    possiblemoves = {}
-    for i in parcellist:
-        for x in shiplist:
-            if i.mass <= x.payload and i.size <= x.volume:
-                if x in possiblemoves.keys():
-                    cargolist = possiblemoves[x]
-                    cargolist.append(i)
-                    possiblemoves[x] = cargolist
-                else:
-                    possiblemoves[x] = [i]
-    return possiblemoves
-
-
 def possiblemovecost(shiplist, parcellist):
+    """Takes in a shiplist and a parcellist, generates and returns the possible moves and their costs."""
     possiblemoves = []
     for i in parcellist:
         for x in shiplist:
@@ -61,6 +26,7 @@ def possiblemovecost(shiplist, parcellist):
 
 
 def checkmove(parcel, ship):
+    """Takes in a ship and a parcel, checks if this is a valid move and returns a boolean."""
     if parcel.mass <= ship.payload and parcel.size <= ship.volume:
         return True
     else:
@@ -68,4 +34,5 @@ def checkmove(parcel, ship):
 
 
 def calculatemovecost(ship, parcel):
+    """Takes in a ship and a parcel, generates and returns the cost of this move."""
     return (parcel.mass * ship.ftw / (1 - ship.ftw) * 1000)

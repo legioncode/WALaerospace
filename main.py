@@ -6,7 +6,6 @@ from code.algoritmes.postnl import postnl
 from code.helperfunctions.visualization import visualpackages, massvolumeperc, randomplot
 from code.algoritmes.flessenpost import flessenpost
 import math
-from code.helperfunctions.cargototals import totals
 from code.algoritmes.beam import Beam
 from code.algoritmes.maersk import *
 import pickle
@@ -22,7 +21,7 @@ def getProblem():
 
 def getParcellist():
     parcels = int(input("Which list of packages do you want to use? Choose '1' or '2': "))
-    while parcels not in (1, 2):
+    while parcels not in (1, 2, 3):
         parcels = int(input("Please choose '1' or '2': "))
     if parcels == 1:
         return 'data/CargoList1.csv'

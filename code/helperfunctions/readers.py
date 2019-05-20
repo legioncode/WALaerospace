@@ -5,19 +5,21 @@ import numpy as np
 
 
 def loadships(shipcsv):
+    """Takes in a Spacecraft csv file, and returns a list of spacecraft objects."""
     shipdict = shipreader(shipcsv)
     availableShips = craftassign(shipdict)
     return availableShips
 
 
 def loadparcels(parcelcsv):
+    """Takes in a Cargo csv file, and returns a list of cargo objects."""
     parceldict = cargoreader(parcelcsv)
     availableparcels = parcelassign(parceldict)
     return availableparcels
 
 
 def cargoreader(cargocsv):
-    "this function takes in a cargo csv file. and turns it into a dictionary"
+    """Takes in a Cargo csv file, and turns it into a dictionary."""
     df = pd.read_csv(cargocsv)
     columnnames = [i for i in df]
     #print(columnnames)
@@ -27,12 +29,14 @@ def cargoreader(cargocsv):
 
 
 def shipreader(csv):
+    """Takes in a Spacecraft csv file, and turns it into a dictionary."""
     df = pd.read_csv(csv)
     transportdict = pd.DataFrame.to_dict(df, orient='index')
     return transportdict
 
 
 def craftassign(shipdict):
+    """Takes in a Spacecraft dictionary, and returns a shiplist."""
     shiplist = []
     for key, craft in shipdict.items():
         for value, name in craft.items():
@@ -59,6 +63,7 @@ def craftassign(shipdict):
 
 
 def parcelassign(parceldict):
+    """Takes in a Cargo dictionary, and returns a cargolist."""
     cargolist = []
     for key, cargo in parceldict.items():
         for value, name in cargo.items():
