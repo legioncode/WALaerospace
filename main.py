@@ -70,6 +70,7 @@ def main():
             visualpackages(packedships)
             massvolumeperc(packedships)
 
+
         elif algorithm == 'dhl':
             solution = dhlonsteroids(shiplist, parcellist)
             packedships = pickle.load(open(solution, "rb"))
@@ -90,6 +91,8 @@ def main():
             massvolumeperc(packedships)
 
         amount = calculatepackages(packedships)
+        for ship in packedships:
+            ship.calculate()
         cost = calculatetotal(packedships)
         print(f"Ready for takeoff! You are bringing {amount} packages to a cost of ${cost}")
 

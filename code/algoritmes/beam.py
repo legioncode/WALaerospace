@@ -7,7 +7,8 @@ import copy
 import pickle
 
 def GetInput(shiplist, parcellist):
-    """Get user input for beamwidth"""
+    """Takes as input a clear shiplist and parcellist. Prompts the user for a beamwidth and validates this.
+    Returns the beamwidth"""
     maxamount = len(possiblemovesA(shiplist, parcellist))
     while True:
         w = int(input("Choose a beamwidth: "))
@@ -18,7 +19,8 @@ def GetInput(shiplist, parcellist):
     return w
 
 def assignBeam(shiplist, parcellist, spacecraft, parcel):
-    """Assign package to parcel"""
+    """Takes as input the current ship- and parcellist, and the ship and parcel involved in the move to be performed.
+    Returns the updated ship- and parcellist"""
     for ship in shiplist:
         if spacecraft.name == ship.name:
             for package in parcellist:
@@ -31,7 +33,8 @@ def assignBeam(shiplist, parcellist, spacecraft, parcel):
     return shiplist, parcellist
 
 def undoBeam(shiplist, parcellist, spacecraft, parcel):
-    """Remove package from parcel"""
+    """Takes as input the current ship- and parcellist, and the ship and parcel involved in the move to be undone.
+    Returns the updated ship- and parcellist"""
     for ship in shiplist:
         if spacecraft.name == ship.name:
             for package in ship.assigned:
@@ -44,6 +47,8 @@ def undoBeam(shiplist, parcellist, spacecraft, parcel):
     return shiplist, parcellist
 
 def Beam(shiplist, parcellist):
+    """Takes as input a clear ship- and parcellist. Performs a beamsearch of width n, based on correspondence of mass-volume ratio.
+    Writes the shiplist of the best found solution to a pickle file the filename of which is returned ."""
     # get beamwidth
     beamwidth = GetInput(shiplist, parcellist)
 
@@ -64,7 +69,8 @@ def Beam(shiplist, parcellist):
     while len(queue) != 0:
         quelength = len(queue)
         for i in range(quelength):
-            # remove and get the first object of queue
+
+            # get first object from queue to work with
             first = queue.pop(0)
 
             # perform the moves this object has with him already
@@ -89,7 +95,7 @@ def Beam(shiplist, parcellist):
         if len(kidlist) == 0:
             break
 
-        # sort kidlist ascending based on weight
+        # sort kidlist ascending based on mass-volume ratio difference between parcel and ship of last appended move
         sortedkids = sorted(kidlist, key=lambda packinglist: packinglist.ratiodiff, reverse=False)
 
         # choose beamwidth amount of children you want to keep
@@ -97,7 +103,7 @@ def Beam(shiplist, parcellist):
             if i < len(sortedkids):
                 queue.append(sortedkids[i])
 
-                # if child appends more parcels than the current best solution, make it the cbs
+                # if child appends more parcels than the current best solution, make it the current best solution
                 for sol in solutions:
                     if len(sortedkids[i].moves) >= len(sol.moves):
                         solutions.append(sortedkids[i])
@@ -111,6 +117,7 @@ def Beam(shiplist, parcellist):
 
         kidlist.clear()
 
+    # calculate cost of each solution
     for solution in solutions:
         for move in solution.moves:
             shiplist, parcellist = assignBeam(shiplist, parcellist, move[0], move[1])
@@ -119,14 +126,17 @@ def Beam(shiplist, parcellist):
         for move in solution.moves:
             shiplist, parcellist = undoBeam(shiplist, parcellist, move[0], move[1])
 
+    # sort solutions based on cost, the cheapest solution will be saved
     sortedsolutions = sorted(solutions, key=lambda packinglist: packinglist.cost, reverse=False)
     bestsolution = sortedsolutions[0]
-    print(f"len bestsol = {len(bestsolution)}")
 
 
+    # make the shiplist for the best solution
     for move in bestsolution.moves:
         if checkmove(move[1], move[0]):
             shiplist, parcellist = assignBeam(shiplist, parcellist, move[0], move[1])
+
+    # save the best solution
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")

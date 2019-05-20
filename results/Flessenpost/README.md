@@ -4,10 +4,10 @@ This folder contains the results of Flessenpost. Flessenpost is a greedy algorit
 
 > Parcellist 1\
 > Packages: 89\
-> Costs: $ 1.429.065.732,53
+> Costs: $ 1.468.869.075,25
 
 > Parcellist 2\
 > Packages: 76\
-> Costs: $ 1.429.065.732,53
+> Costs: $ 1.469.036.313,89
 
 Output files' names end with the number of the used parcellist.

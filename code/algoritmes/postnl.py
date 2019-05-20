@@ -5,7 +5,8 @@ import random
 import pickle
 
 def assignRemainders(shiplist, extralist):
-    """Randomly assigns remainders if possible"""
+    """Takes as input a shiplist of a solution and a list of remaining parcels.
+    Randomly assigns remainders if possible. Edits the shiplist."""
     possiblelist = [1]
     while len(possiblelist) != 0:
         possiblelist = possiblemovesA(shiplist, extralist)
@@ -16,7 +17,8 @@ def assignRemainders(shiplist, extralist):
         extralist.remove(chosenmove[1])
 
 def postnl(shiplist, parcellist):
-    """Greedy algorithm to assign parcels to spacecrafts"""
+    """Takes as input a clear shiplist and parcellist. Greedily assigns parcels to spacecrafts.
+    Saves the solution to a pickle file the filename of which is returned."""
     # get sorted lists
     sorted_parcels = sortParcels(parcellist)
     sorted_ships = sortSpacecrafts(shiplist)
