@@ -1,21 +1,12 @@
 from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
+from code.helperfunctions.sort import sortParcels, sortSpacecrafts
 import random
 import numpy as np
 import pickle
 
-
-def sortparcels(parcellist):
-    sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mv, reverse=False)
-    return sorted_parcels
-
-
-def sortspacecrafts(shiplist):
-    sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mv, reverse=False)
-    return sorted_ships
-
-
-def packRemainders(shiplist, extralist):
+def assignRemainders(shiplist, extralist):
+    """Randomly assigns remainders if possible"""
     possiblelist = [1]
     while len(possiblelist) != 0:
         possiblelist = possiblemovesA(shiplist, extralist)
@@ -25,8 +16,8 @@ def packRemainders(shiplist, extralist):
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
 
-
 def computeOutliers(parcellist):
+    """Computes outliers with high mass-volume ratios of the parcellist and returns the bound"""
     ratios = [parcel.mv for parcel in parcellist]
     q1 = np.percentile(ratios, 25)
     median = np.percentile(ratios, 50)
@@ -34,17 +25,20 @@ def computeOutliers(parcellist):
     outlierbound = 1.5 * (q3 - q1) + q3
     return outlierbound
 
-
 def flessenpost(shiplist, parcellist):
-    # get sorted lists
+    """Greedy algorithm to assign parcels to spacecrafts"""
+    # get sorted outlierbound and reversed parcel- and shiplist
     outlierbound = computeOutliers(parcellist)
-    sorted_parcels = sortparcels(parcellist)
+    sorted_parcels = sortParcels(parcellist)
     sorted_parcels.reverse()
-    sorted_ships = sortspacecrafts(shiplist)
+    sorted_ships = sortSpacecrafts(shiplist)
     sorted_ships.reverse()
-    # create an extra list for remaining parcels
+
+    # keep track of remaining parcels and outliers
     remainders = []
     outliers = []
+
+    # assign parcels to ships beginning with the highest ratios, skip outliers
     for parcel in range(len(sorted_parcels)):
         assigned = False
         if sorted_parcels[parcel].mv > outlierbound:
@@ -57,11 +51,16 @@ def flessenpost(shiplist, parcellist):
         if assigned == False:
             remainders.append(sorted_parcels[parcel])
 
-    packRemainders(shiplist, remainders)
-    packRemainders(shiplist, outliers)
+    # try to assign remainders
+    assignRemainders(shiplist, remainders)
+
+    # try to assign outliers
+    assignRemainders(shiplist, outliers)
+
+    # save shiplist of solution as a pickle file
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
     picklename = str(filename) + '.p'
-    pickle.dump(shiplist, open('SOLFlessenpost.p', 'wb'))
+    pickle.dump(shiplist, open(picklename, 'wb'))
     return picklename

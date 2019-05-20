@@ -1,20 +1,11 @@
 from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
-from code.helperfunctions.assign import assign, calculatetotal
+from code.helperfunctions.assign import assign
+from code.helperfunctions.sort import sortParcels, sortSpacecrafts
 import random
-from code.classes.spacecraft import Spacecraft
 import pickle
 
-def sortparcels(parcellist):
-    sorted_parcels = sorted(parcellist, key=lambda cargo: cargo.mv, reverse=False)
-    return sorted_parcels
-
-
-def sortspacecrafts(shiplist):
-    sorted_ships = sorted(shiplist, key=lambda spacecraft: spacecraft.mv, reverse=False)
-    return sorted_ships
-
-
-def MoveRemainders(shiplist, extralist):
+def assignRemainders(shiplist, extralist):
+    """Randomly assigns remainders if possible"""
     possiblelist = [1]
     while len(possiblelist) != 0:
         possiblelist = possiblemovesA(shiplist, extralist)
@@ -25,45 +16,53 @@ def MoveRemainders(shiplist, extralist):
         extralist.remove(chosenmove[1])
 
 def postnl(shiplist, parcellist):
+    """Greedy algorithm to assign parcels to spacecrafts"""
     # get sorted lists
-    sorted_parcels = sortparcels(parcellist)
-    sorted_ships = sortspacecrafts(shiplist)
+    sorted_parcels = sortParcels(parcellist)
+    sorted_ships = sortSpacecrafts(shiplist)
 
-
-    # create an extra list for remaining parcels
+    # keep track of remainders
     remainders = []
 
-    # start iterating back from half of list, append to spacecrafts 0 & 1
+    # get the left half of the shiplist, from middle to left-end
     halfcrafts = len(sorted_ships) / 2
     leftcrafts = sorted_ships[0: int(halfcrafts)]
     leftcrafts.reverse()
-    half = len(sorted_parcels) / 2
-    worklist = sorted_parcels[0: int(half)]
-    worklist.reverse()
 
-    for i in range(int(half)):
+    # get the left half of the parcellist, from middle to left-end
+    halfparcels = len(sorted_parcels) / 2
+    worklistleft = sorted_parcels[0: int(halfparcels)]
+    worklistleft.reverse()
+
+    # append parcels from left half of parcellist to ships from left half of shiplist
+    for i in range(int(halfparcels)):
         assigned = False
         for ship in leftcrafts:
-            if checkmove(worklist[i], ship):
-                assign(ship, worklist[i])
+            if checkmove(worklistleft[i], ship):
+                assign(ship, worklistleft[i])
                 assigned = True
                 break
         if assigned == False:
-            remainders.append(worklist[i])
+            remainders.append(worklistleft[i])
 
-    # start iterating at half of list, append to spacecrafts 2 & 3
-    worklist2 = sorted_parcels[int(half):]
-    for i in range(int(half)):
+    # get the right half of the parcellist, from middle to right-end
+    worklistright = sorted_parcels[int(halfparcels):]
+
+    # append parcels from half of both the parcel- and shiplist, back to the right end of both lists
+    for i in range(int(halfparcels)):
         assigned = False
         for ship in sorted_ships[int(halfcrafts):]:
-            if checkmove(worklist2[i], ship):
-                assign(ship, worklist2[i])
+            if checkmove(worklistright[i], ship):
+                assign(ship, worklistright[i])
                 assigned = True
                 break
         if assigned == False:
-            remainders.append(worklist2[i])
+            remainders.append(worklistright[i])
 
-    MoveRemainders(shiplist, remainders)
+    # try to assign remainders
+    assignRemainders(shiplist, remainders)
+
+    # save shiplist of solution as a pickle file
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
