@@ -2,7 +2,7 @@ class Spacecraft(object):
     """This object represents a spacecraft and its properties. It takes in 7 arguments:
     name, nation, payload-weight, payload-volume, mass, basecost and fuel-to-weight ratio.
     Furthermore this object can remember how many times it has been launched already,
-    update its ratio, clear itself and compute its costs."""
+    update its ratio, clear itself and compute its costso."""
     def __init__(self, name, nation, payload, volume, mass, basecost, ftw):
         self.name = name
         self.nation = nation
