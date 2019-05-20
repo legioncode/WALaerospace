@@ -69,7 +69,8 @@ def Beam(shiplist, parcellist):
     while len(queue) != 0:
         quelength = len(queue)
         for i in range(quelength):
-            # remove and get the first object of queue
+
+            # get first object from queue to work with
             first = queue.pop(0)
 
             # perform the moves this object has with him already
@@ -94,7 +95,7 @@ def Beam(shiplist, parcellist):
         if len(kidlist) == 0:
             break
 
-        # sort kidlist ascending based on weight
+        # sort kidlist ascending based on mass-volume ratio difference between parcel and ship of last appended move
         sortedkids = sorted(kidlist, key=lambda packinglist: packinglist.ratiodiff, reverse=False)
 
         # choose beamwidth amount of children you want to keep
@@ -102,7 +103,7 @@ def Beam(shiplist, parcellist):
             if i < len(sortedkids):
                 queue.append(sortedkids[i])
 
-                # if child appends more parcels than the current best solution, make it the cbs
+                # if child appends more parcels than the current best solution, make it the current best solution
                 for sol in solutions:
                     if len(sortedkids[i].moves) >= len(sol.moves):
                         solutions.append(sortedkids[i])
@@ -116,6 +117,7 @@ def Beam(shiplist, parcellist):
 
         kidlist.clear()
 
+    # calculate cost of each solution
     for solution in solutions:
         for move in solution.moves:
             shiplist, parcellist = assignBeam(shiplist, parcellist, move[0], move[1])
@@ -124,19 +126,17 @@ def Beam(shiplist, parcellist):
         for move in solution.moves:
             shiplist, parcellist = undoBeam(shiplist, parcellist, move[0], move[1])
 
+    # sort solutions based on cost, the cheapest solution will be saved
     sortedsolutions = sorted(solutions, key=lambda packinglist: packinglist.cost, reverse=False)
     bestsolution = sortedsolutions[0]
-    print(f"len bestsol = {len(bestsolution.moves)}")
 
-    for ship in shiplist:
-        ship.payload = ship.firstpayload
-        ship.volume = ship.firstvolume
-        print(f"ship {ship.name} has {ship.payload} kg and {ship.volume}m3")
+
+    # make the shiplist for the best solution
     for move in bestsolution.moves:
         if checkmove(move[1], move[0]):
             shiplist, parcellist = assignBeam(shiplist, parcellist, move[0], move[1])
-        else:
-            print(f"parcel {move[1].id} does not fit in {move[0].name}")
+
+    # save the best solution
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
