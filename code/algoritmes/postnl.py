@@ -4,6 +4,7 @@ from code.helperfunctions.sort import sortParcels, sortSpacecrafts
 import random
 import pickle
 
+
 def assignRemainders(shiplist, extralist):
     """Takes as input a shiplist of a solution and a list of remaining parcels.
     Randomly assigns remainders if possible. Edits the shiplist."""
@@ -15,6 +16,7 @@ def assignRemainders(shiplist, extralist):
         chosenmove = possiblelist[0]
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
+
 
 def postnl(shiplist, parcellist):
     """Takes as input a clear shiplist and parcellist. Greedily assigns parcels to spacecrafts.
@@ -68,6 +70,6 @@ def postnl(shiplist, parcellist):
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
-    picklename = str(filename) + '.p'
+    picklename = str(f"results/Newsolutions/{filename}") + '.p'
     pickle.dump(shiplist, open(picklename, 'wb'))
     return picklename

@@ -6,6 +6,7 @@ from code.helperfunctions.assign import calculatetotal
 import copy
 import pickle
 
+
 def GetInput(shiplist, parcellist):
     """Takes as input a clear shiplist and parcellist. Prompts the user for a beamwidth and validates this.
     Returns the beamwidth"""
@@ -17,6 +18,7 @@ def GetInput(shiplist, parcellist):
         else:
             print(f"Beamwidth should be between 1 and {maxamount}")
     return w
+
 
 def assignBeam(shiplist, parcellist, spacecraft, parcel):
     """Takes as input the current ship- and parcellist, and the ship and parcel involved in the move to be performed.
@@ -32,6 +34,7 @@ def assignBeam(shiplist, parcellist, spacecraft, parcel):
                     ship.ratio()
     return shiplist, parcellist
 
+
 def undoBeam(shiplist, parcellist, spacecraft, parcel):
     """Takes as input the current ship- and parcellist, and the ship and parcel involved in the move to be undone.
     Returns the updated ship- and parcellist"""
@@ -45,6 +48,7 @@ def undoBeam(shiplist, parcellist, spacecraft, parcel):
                     parcellist.append(package)
                     ship.ratio()
     return shiplist, parcellist
+
 
 def Beam(shiplist, parcellist):
     """Takes as input a clear ship- and parcellist. Performs a beamsearch of width n, based on correspondence of mass-volume ratio.
@@ -75,7 +79,8 @@ def Beam(shiplist, parcellist):
 
             # perform the moves this object has with him already
             for j in range(len(first.moves)):
-                shiplist, parcellist = assignBeam(shiplist, parcellist, first.moves[j][0], first.moves[j][1])
+                shiplist, parcellist = assignBeam(
+                    shiplist, parcellist, first.moves[j][0], first.moves[j][1])
 
             # compute this object's children
             kids = possiblemovesA(shiplist, parcellist)
@@ -90,7 +95,8 @@ def Beam(shiplist, parcellist):
                 kidlist.append(kid)
 
             for k in range(len(first.moves)):
-                shiplist, parcellist = undoBeam(shiplist, parcellist, first.moves[k][0], first.moves[k][1])
+                shiplist, parcellist = undoBeam(
+                    shiplist, parcellist, first.moves[k][0], first.moves[k][1])
 
         if len(kidlist) == 0:
             break
@@ -130,7 +136,6 @@ def Beam(shiplist, parcellist):
     sortedsolutions = sorted(solutions, key=lambda packinglist: packinglist.cost, reverse=False)
     bestsolution = sortedsolutions[0]
 
-
     # make the shiplist for the best solution
     for move in bestsolution.moves:
         if checkmove(move[1], move[0]):
@@ -140,6 +145,6 @@ def Beam(shiplist, parcellist):
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
-    picklename = str(filename) + '.p'
+    picklename = str(f"results/Newsolutions/{filename}") + '.p'
     pickle.dump(shiplist, open(picklename, 'wb'))
     return picklename
