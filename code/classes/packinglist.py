@@ -1,4 +1,6 @@
 class Packinglist(object):
+    """This object represents a packinglist and its properties. It takes in 3 arguments: id, moves and the ratiodifference of the last move.
+    Furthermore this object can remember how much it costs and compute its weight and volume."""
     def __init__(self, id, moves, ratiodiff):
         self.id = id
         self.moves = moves

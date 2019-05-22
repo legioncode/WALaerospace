@@ -5,6 +5,7 @@ import random
 import numpy as np
 import pickle
 
+
 def assignRemainders(shiplist, extralist):
     """Takes as input a shiplist of a solution and a list of remaining parcels.
     Randomly assigns remainders if possible. Edits the shiplist."""
@@ -17,6 +18,7 @@ def assignRemainders(shiplist, extralist):
         assign(chosenmove[0], chosenmove[1])
         extralist.remove(chosenmove[1])
 
+
 def computeOutliers(parcellist):
     """Takes as input a parcellist. Computes outliers with high mass-volume ratios of the parcellist and returns the bound."""
     ratios = [parcel.mv for parcel in parcellist]
@@ -25,6 +27,7 @@ def computeOutliers(parcellist):
     q3 = np.percentile(ratios, 75)
     outlierbound = 1.5 * (q3 - q1) + q3
     return outlierbound
+
 
 def flessenpost(shiplist, parcellist):
     """Takes as input a clear shiplist and parcellist. Greedily assigns parcels to spacecrafts,
@@ -63,6 +66,6 @@ def flessenpost(shiplist, parcellist):
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
-    picklename = str(filename) + '.p'
+    picklename = str(f"results/Newsolutions/{filename}") + '.p'
     pickle.dump(shiplist, open(picklename, 'wb'))
     return picklename

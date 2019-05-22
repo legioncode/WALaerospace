@@ -7,6 +7,7 @@ import random
 import pickle
 import copy
 
+
 def randomsolver(shiplist, parcellist):
     """Takes as input a clear shiplist and parcellist. Randomly assigns parcels to spacecrafts.
     Edits the shiplist and returns the amount of moves of the found solution."""
@@ -25,6 +26,7 @@ def randomsolver(shiplist, parcellist):
         totalnumber += len(i.assigned)
     return totalnumber
 
+
 def ups(shiplist, cargolist):
     """Takes as input a clear shiplist and parcellist. Randomly assigns parcels to spacecrafts n times.
     Saves the best solution to a pickle file the filename of which is returned."""
@@ -36,7 +38,7 @@ def ups(shiplist, cargolist):
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
-    picklename = str(filename) + '.p'
+    picklename = str(f"results/Newsolutions/{filename}") + '.p'
 
     # keep track of the best solution
     topsolutionnumber = 0
