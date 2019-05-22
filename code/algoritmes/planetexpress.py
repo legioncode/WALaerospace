@@ -5,7 +5,11 @@ from code.helperfunctions.assign import assign, loadstate, clearships, solution
 from code.helperfunctions.possiblemoves import checkmove
 from code.classes.spacecraft import Spacecraft
 
-def maersk(shiplist, parcellist):
+def planetexpress(shiplist, parcellist):
+    countrydict = {}
+    remainderslist = []
+    for i in shiplist:
+        countrydict[i.nation] = 0
     selectedlist = []
     fulllist = []
     shipmv = [x.mv for x in shiplist]
@@ -27,6 +31,7 @@ def maersk(shiplist, parcellist):
             spacecraft = Spacecraft(shipname.name, shipname.nation, shipname.payload,
                                     shipname.volume, shipname.mass, shipname.basecost, shipname.ftw)
             assign(spacecraft, i)
+            countrydict[spacecraft.nation] = countrydict[spacecraft.nation] + 1
             c += 1
             selectedlist.append(spacecraft)
 
@@ -49,8 +54,9 @@ def maersk(shiplist, parcellist):
                 spacecraft = Spacecraft(shipname.name, shipname.nation, shipname.payload,
                                         shipname.volume, shipname.mass, shipname.basecost, shipname.ftw)
                 assign(spacecraft, i)
+                countrydict[spacecraft.nation] = countrydict[spacecraft.nation] + 1
                 c += 1
                 selectedlist.append(spacecraft)
 
 
-    return solution(selectedlist)
+    print(countrydict)

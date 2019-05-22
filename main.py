@@ -3,6 +3,7 @@ from code.helperfunctions.readers import loadships
 from code.algoritmes.dhl import dhl, dhlonsteroids
 from code.algoritmes.ups import ups, randomsolver
 from code.algoritmes.postnl import postnl
+from code.algoritmes.planetexpress import planetexpress
 from code.helperfunctions.visualization import visualpackages, massvolumeperc, randomplot
 from code.algoritmes.flessenpost import flessenpost
 import math
@@ -13,7 +14,6 @@ import pickle
 from collections import Counter
 from code.algoritmes.hillclimber import hillclimber
 from code.helperfunctions.assign import calculatetotal, calculatepackages
-
 def getProblem():
     problem = input("Welcome to space freight! Choose problem 'a' or 'b': ")
     while problem not in ('a', 'b'):
@@ -99,7 +99,8 @@ def main():
     else:
         shiplist = loadships('data/SpaceCraft2.csv')
         parcellist = loadparcels('data/CargoList3.csv')
-        maersk(shiplist, parcellist, False)
+        #maersk(shiplist, parcellist)
+        planetexpress(shiplist, parcellist)
 
 if __name__ == "__main__":
     main()
