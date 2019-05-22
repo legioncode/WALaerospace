@@ -13,11 +13,7 @@ import math
 import pickle
 from collections import Counter
 from code.helperfunctions.assign import calculatetotal, calculatepackages
-<<<<<<< HEAD
-=======
 
-
->>>>>>> 8d34f2aa4e803e6cd0e8e35da1aab9589529114f
 def getProblem():
     problem = input("Welcome to space freight! Choose problem 'a' or 'b': ")
     while problem not in ('a', 'b'):
