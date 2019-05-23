@@ -85,8 +85,8 @@ def main():
             getHillclimber(packedships, parcellist)
 
         elif algorithm == 'flessenpost':
-            solution = flessenpost(shiplist, parcellist)
-            packedships = pickle.load(open(solution, "rb"))
+            #solution = flessenpost(shiplist, parcellist)
+            packedships = pickle.load(open('results/Flessenpost/SOLFLessenpost2.p', "rb"))
             visualpackages(packedships, algorithm)
             massvolumeperc(packedships, algorithm)
 

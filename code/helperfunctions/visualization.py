@@ -17,7 +17,7 @@ def visualpackages(shiplist, algorithm):
     data = [go.Bar(x=shipbars, y=shipheight)]
     layout = go.Layout(title=f'Number of parcels in ships of {algorithm} algorithm')
     fig = go.Figure(data=data, layout=layout)
-    po.plot(fig, filename=f"results/Newvisualizations/{filename}")
+    po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
 
 
 def massvolumeperc(shiplist, algorithm):
@@ -32,7 +32,7 @@ def massvolumeperc(shiplist, algorithm):
     data = [Payload, Volume]
     layout = go.Layout(title=f'Percentage that is left in ships of {algorithm} alogrithm')
     fig = go.Figure(data=data, layout=layout)
-    po.plot(fig, filename=f"results/Newvisualizations/{filename}")
+    po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
 
 
 def randomplot(shiplist, cargolist):
