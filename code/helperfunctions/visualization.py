@@ -33,3 +33,15 @@ def massvolumeperc(shiplist, algorithm):
     layout = go.Layout(title=f'Percentage that is left in ships of {algorithm} alogrithm')
     fig = go.Figure(data=data, layout=layout)
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
+
+
+def progressb(shiplist):
+    progresslist = []
+    totalnumber = 0
+    for i in shiplist:
+        totalnumber += len(i.assigned)
+        progresslist.append(totalnumber)
+    progresssteps = [i for i in range(1, len(progresslist))]
+    trace = go.Scatter(x=progresssteps, y=progresslist)
+    data = [trace]
+    po.plot(data)
