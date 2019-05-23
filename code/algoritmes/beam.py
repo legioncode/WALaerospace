@@ -145,6 +145,6 @@ def Beam(shiplist, parcellist):
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
-    picklename = str(f"results/Newsolutions/{filename}") + '.p'
+    picklename = str(f"results/Newsolutions/{filename}.p")
     pickle.dump(shiplist, open(picklename, 'wb'))
     return picklename

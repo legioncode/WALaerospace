@@ -67,7 +67,7 @@ def dhlonsteroids(shiplist, parcellist):
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
-    picklename = str(f"results/Newsolutions/{filename}") + '.p'
+    picklename = str(f"results/Newsolutions/{filename}.p")
 
     # keep track of the best solution
     sol = (0, 0, {})
