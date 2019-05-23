@@ -1,11 +1,12 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def loadships(shipcsv):
-    """Takes in a Spacecraft csv file, and returns a list of spacecraft objects."""
+    """Takes in a Spacecraft csv file, and returns a list of spacecraft
+    objects."""
     shipdict = shipreader(shipcsv)
     availableShips = craftassign(shipdict)
     return availableShips
@@ -22,7 +23,6 @@ def cargoreader(cargocsv):
     """Takes in a Cargo csv file, and turns it into a dictionary."""
     df = pd.read_csv(cargocsv)
     columnnames = [i for i in df]
-    #print(columnnames)
     df['mv'] = df[columnnames[1]] / df[columnnames[2]]
     cargodict = pd.DataFrame.to_dict(df, orient='index')
     return cargodict
