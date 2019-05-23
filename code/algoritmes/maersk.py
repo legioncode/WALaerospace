@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import random
 from code.helperfunctions.assign import assign, loadstate, clearships, solution
+from code.helperfunctions.assign import calculateoptimal
 from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.possiblemoves import checkmove
 from code.classes.spacecraft import Spacecraft
@@ -43,14 +44,7 @@ def maersk(shiplist, parcellist):
                                         #spaceship classes
     for i in parcellist:
         bool = False
-        defaultship = (0, 400)
-
-        for z in range(len(shipmv)):
-            difference = max(shipmv[z], i.mv) - min(shipmv[z], i.mv)
-            if difference < defaultship[1]:
-                defaultship = (z, difference)
-
-        shipname = shiplist[defaultship[0]]
+        shipname = calculateoptimal(i, shiplist)
         namelist = [i.name for i in selectedlist]
 
         if shipname.name not in namelist:

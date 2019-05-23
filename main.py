@@ -3,7 +3,7 @@ from code.algoritmes.dhl import dhl
 from code.algoritmes.dhl import dhlonsteroids
 from code.algoritmes.flessenpost import flessenpost
 from code.algoritmes.hillclimber import hillclimber
-from code.algoritmes.maersk import *
+from code.algoritmes.maersk import maersk
 from code.algoritmes.planetexpress import planetexpress
 from code.algoritmes.postnl import postnl
 from code.algoritmes.ups import randomsolver
@@ -18,8 +18,6 @@ from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.visualization import massvolumeperc
 from code.helperfunctions.visualization import visualpackages
-from code.helperfunctions.visualization import randomplot
-import math
 import pickle
 
 
@@ -55,8 +53,8 @@ def main():
     else:
         shiplist = loadships('data/SpaceCraft2.csv')
         parcellist = loadparcels('data/CargoList3.csv')
-        # maersk(shiplist, parcellist)
-        planetexpress(shiplist, parcellist)
+        maersk(shiplist, parcellist)
+        #planetexpress(shiplist, parcellist)
 
 
 if __name__ == "__main__":
