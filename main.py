@@ -1,59 +1,26 @@
 from code.algoritmes.beam import Beam
+from code.algoritmes.dhl import dhl
+from code.algoritmes.dhl import dhlonsteroids
+from code.algoritmes.flessenpost import flessenpost
 from code.algoritmes.hillclimber import hillclimber
 from code.algoritmes.maersk import *
+from code.algoritmes.planetexpress import planetexpress
+from code.algoritmes.postnl import postnl
+from code.algoritmes.ups import randomsolver
+from code.algoritmes.ups import ups
+from code.helperfunctions.assign import calculatetotal
+from code.helperfunctions.assign import calculatepackages
+from code.helperfunctions.mainhelper import getAlgorithm
+from code.helperfunctions.mainhelper import getHillclimber
+from code.helperfunctions.mainhelper import getParcellist
+from code.helperfunctions.mainhelper import getProblem
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
-from code.algoritmes.dhl import dhl, dhlonsteroids
-from code.algoritmes.ups import ups, randomsolver
-from code.algoritmes.postnl import postnl
-from code.algoritmes.planetexpress import planetexpress
-from code.helperfunctions.visualization import visualpackages, massvolumeperc, randomplot
-from code.algoritmes.flessenpost import flessenpost
+from code.helperfunctions.visualization import massvolumeperc
+from code.helperfunctions.visualization import visualpackages
+from code.helperfunctions.visualization import randomplot
 import math
 import pickle
-from collections import Counter
-from code.helperfunctions.assign import calculatetotal, calculatepackages
-
-def getProblem():
-    problem = input("Welcome to space freight! Choose problem 'a' or 'b': ")
-    while problem not in ('a', 'b'):
-        problem = input("Please choose 'a' or 'b': ")
-    return problem
-
-
-def getParcellist():
-    parcels = int(input("Which list of packages do you want to use? Choose '1' or '2': "))
-    while parcels not in (1, 2, 3):
-        parcels = int(input("Please choose '1' or '2': "))
-    if parcels == 1:
-        return 'data/CargoList1.csv'
-    else:
-        return 'data/CargoList2.csv'
-
-
-def getAlgorithm():
-    algorithm = input(
-        "What type of algorithm do you want to use? Choose 'random', 'greedy' or 'beamsearch': ")
-    while algorithm not in ('random', 'greedy', 'beamsearch'):
-        algorithm = input("Please choose 'random', 'greedy' or 'beamsearch': ")
-    if algorithm == 'greedy':
-        algorithm = input(
-            "Good choice! We have multiple greedy algorithms ready for you. Please choose 'postnl', 'dhl' or 'flessenpost': ")
-        while algorithm not in ('postnl', 'dhl', 'flessenpost'):
-            algorithm = input("Please choose 'postnl', 'dhl' or 'flessenpost': ")
-    return algorithm
-
-
-def getHillclimber(shiplist, parcellist):
-    choice = input(
-        "Do you want to try to bring more packages by running a hillclimber on this solution? Choose 'yes' or 'no': ")
-    while choice not in ('yes', 'no'):
-        choice = input("Please choose 'yes' or 'no': ")
-    if choice == 'yes':
-        solution = hillclimber(shiplist, parcellist)
-        packedships = pickle.load(open(solution, "rb"))
-        visualpackages(packedships, 'hillclimber')
-        massvolumeperc(packedships, 'hillclimber')
 
 
 def main():
@@ -64,38 +31,21 @@ def main():
         parcels = getParcellist()
         parcellist = loadparcels(parcels)
         algorithm = getAlgorithm()
-
         if algorithm == 'random':
             solution = ups(shiplist, parcellist)
-            packedships = pickle.load(open(solution, "rb"))
-            visualpackages(packedships, algorithm)
-            massvolumeperc(packedships, algorithm)
-
         elif algorithm == 'postnl':
             solution = postnl(shiplist, parcellist)
-            packedships = pickle.load(open(solution, "rb"))
-            visualpackages(packedships, algorithm)
-            massvolumeperc(packedships, algorithm)
-
         elif algorithm == 'dhl':
             solution = dhlonsteroids(shiplist, parcellist)
-            packedships = pickle.load(open(solution, "rb"))
-            visualpackages(packedships, algorithm)
-            massvolumeperc(packedships, algorithm)
-            getHillclimber(packedships, parcellist)
-
         elif algorithm == 'flessenpost':
-            #solution = flessenpost(shiplist, parcellist)
-            packedships = pickle.load(open('results/Flessenpost/SOLFLessenpost2.p', "rb"))
-            visualpackages(packedships, algorithm)
-            massvolumeperc(packedships, algorithm)
-
+            solution = flessenpost(shiplist, parcellist)
         elif algorithm == 'beamsearch':
             solution = Beam(shiplist, parcellist)
-            packedships = pickle.load(open(solution, "rb"))
-            visualpackages(packedships, algorithm)
-            massvolumeperc(packedships, algorithm)
-
+        packedships = pickle.load(open(solution, "rb"))
+        visualpackages(packedships, algorithm)
+        massvolumeperc(packedships, algorithm)
+        if algorithm == 'dhl':
+            getHillclimber(packedships, parcellist)
         amount = calculatepackages(packedships)
         for ship in packedships:
             ship.calculate()
@@ -105,7 +55,7 @@ def main():
     else:
         shiplist = loadships('data/SpaceCraft2.csv')
         parcellist = loadparcels('data/CargoList3.csv')
-        #maersk(shiplist, parcellist)
+        # maersk(shiplist, parcellist)
         planetexpress(shiplist, parcellist)
 
 
