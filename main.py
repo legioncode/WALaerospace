@@ -8,8 +8,8 @@ from code.algoritmes.planetexpress import planetexpress
 from code.algoritmes.postnl import postnl
 from code.algoritmes.ups import randomsolver
 from code.algoritmes.ups import ups
-from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.assign import calculatepackages
+from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.mainhelper import getAlgorithm
 from code.helperfunctions.mainhelper import getHillclimber
 from code.helperfunctions.mainhelper import getParcellist
@@ -17,6 +17,7 @@ from code.helperfunctions.mainhelper import getProblem
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.visualization import massvolumeperc
+from code.helperfunctions.visualization import progressb
 from code.helperfunctions.visualization import visualpackages
 import pickle
 
