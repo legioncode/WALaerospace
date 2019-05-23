@@ -1,5 +1,3 @@
-from code.classes.cargo import Cargo
-from code.classes.spacecraft import Spacecraft
 import copy
 
 
@@ -24,7 +22,8 @@ def undomove(ship, parcel):
 
 
 def solution(shiplist):
-    """Takes in shiplist with a solution, and turns it into a dictionary of ship:packages pairs."""
+    """Takes in shiplist with a solution, and turns it into a dictionary of
+    ship:packages pairs."""
     solutiondict = {}
     for i in shiplist:
         solutiondict[i] = i.assigned
@@ -32,7 +31,8 @@ def solution(shiplist):
 
 
 def updatemv(shiplist):
-    """Takes in a shiplist and updates the mass-volume ratios of the ships in it."""
+    """Takes in a shiplist and updates the mass-volume ratios of the
+    ships in it."""
     return [x.mv for x in shiplist]
 
 
@@ -46,7 +46,8 @@ def clearships(shiplist):
 
 
 def assignfromdict(shipdict):
-    """Takes in a dictionary of a solution, and assigns the packages to their ships."""
+    """Takes in a dictionary of a solution, and assigns the packages to their
+    ships."""
     for i in shipdict.keys():
         shipdict[i].assigned = shipdict[i]
 
@@ -60,7 +61,8 @@ def calculatetotal(shiplist):
 
 
 def loadstate(solution, shiplist):
-    """Takes in a dictionary of a solution and a shiplist, and performs the moves of the dictionary on the shiplist."""
+    """Takes in a dictionary of a solution and a shiplist, and performs
+    the moves of the dictionary on the shiplist."""
     for i in solution.keys():
         for x in shiplist:
             if i.name == x.name:
@@ -69,8 +71,10 @@ def loadstate(solution, shiplist):
 
 
 def calculatepackages(shiplist):
-    """Takes in a shiplist of a solution, calculates and returns the amount of assigned packages."""
+    """Takes in a shiplist of a solution, calculates and returns the amount of
+    assigned packages."""
     return sum(len(i.assigned) for i in shiplist)
+
 
 def returnLastParcel(ship):
     """Takes in a ship, removes and returns the last assigned parcel."""

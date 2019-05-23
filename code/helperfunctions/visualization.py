@@ -33,16 +33,3 @@ def massvolumeperc(shiplist, algorithm):
     layout = go.Layout(title=f'Percentage that is left in ships of {algorithm} alogrithm')
     fig = go.Figure(data=data, layout=layout)
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
-
-
-def randomplot(shiplist, cargolist):
-    solutions = []
-    for i in range(100):
-        deeplist = copy.deepcopy(cargolist)
-        solutions.append(randomsolver(shiplist, deeplist))
-        clearships(shiplist)
-    labels, values = zip(*sorted(Counter(solutions).items()))
-    data = [go.Bar(x=labels, y=values)]
-    layout = go.Layout(title=f'Randomplotter')
-    fig = go.Figure(data=data, layout=layout)
-    po.plot(fig)
