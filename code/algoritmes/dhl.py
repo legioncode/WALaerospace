@@ -1,5 +1,10 @@
 import random
-from code.helperfunctions.assign import assign, solution, returnLastParcel, calculatetotal, clearships
+from code.helperfunctions.assign import assign
+from code.helperfunctions.assign import solution
+from code.helperfunctions.assign import returnLastParcel
+from code.helperfunctions.assign import calculatetotal
+from code.helperfunctions.assign import clearships
+from code.helperfunctions.assign import calculateoptimal
 from code.helperfunctions.possiblemoves import checkmove
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.readers import loadparcels
@@ -18,17 +23,11 @@ def dhl(shiplist, parcellist):
 
     # for each parcel, find the best move based on mass-volume ratio
     for i in parcellist:
-        shipmv = [x.mv for x in shiplist]
-        defaultship = (0, 400)
-
-        for z in range(len(shipmv)):
-            difference = max(shipmv[z], i.mv) - min(shipmv[z], i.mv)
-            if difference < defaultship[1]:
-                defaultship = (z, difference)
+        defaultship = calculateoptimal(i, shiplist)
 
         # check if the move is possible, else make this parcel a remainder
-        if checkmove(i, shiplist[defaultship[0]]):
-            assign(shiplist[defaultship[0]], i)
+        if checkmove(i, defaultship):
+            assign(defaultship, i)
         else:
             extralist.append(i)
 

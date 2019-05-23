@@ -83,3 +83,16 @@ def returnLastParcel(ship):
     ship.payload = ship.payload + parcel.mass
     ship.ratio()
     return parcel
+
+def calculateoptimal(parcel, shiplist):
+    ''' calculate optimal calculates the optimal matches spaceship out of
+        a list of ships and returns that ship. It takes in two arguments:
+        a cargo object and a list of shipobjects '''
+    defaultship = (0, 400)
+    shipmv = [x.mv for x in shiplist]
+    for z in range(len(shipmv)):
+        difference = max(shipmv[z], parcel.mv) - min(shipmv[z], parcel.mv)
+        if difference < defaultship[1]:
+            defaultship = (z, difference)
+
+    return shiplist[defaultship[0]]

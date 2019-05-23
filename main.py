@@ -3,13 +3,13 @@ from code.algoritmes.dhl import dhl
 from code.algoritmes.dhl import dhlonsteroids
 from code.algoritmes.flessenpost import flessenpost
 from code.algoritmes.hillclimber import hillclimber
-from code.algoritmes.maersk import *
+from code.algoritmes.maersk import maersk
 from code.algoritmes.planetexpress import planetexpress
 from code.algoritmes.postnl import postnl
 from code.algoritmes.ups import randomsolver
 from code.algoritmes.ups import ups
-from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.assign import calculatepackages
+from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.mainhelper import getAlgorithmA
 from code.helperfunctions.mainhelper import getConstraint
 from code.helperfunctions.mainhelper import getHillclimber
@@ -18,8 +18,8 @@ from code.helperfunctions.mainhelper import getProblem
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.visualization import massvolumeperc
+from code.helperfunctions.visualization import progressb
 from code.helperfunctions.visualization import visualpackages
-import math
 import pickle
 
 
