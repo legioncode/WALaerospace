@@ -11,6 +11,7 @@ import pandas as pd
 import random
 
 
+
 def maersk(shiplist, parcellist):
     '''Maersk is is a greedy algorithm for problem D. It takes two arguments.
     The first argument is a list of spaceship objects to use, the second a list
@@ -47,6 +48,7 @@ def maersk(shiplist, parcellist):
                 if i.nation == country:
                     print('country removed')
                     shiplist.remove(i)
+
 
     # the list that gets the MW from all spaceship classes
     shipmv = [x.mv for x in shiplist]
