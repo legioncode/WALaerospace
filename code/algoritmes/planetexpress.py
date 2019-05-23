@@ -1,7 +1,12 @@
 import numpy as np
 import pandas as pd
 import random
-from code.helperfunctions.assign import assign, loadstate, clearships, solution, calculatetotal, calculateoptimal
+from code.helperfunctions.assign import assign,
+from code.helperfunctions.assign import loadstate
+from code.helperfunctions.assign import clearships
+from code.helperfunctions.assign import solution
+from code.helperfunctions.assign import calculatetotal
+from code.helperfunctions.assign import calculateoptimal
 from code.helperfunctions.possiblemoves import checkmove
 from code.classes.spacecraft import Spacecraft
 
