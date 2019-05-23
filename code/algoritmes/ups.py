@@ -3,9 +3,12 @@ from code.classes.spacecraft import Spacecraft
 from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import solution, clearships, assignfromdict
-import random
-import pickle
+from collections import Counter
 import copy
+import pickle
+import plotly.graph_objs as go
+import plotly.offline as po
+import random
 
 
 def randomsolver(shiplist, parcellist):
@@ -43,14 +46,23 @@ def ups(shiplist, cargolist):
     # keep track of the best solution
     topsolutionnumber = 0
     topsolution = {}
-
+    allsolutions = []
     # run randomsolver n amount times, save the best solution
     for i in range(0, n):
         deeplist = copy.deepcopy(cargolist)
-        solutions = randomsolver(shiplist, deeplist)
-        if solutions > topsolutionnumber:
-            topsolutionnumber = solutions
+        solution = randomsolver(shiplist, deeplist)
+        allsolutions.append(solution)
+        if solution > topsolutionnumber:
+            topsolutionnumber = solution
             topsolution = shiplist
             pickle.dump(topsolution, open(picklename, 'wb'))
         clearships(shiplist)
+    labels, values = zip(*sorted(Counter(allsolutions).items()))
+    data = [go.Bar(x=labels, y=values)]
+    layout = go.Layout(title=f'Randomplotter')
+    fig = go.Figure(data=data, layout=layout)
+    filenamehisto = input("Please name how you want to save the histogram visualization: ")
+    while filenamehisto == "":
+        filenamehisto = input("Please name how you want to save histogram visualization: ")
+    po.plot(fig, filename=f"results/Newvisualizations/{filenamehisto}.html")
     return picklename
