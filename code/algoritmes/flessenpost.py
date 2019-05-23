@@ -1,9 +1,11 @@
-from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
-from code.helperfunctions.sort import sortParcels, sortSpacecrafts
-import random
+from code.helperfunctions.possiblemoves import checkmove
+from code.helperfunctions.possiblemoves import possiblemovesA
+from code.helperfunctions.sort import sortParcels
+from code.helperfunctions.sort import sortSpacecrafts
 import numpy as np
 import pickle
+import random
 
 
 def assignRemainders(shiplist, extralist):
@@ -20,7 +22,8 @@ def assignRemainders(shiplist, extralist):
 
 
 def computeOutliers(parcellist):
-    """Takes as input a parcellist. Computes outliers with high mass-volume ratios of the parcellist and returns the bound."""
+    """Takes as input a parcellist. Computes outliers with high mass-volume
+    ratios of the parcellist and returns the bound."""
     ratios = [parcel.mv for parcel in parcellist]
     q1 = np.percentile(ratios, 25)
     median = np.percentile(ratios, 50)
@@ -30,8 +33,9 @@ def computeOutliers(parcellist):
 
 
 def flessenpost(shiplist, parcellist):
-    """Takes as input a clear shiplist and parcellist. Greedily assigns parcels to spacecrafts,
-    taking into consideration outliers. Saves the solution to a pickle file the filename of which is returned."""
+    """Takes as input a clear shiplist and parcellist. Greedily assigns parcels
+    to spacecrafts, taking into consideration outliers. Saves the solution to a
+    pickle file the filename of which is returned."""
     # get sorted outlierbound and reversed parcel- and shiplist
     outlierbound = computeOutliers(parcellist)
     sorted_parcels = sortParcels(parcellist)
@@ -53,7 +57,7 @@ def flessenpost(shiplist, parcellist):
                 assign(ship, sorted_parcels[parcel])
                 assigned = True
                 break
-        if assigned == False:
+        if assigned is False:
             remainders.append(sorted_parcels[parcel])
 
     # try to assign remainders

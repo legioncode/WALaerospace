@@ -1,9 +1,13 @@
-from code.helperfunctions.assign import calculatetotal, calculatepackages, undomove, solution, assign, loadstate
-from code.helperfunctions.possiblemoves import checkmove
-from code.algoritmes.flessenpost import flessenpost
+from code.helperfunctions.assign import assign
+from code.helperfunctions.assign import calculatepackages
+from code.helperfunctions.assign import calculatetotal
+from code.helperfunctions.assign import loadstate
+from code.helperfunctions.assign import solution
+from code.helperfunctions.assign import undomove
 from code.algoritmes.dhl import dhl
-import random
+from code.helperfunctions.possiblemoves import checkmove
 import pickle
+import random
 
 
 def hillclimber(shiplist, parcellist):
@@ -16,7 +20,8 @@ def hillclimber(shiplist, parcellist):
 
     for c in range(max):
         assignedparcellist = [e for i in shiplist for e in i.assigned]
-        remainparcellist = [i for i in parcellist if i not in assignedparcellist]
+        remainparcellist = [i for i in parcellist if i not in
+                            assignedparcellist]
         ship1 = shiplist[random.randint(0, len(shiplist) - 1)]
         ship2 = shiplist[random.randint(0, len(shiplist) - 1)]
         while ship1 == ship2:

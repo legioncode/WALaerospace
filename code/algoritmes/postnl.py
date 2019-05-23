@@ -1,8 +1,10 @@
-from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
 from code.helperfunctions.assign import assign
-from code.helperfunctions.sort import sortParcels, sortSpacecrafts
-import random
+from code.helperfunctions.possiblemoves import checkmove
+from code.helperfunctions.possiblemoves import possiblemovesA
+from code.helperfunctions.sort import sortParcels
+from code.helperfunctions.sort import sortSpacecrafts
 import pickle
+import random
 
 
 def assignRemainders(shiplist, extralist):
@@ -19,8 +21,9 @@ def assignRemainders(shiplist, extralist):
 
 
 def postnl(shiplist, parcellist):
-    """Takes as input a clear shiplist and parcellist. Greedily assigns parcels to spacecrafts.
-    Saves the solution to a pickle file the filename of which is returned."""
+    """Takes as input a clear shiplist and parcellist. Greedily assigns
+    parcels to spacecrafts. Saves the solution to a pickle file the filename
+    of which is returned."""
     # get sorted lists
     sorted_parcels = sortParcels(parcellist)
     sorted_ships = sortSpacecrafts(shiplist)
@@ -38,7 +41,8 @@ def postnl(shiplist, parcellist):
     worklistleft = sorted_parcels[0: int(halfparcels)]
     worklistleft.reverse()
 
-    # append parcels from left half of parcellist to ships from left half of shiplist
+    # append parcels from left half of parcellist to ships from left half
+    # of shiplist
     for i in range(int(halfparcels)):
         assigned = False
         for ship in leftcrafts:
@@ -46,13 +50,14 @@ def postnl(shiplist, parcellist):
                 assign(ship, worklistleft[i])
                 assigned = True
                 break
-        if assigned == False:
+        if assigned is False:
             remainders.append(worklistleft[i])
 
     # get the right half of the parcellist, from middle to right-end
     worklistright = sorted_parcels[int(halfparcels):]
 
-    # append parcels from half of both the parcel- and shiplist, back to the right end of both lists
+    # append parcels from half of both the parcel- and shiplist, back to the
+    # right end of both lists
     for i in range(int(halfparcels)):
         assigned = False
         for ship in sorted_ships[int(halfcrafts):]:
@@ -60,7 +65,7 @@ def postnl(shiplist, parcellist):
                 assign(ship, worklistright[i])
                 assigned = True
                 break
-        if assigned == False:
+        if assigned is False:
             remainders.append(worklistright[i])
 
     # try to assign remainders

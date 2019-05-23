@@ -1,22 +1,23 @@
-import random
+from code.classes.cargo import Cargo
+from code.classes.spacecraft import Spacecraft
 from code.helperfunctions.assign import assign
 from code.helperfunctions.assign import solution
-from code.helperfunctions.assign import returnLastParcel
+from code.helperfunctions.assign import calculateoptimal
 from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.assign import clearships
-from code.helperfunctions.assign import calculateoptimal
+from code.helperfunctions.assign import returnLastParcel
 from code.helperfunctions.possiblemoves import checkmove
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.readers import loadparcels
-import pandas as pd
 import numpy as np
-from code.classes.spacecraft import *
-from code.classes.cargo import *
+import pandas as pd
 import pickle
+import random
 
 
 def dhl(shiplist, parcellist):
-    """Takes as input a clear shiplist and parcellist. Greedily assigns parcels to spacecrafts, based on mass-volume ratio.
+    """Takes as input a clear shiplist and parcellist. Greedily assigns parcels
+    to spacecrafts, based on mass-volume ratio.
     Returns a shiplist of the solution."""
     # keep track of remainders
     extralist = []
@@ -34,7 +35,8 @@ def dhl(shiplist, parcellist):
     # keep track of final remainders
     finallist = []
 
-    # for each remainder, find a move, beginning with the best move possible based on mass-volume ratio
+    # for each remainder, find a move, beginning with the best move possible
+    # based on mass-volume ratio
     for c in extralist:
         shipmv = [x.mv for x in shiplist]
         while True:
@@ -57,8 +59,9 @@ def dhl(shiplist, parcellist):
 
 
 def dhlonsteroids(shiplist, parcellist):
-    """Takes as input a clear shiplist and parcellist. Generates n dhl solutions.
-    Writes the shiplist of the best found solution to a pickle file the filename of which is returned ."""
+    """Takes as input a clear shiplist and parcellist. Generates n dhl
+    solutions. Writes the shiplist of the best found solution to a pickle file
+    the filename of which is returned ."""
     # get user input
     n = int(input("How many times do you want to run this algorithm: "))
     while n == "":

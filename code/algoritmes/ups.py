@@ -1,8 +1,11 @@
 from code.classes.cargo import Cargo
 from code.classes.spacecraft import Spacecraft
-from code.helperfunctions.possiblemoves import checkmove, possiblemovesA
+from code.helperfunctions.possiblemoves import checkmove
+from code.helperfunctions.possiblemoves import possiblemovesA
 from code.helperfunctions.assign import assign
-from code.helperfunctions.assign import solution, clearships, assignfromdict
+from code.helperfunctions.assign import assignfromdict
+from code.helperfunctions.assign import clearships
+from code.helperfunctions.assign import solution
 from collections import Counter
 import copy
 import pickle
@@ -12,8 +15,9 @@ import random
 
 
 def randomsolver(shiplist, parcellist):
-    """Takes as input a clear shiplist and parcellist. Randomly assigns parcels to spacecrafts.
-    Edits the shiplist and returns the amount of moves of the found solution."""
+    """Takes as input a clear shiplist and parcellist. Randomly assigns parcels
+    to spacecrafts. Edits the shiplist and returns the amount of moves of the
+    found solution."""
     # do random moves until no more moves possible
     movelist = [1]
     while movelist != []:
@@ -31,8 +35,9 @@ def randomsolver(shiplist, parcellist):
 
 
 def ups(shiplist, cargolist):
-    """Takes as input a clear shiplist and parcellist. Randomly assigns parcels to spacecrafts n times.
-    Saves the best solution to a pickle file the filename of which is returned."""
+    """Takes as input a clear shiplist and parcellist. Randomly assigns parcels
+    to spacecrafts n times. Saves the best solution to a pickle file the
+    filename of which is returned."""
     # get user input
     n = int(input("How many times do you want to run this algorithm: "))
     while n == "":
@@ -61,8 +66,10 @@ def ups(shiplist, cargolist):
     data = [go.Bar(x=labels, y=values)]
     layout = go.Layout(title=f'Randomplotter')
     fig = go.Figure(data=data, layout=layout)
-    filenamehisto = input("Please name how you want to save the histogram visualization: ")
+    filenamehisto = input("Please name how you want to save the histogram \
+                          visualization: ")
     while filenamehisto == "":
-        filenamehisto = input("Please name how you want to save histogram visualization: ")
+        filenamehisto = input("Please name how you want to save histogram \
+                              visualization: ")
     po.plot(fig, filename=f"results/Newvisualizations/{filenamehisto}.html")
     return picklename

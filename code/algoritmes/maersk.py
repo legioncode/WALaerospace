@@ -1,11 +1,15 @@
+from code.classes.spacecraft import Spacecraft
+from code.helperfunctions.assign import assign
+from code.helperfunctions.assign import calculateoptimal
+from code.helperfunctions.assign import calculatetotal
+from code.helperfunctions.assign import clearships
+from code.helperfunctions.assign import loadstate
+from code.helperfunctions.assign import solution
+from code.helperfunctions.possiblemoves import checkmove
 import numpy as np
 import pandas as pd
 import random
-from code.helperfunctions.assign import assign, loadstate, clearships, solution
-from code.helperfunctions.assign import calculateoptimal
-from code.helperfunctions.assign import calculatetotal
-from code.helperfunctions.possiblemoves import checkmove
-from code.classes.spacecraft import Spacecraft
+
 
 def maersk(shiplist, parcellist):
     '''Maersk is is a greedy algorithm for problem D. It takes two arguments.
@@ -25,31 +29,37 @@ def maersk(shiplist, parcellist):
     The algorithm is a greedy constructive algoritm with the mass to volume
     match as it's heuristic.
      '''
-    selectedlist = []           #the list that represents the current fleet
+    # the list that represents the current fleet
+    selectedlist = []
     timelist = shiplist
     countrylist = [i.nation for i in shiplist]
-    print(" you're running the greedy algorithm for problem D you can now select some options to run it: ")
-    bool = input("you can choose to remove the spaceships from a country to improve the solution. type yes if you want this, any other input will result in a normal run ")
+    print(" you're running the greedy algorithm for problem D you can now \
+            select some options to run it: ")
+    bool = input("you can choose to remove the spaceships from a country \
+    to improve the solution. type yes if you want this, any other input will \
+    result in a normal run ")
     bool = bool.lower()
     if bool == 'yes':
-        country = input("what country do you want to remove? options: Russia, Europe, USA, China, Japan. (Removing USA gives best solution) ")
+        country = input("what country do you want to remove? options: Russia, \
+        Europe, USA, China, Japan. (Removing USA gives best solution) ")
         if country in countrylist:
-            for i in timelist:                  #progress is removed beceause it
-                                            #the solution is a lot better without it
+            for i in timelist:
                 if i.nation == country:
                     print('country removed')
                     shiplist.remove(i)
 
-    shipmv = [x.mv for x in shiplist]   #the list that gets the MW from all
-                                        #spaceship classes
+    # the list that gets the MW from all spaceship classes
+    shipmv = [x.mv for x in shiplist]
     for i in parcellist:
         bool = False
         shipname = calculateoptimal(i, shiplist)
         namelist = [i.name for i in selectedlist]
 
         if shipname.name not in namelist:
-            spacecraft = Spacecraft(shipname.name, shipname.nation, shipname.payload,
-                                    shipname.volume, shipname.mass, shipname.basecost, shipname.ftw)
+            spacecraft = Spacecraft(shipname.name, shipname.nation,
+                                    shipname.payload, shipname.volume,
+                                    shipname.mass, shipname.basecost,
+                                    shipname.ftw)
             assign(spacecraft, i)
             selectedlist.append(spacecraft)
 
@@ -61,19 +71,21 @@ def maersk(shiplist, parcellist):
 
             for y in indexes:
                 if checkmove(i, selectedlist[z]):
-                    if bool == False:
+                    if bool is False:
                         assign(selectedlist[z], i)
 
                     bool = True
                     break
 
-            if bool == False:
-                spacecraft = Spacecraft(shipname.name, shipname.nation, shipname.payload,
-                                        shipname.volume, shipname.mass, shipname.basecost, shipname.ftw)
+            if bool is False:
+                spacecraft = Spacecraft(shipname.name, shipname.nation,
+                                        shipname.payload, shipname.volume,
+                                        shipname.mass, shipname.basecost,
+                                        shipname.ftw)
                 assign(spacecraft, i)
                 selectedlist.append(spacecraft)
 
     print("amount of ships: " + str(len(selectedlist)))
     print("total costs: " + str(calculatetotal(selectedlist)))
-    return solution(selectedlist)       #return the found solution in dictionary
-                                        #form  to be able to work with later
+    # return the found solution in dict form to be able to work with later
+    return solution(selectedlist)
