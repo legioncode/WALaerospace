@@ -18,8 +18,12 @@ from code.helperfunctions.mainhelper import getProblem
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.visualization import massvolumeperc
+from code.helperfunctions.visualization import nationsparcels
 from code.helperfunctions.visualization import progressb
+from code.helperfunctions.visualization import shipsbynation
+from code.helperfunctions.visualization import shipsparcels
 from code.helperfunctions.visualization import visualpackages
+import numpy as np
 import pickle
 
 
@@ -59,6 +63,10 @@ def main():
             solution = maersk(shiplist, parcellist)
         else:
             solution = planetexpress(shiplist, parcellist)
+        # shipsbynation(solution) MOET NOG AAN GEWERKT WORDEN!
+        shipsparcels(solution)
+        nationsparcels(solution)
+        progressb(solution)
 
 
 if __name__ == "__main__":
