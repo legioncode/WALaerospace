@@ -7,12 +7,12 @@ In Space Freight we find solutions for assignment of parcels to spacecrafts for 
 
 The best assignment we found when optimizing the amount of packages that can be transported, was the result of running a hillclimber algorithm on the result of a greedy algorithm:
 
-> ###Parcellist 1
-> Packages: 96
+> ###Parcellist 1\
+> Packages: 96\
 > Costs: $1.468.735.066
 
-> ###Parcellist 2
-> Packages: 84
+> ###Parcellist 2\
+> Packages: 84\
 > Costs: $1.469.398.664,37
 
 ## Getting Started
