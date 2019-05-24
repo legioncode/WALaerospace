@@ -16,7 +16,8 @@ import pickle
 
 
 def dhl(shiplist, parcellist):
-    """Takes as input a clear shiplist and parcellist. Greedily assigns parcels to spacecrafts, based on mass-volume ratio.
+    """Takes as input a clear shiplist and parcellist.
+    Greedily assigns parcels to spacecrafts, based on mass-volume ratio.
     Returns a shiplist of the solution."""
     # keep track of remainders
     extralist = []

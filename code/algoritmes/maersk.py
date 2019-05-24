@@ -1,6 +1,3 @@
-import numpy as np
-import pandas as pd
-import random
 from code.helperfunctions.assign import assign, loadstate, clearships, solution
 from code.helperfunctions.assign import calculateoptimal
 from code.helperfunctions.assign import calculatetotal
