@@ -68,10 +68,10 @@ def main():
                 nsrunner(shiplist, parcellist)
             else:
                 picklefile = maersk(shiplist, parcellist)
-                visualize is True
+                visualize = True
         else:
             picklefile = planetexpress(shiplist, parcellist)
-            visualize is True
+            visualize = True
         if visualize is True:
             solution = pickle.load(open(picklefile, "rb"))
             shipsparcels(solution)
