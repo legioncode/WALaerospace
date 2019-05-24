@@ -6,6 +6,7 @@ from code.helperfunctions.possiblemoves import checkmove
 from code.helperfunctions.possiblemoves import possiblemovesA
 from code.classes.spacecraft import Spacecraft
 
+
 def maersk(shiplist, parcellist):
     '''Maersk is is a greedy algorithm for problem D. It takes two arguments.
     The first argument is a list of spaceship objects to use, the second a list
@@ -24,23 +25,24 @@ def maersk(shiplist, parcellist):
     The algorithm is a greedy constructive algoritm with the mass to volume
     match as it's heuristic.
      '''
-    selectedlist = []           #the list that represents the current fleet
+    selectedlist = []  # the list that represents the current fleet
     timelist = shiplist
     countrylist = [i.nation for i in shiplist]
-    print(" you're running the greedy algorithm for problem D you can now select some options to run it: ")
-    bool = input("you can choose to remove the spaceships from a country to improve the solution. type yes if you want this, any other input will result in a normal run ")
+    print("You're running the greedy algorithm for problem D. You can now select some options to run it. ")
+    bool = input("You can choose to remove the spaceships from a country to improve the solution. Type 'yes' if you want this, any other input will result in a normal run: ")
     bool = bool.lower()
     if bool == 'yes':
-        country = input("what country do you want to remove? options: Russia, Europe, USA, China, Japan. (Removing USA gives best solution) ")
+        country = input(
+            "What country do you want to remove? options: 'Russia', 'Europe', 'USA', 'China' or 'Japan'. (Removing 'USA' gives best solution): ")
         if country in countrylist:
-            for i in timelist:                  #progress is removed beceause it
-                                            #the solution is a lot better without it
+            for i in timelist:  # progress is removed beceause it
+                                            # the solution is a lot better without it
                 if i.nation == country:
-                    print('country removed')
+                    print('Country removed')
                     shiplist.remove(i)
 
-    shipmv = [x.mv for x in shiplist]   #the list that gets the MW from all
-                                        #spaceship classes
+    shipmv = [x.mv for x in shiplist]  # the list that gets the MV from all
+    # spaceship classes
     for i in parcellist:
         bool = False
         shipname = calculateoptimal(i, shiplist)
@@ -74,5 +76,5 @@ def maersk(shiplist, parcellist):
 
     print("amount of ships: " + str(len(selectedlist)))
     print("total costs: " + str(calculatetotal(selectedlist)))
-    return solution(selectedlist)       #return the found solution in dictionary
-                                        #form  to be able to work with later
+    return solution(selectedlist)  # return the found solution in dictionary
+    # form  to be able to work with later

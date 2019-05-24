@@ -21,8 +21,7 @@ from code.helperfunctions.readers import loadships
 from code.helperfunctions.visualization import massvolumeperc
 from code.helperfunctions.visualization import nationsparcels
 from code.helperfunctions.visualization import progressb
-from code.helperfunctions.visualization import progresstwo
-#from code.helperfunctions.visualization import shipsbynation
+from code.helperfunctions.visualization import progresscosts
 from code.helperfunctions.visualization import shipsparcels
 from code.helperfunctions.visualization import visualpackages
 import numpy as np
@@ -60,15 +59,15 @@ def main():
     else:
         shiplist = loadships('data/SpaceCraft2.csv')
         parcellist = loadparcels('data/CargoList3.csv')
-        progresstwo(maersk(shiplist, parcellist), 'Maersk',
-                    planetexpress(shiplist, parcellist), 'Planetexpres')
         constraint = getConstraint()
+        progresscost(maersk(shiplist, parcellist), 'Maersk',
+                     planetexpress(shiplist, parcellist), 'Planetexpres')
+
         if constraint == 'no':
             solution = maersk(shiplist, parcellist)
         else:
-            #solution = planetexpress(shiplist, parcellist)
+            # solution = planetexpress(shiplist, parcellist)
             solution = ns(shiplist, parcellist)
-        # shipsbynation(solution) MOET NOG AAN GEWERKT WORDEN!
         shipsparcels(solution)
         nationsparcels(solution)
         progressb(solution)

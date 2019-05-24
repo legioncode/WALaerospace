@@ -4,6 +4,7 @@ import pandas as pd
 from code.helperfunctions.assign import clearships
 from code.algoritmes.ups import randomsolver
 from collections import Counter
+from code.helperfunctions.assign import calculatetotal
 import plotly.graph_objs as go
 import plotly.offline as po
 import copy
@@ -62,7 +63,7 @@ def progressb(shiplist):
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
 
 
-def progresstwo(shiplist1, algoname, shiplist2, algoname2):
+def progresscosts(shiplist1, algoname, shiplist2, algoname2):
     filename = input("Please name how you want to save this progress visualization: ")
     while filename == "":
         filename = input("Please name how you want to save this progress visualization: ")
@@ -71,10 +72,10 @@ def progresstwo(shiplist1, algoname, shiplist2, algoname2):
     totalnumber1 = 0
     totalnumber2 = 0
     for i in shiplist1:
-        totalnumber1 += len(i.assigned)
+        totalnumber1 += i.cost
         progresslist1.append(totalnumber1)
     for i in shiplist2:
-        totalnumber2 += len(i.assigned)
+        totalnumber2 += i.cost
         progresslist2.append(totalnumber2)
     progresssteps1 = [i for i in range(1, len(progresslist1))]
     progresssteps2 = [i for i in range(1, len(progresslist2))]
@@ -82,9 +83,9 @@ def progresstwo(shiplist1, algoname, shiplist2, algoname2):
     trace2 = go.Scatter(x=progresssteps2, y=progresslist2, name=algoname2)
     data = [trace1, trace2]
     layout = go.Layout(title=go.layout.Title(
-        text=f'Progress of sending all parcels'),
+        text=f'Progress of costs per algortihm'),
         xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Ships sent')),
-        yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='Parcels sent')))
+        yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='Costs')))
     fig = go.Figure(data=data, layout=layout)
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
 
@@ -106,16 +107,6 @@ def nationsparcels(shiplist):
         yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='Parcels sent')))
     fig = go.Figure(data=data, layout=layout)
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
-
-
-'''def shipsbynation(shiplist):  # MOET NOG AAN GEWERKT WORDEN
-    shipdict = {}
-    for i in shiplist:
-        newshipnumber = shipdict[i.nation]
-        newshipnumber += 1
-        shipdict[i.nation] = newshipnumber
-    print(shipdict)
-'''
 
 
 def shipsparcels(shiplist):
