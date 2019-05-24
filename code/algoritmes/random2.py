@@ -4,6 +4,7 @@ from code.helperfunctions.assign import calculateoptimal
 from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.possiblemoves import checkmove
 from code.classes.spacecraft import Spacecraft
+import pickle
 import random
 
 
@@ -29,5 +30,12 @@ def ns(shiplist, parcellist):
                                     ship.ftw)
             fleet.append(spacecraft)
             assign(fleet[-1], i)
-
-    return solution(fleet)
+    sol = solution(fleet)
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(f"results/Newsolutions/{filename}.p")
+    pickle.dump(sol, open(picklename, 'wb'))
+    print("amount of ships: " + str(len(fleet)))
+    print("total costs: " + str(calculatetotal(fleet)))
+    return picklename

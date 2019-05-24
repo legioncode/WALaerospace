@@ -8,6 +8,7 @@ from code.helperfunctions.assign import solution
 from code.helperfunctions.possiblemoves import checkmove
 import numpy as np
 import pandas as pd
+import pickle
 import random
 
 
@@ -89,9 +90,13 @@ def planetexpress(shiplist, parcellist):
             assign(spacecraft, i)
             selectedlist.append(spacecraft)
 
-    print(c)
-    print(countrydict)
+    sol = solution(selectedlist)
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(f"results/Newsolutions/{filename}.p")
+    pickle.dump(sol, open(picklename, 'wb'))
     print("amount of ships: " + str(len(selectedlist)))
     print("total costs: " + str(calculatetotal(selectedlist)))
     # return the found solution in dictionary form
-    return solution(selectedlist)
+    return picklename

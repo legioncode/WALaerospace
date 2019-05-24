@@ -16,6 +16,7 @@ from code.helperfunctions.mainhelper import getConstraint
 from code.helperfunctions.mainhelper import getHillclimber
 from code.helperfunctions.mainhelper import getParcellist
 from code.helperfunctions.mainhelper import getProblem
+from code.helperfunctions.mainhelper import getRandom
 from code.helperfunctions.readers import loadparcels
 from code.helperfunctions.readers import loadships
 from code.helperfunctions.visualization import massvolumeperc
@@ -60,14 +61,15 @@ def main():
         shiplist = loadships('data/SpaceCraft2.csv')
         parcellist = loadparcels('data/CargoList3.csv')
         constraint = getConstraint()
-        progresscost(maersk(shiplist, parcellist), 'Maersk',
-                     planetexpress(shiplist, parcellist), 'Planetexpres')
-
         if constraint == 'no':
-            solution = maersk(shiplist, parcellist)
+            random = getRandom()
+            if random == 'r':
+                picklefile = ns(shiplist, parcellist)
+            else:
+                picklefile = maersk(shiplist, parcellist)
         else:
-            # solution = planetexpress(shiplist, parcellist)
-            solution = ns(shiplist, parcellist)
+            picklefile = planetexpress(shiplist, parcellist)
+        solution = pickle.load(open(picklefile, "rb"))
         shipsparcels(solution)
         nationsparcels(solution)
         progressb(solution)

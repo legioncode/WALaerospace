@@ -5,6 +5,7 @@ from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.possiblemoves import checkmove
 from code.helperfunctions.possiblemoves import possiblemovesA
 from code.classes.spacecraft import Spacecraft
+import pickle
 
 
 def maersk(shiplist, parcellist):
@@ -38,7 +39,6 @@ def maersk(shiplist, parcellist):
             for i in timelist:  # progress is removed beceause it
                                             # the solution is a lot better without it
                 if i.nation == country:
-                    print('Country removed')
                     shiplist.remove(i)
 
     shipmv = [x.mv for x in shiplist]  # the list that gets the MV from all
@@ -74,7 +74,12 @@ def maersk(shiplist, parcellist):
                 assign(spacecraft, i)
                 selectedlist.append(spacecraft)
 
+    sol = solution(selectedlist)
+    filename = input("Please name how you want to save this solution: ")
+    while filename == "":
+        filename = input("Please name how you want to save this solution: ")
+    picklename = str(f"results/Newsolutions/{filename}.p")
+    pickle.dump(sol, open(picklename, 'wb'))
     print("amount of ships: " + str(len(selectedlist)))
     print("total costs: " + str(calculatetotal(selectedlist)))
-    return solution(selectedlist)  # return the found solution in dictionary
-    # form  to be able to work with later
+    return picklename

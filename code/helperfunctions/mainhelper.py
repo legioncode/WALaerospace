@@ -7,7 +7,7 @@ import pickle
 def getProblem():
     """This function prompts the user for which problem they want to solve and
     returns this problem"""
-    problem = input("Welcome to space freight! Do you want to optimize a: amount of parcels, or b: costs. Choose 'a' or 'b' ").lower()
+    problem = input("Welcome to space freight! Do you want to optimize a: amount of parcels, or b: costs. Choose 'a' or 'b': ").lower()
     while problem not in ('a', 'b'):
         problem = input("Please choose 'a' or 'b': ").lower()
     return problem
@@ -62,3 +62,11 @@ def getConstraint():
         constraint = input(
             "Do you want to make sure Trump's spacecrafts don't launch more often than Poetin's? Choose 'yes' or 'no': ").lower()
     return constraint
+
+def getRandom():
+    """This function prompts the user for whether they want to solve problem b
+    (without extra constraint) randomly"""
+    problem = input("Do you want to solve this problem with a random or greedy algorithm? Choose 'r' or 'g': ").lower()
+    while problem not in ('r', 'g'):
+            problem = input("Do you want to solve this problem with a random or greedy algorithm? Choose 'r' or 'g': ").lower()
+    return problem
