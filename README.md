@@ -32,7 +32,7 @@ If you want to run (part of) the code yourself, download the code from this repo
 ```python
 python main.py
 ```
-On the command line you can then indicate which optimization of the problem you want to focus on. If applicable, you will be asked to choose one of the available parcellists for your problem after which you get to choose which of the algorithms you want to run. Some algorithms require some additional input, in case for which you will be prompted. Last but not least, you get to define how you want to save your newly generated output and get the results both textually as visually.
+On the command line you can then indicate which optimization of the problem you want to focus on. If applicable, you will be asked to choose one of the available parcellists for your problem after which you get to choose which of the algorithms you want to run. Some algorithms require some additional input, in case for which you will be prompted. Last but not least, you get to define how you want to save your newly generated output and get the results both textually as visually. Your newly generated output pickle- and html files will be stored in 'results/Newsolutions' and 'results/Newvisualisations' respectively.
 
 ## Authors
 • Axel Huting\
