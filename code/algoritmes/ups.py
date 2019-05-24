@@ -69,10 +69,8 @@ def ups(shiplist, cargolist):
         xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Number of parcels in Spacecrafts')),
         yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='N times the solution of parcels')))
     fig = go.Figure(data=data, layout=layout)
-    filenamehisto = input("Please name how you want to save the histogram \
-                          visualization: ")
+    filenamehisto = input("Please name how you want to save the histogram visualization: ")
     while filenamehisto == "":
-        filenamehisto = input("Please name how you want to save histogram \
-                              visualization: ")
+        filenamehisto = input("Please name how you want to save histogram visualization: ")
     po.plot(fig, filename=f"results/Newvisualizations/{filenamehisto}.html")
     return picklename
