@@ -11,6 +11,7 @@ def ns(shiplist, parcellist):
     '''ns takes in two arguments, a list of ship objects and a list of
        cargo objects. it assigns parcels to spaceships untill they're full.
        after a spaceship has been filled it chooses a random new ship'''
+
     randomchoice = random.randint(0, len(shiplist) - 1)
     ship = shiplist[randomchoice]
     spacecraft = Spacecraft(ship.name, ship.nation, ship.payload,
