@@ -84,6 +84,7 @@ def returnLastParcel(ship):
     ship.ratio()
     return parcel
 
+
 def calculateoptimal(parcel, shiplist):
     ''' calculate optimal calculates the optimal matches spaceship out of
         a list of ships and returns that ship. It takes in two arguments:

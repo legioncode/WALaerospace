@@ -1,4 +1,4 @@
-from code.helperfunctions.assign import assign, loadstate, clearships, solution
+from code.helperfunctions.assign import assign, solution
 from code.helperfunctions.assign import calculateoptimal
 from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.possiblemoves import checkmove

@@ -1,14 +1,15 @@
+from code.classes.spacecraft import Spacecraft
+from code.helperfunctions.assign import assign
+from code.helperfunctions.assign import calculateoptimal
+from code.helperfunctions.assign import calculatetotal
+from code.helperfunctions.assign import clearships
+from code.helperfunctions.assign import loadstate
+from code.helperfunctions.assign import solution
+from code.helperfunctions.possiblemoves import checkmove
 import numpy as np
 import pandas as pd
 import random
-from code.helperfunctions.assign import assign,
-from code.helperfunctions.assign import loadstate
-from code.helperfunctions.assign import clearships
-from code.helperfunctions.assign import solution
-from code.helperfunctions.assign import calculatetotal
-from code.helperfunctions.assign import calculateoptimal
-from code.helperfunctions.possiblemoves import checkmove
-from code.classes.spacecraft import Spacecraft
+
 
 def planetexpress(shiplist, parcellist):
     ''' Planetexpress is  a greedy algorithm for problem E of the spacefreight
@@ -23,13 +24,13 @@ def planetexpress(shiplist, parcellist):
         country involed.
 
         Planetexpress returns a dictionary with the spaceship objects as keys
-        and their assigned parcels as values. it also prints the amount of ships
-        used and the total costs of launching the fleet.'''
-    selectedlist = []       #the list that contains the fleet of spaceships
-    countrydict = {}        #dictionary containing the N of launches per country
-    countryships = {}       #the dictionary with countries and their ships
+        and their assigned parcels as values. it also prints the amount of
+        ships used and the total costs of launching the fleet.'''
+    selectedlist = []     # the list that contains the fleet of spaceships
+    countrydict = {}      # dictionary containing the N of launches per country
+    countryships = {}     # the dictionary with countries and their ships
     c = 0
-    for i in shiplist:         #starts up the countrydict
+    for i in shiplist:         # starts up the countrydict
         countrydict[i.nation] = 0
         if i.nation in countryships.keys():
             worklist = countryships[i.nation]
@@ -39,32 +40,34 @@ def planetexpress(shiplist, parcellist):
             countryships[i.nation] = [i]
 
     for i in parcellist:
-        namelist = [x.name for x in selectedlist] #turns the list of the current
-                                                  # fleet into a list of classes
+        # turns the list of the current fleet into a list of classes
+        namelist = [x.name for x in selectedlist]
         ship = calculateoptimal(i, shiplist)
         bool = False
         lowestpartner = min(countrydict, key=countrydict.get)
         difference = countrydict[ship.nation] - countrydict[lowestpartner]
-        if ship.name in namelist:    #checks if the matched ship is in fleetlist
+        # checks if the matched ship is in fleetlist
+        if ship.name in namelist:
             indexes = []
             for z in range(len(namelist)):
                 if namelist[z] == ship.name:
                     indexes.append(z)
-
-            for y in indexes:  #checks all ships of that class in the fleet list
+            # checks all ships of that class in the fleet list
+            for y in indexes:
                 if checkmove(i, selectedlist[z]):
                     assign(selectedlist[z], i)
                     bool = True
                     break
-            if bool == False:
-                if difference > 0:  #checks constraint
+            if bool is False:
+                if difference > 0:  # checks constraint
                     if len(countryships[lowestpartner]) > 1:
-                        ship = calculateoptimal(i,countryships[lowestpartner])
+                        ship = calculateoptimal(i, countryships[lowestpartner])
                     else:
                         ship = countryships[lowestpartner][0]
 
                 spacecraft = Spacecraft(ship.name, ship.nation, ship.payload,
-                                        ship.volume, ship.mass, ship.basecost, ship.ftw)
+                                        ship.volume, ship.mass, ship.basecost,
+                                        ship.ftw)
                 newnumber = countrydict[ship.nation]
                 newnumber += 1
                 countrydict[ship.nation] = newnumber
@@ -73,24 +76,22 @@ def planetexpress(shiplist, parcellist):
         else:
             if difference > 0:
                 if len(countryships[lowestparner]) > 1:
-                    ship = calculateoptimal(i,countryships[lowestparner])
+                    ship = calculateoptimal(i, countryships[lowestparner])
                 else:
                     ship = countryships[lowestparner][0]
                     print(ship)
             spacecraft = Spacecraft(ship.name, ship.nation, ship.payload,
-                                    ship.volume, ship.mass, ship.basecost, ship.ftw)
+                                    ship.volume, ship.mass, ship.basecost,
+                                    ship.ftw)
             newnumber = countrydict[ship.nation]
             newnumber += 1
             countrydict[ship.nation] = newnumber
             assign(spacecraft, i)
             selectedlist.append(spacecraft)
 
-
-
-
     print(c)
     print(countrydict)
     print("amount of ships: " + str(len(selectedlist)))
     print("total costs: " + str(calculatetotal(selectedlist)))
-    return solution(selectedlist)       #return the found solution in dictionary
-                                        #form  to be able to work with later
+    # return the found solution in dictionary form
+    return solution(selectedlist)

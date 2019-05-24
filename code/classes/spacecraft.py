@@ -1,8 +1,9 @@
 class Spacecraft(object):
-    """This object represents a spacecraft and its properties. It takes in 7 arguments:
-    name, nation, payload-weight, payload-volume, mass, basecost and fuel-to-weight ratio.
-    Furthermore this object can remember how many times it has been launched already,
-    update its ratio, clear itself and compute its costso."""
+    """This object represents a spacecraft and its properties. It takes in 7
+    arguments: name, nation, payload-weight, payload-volume, mass, basecost and
+    fuel-to-weight ratio. Furthermore this object can remember how many times
+    it has been launched already, update its ratio, clear itself and compute
+    its costs."""
     def __init__(self, name, nation, payload, volume, mass, basecost, ftw):
         self.name = name
         self.nation = nation
@@ -20,11 +21,11 @@ class Spacecraft(object):
         self.launches = 0
 
     def ratio(self):
-        # this is needed to make sure that if the space ship has an optimal assignment (payload = 0) that `mw doesnt crash`
+        # this is needed to make sure that if the space ship has an optimal
+        # assignment (payload = 0) that `mw doesnt crash`
         if self.volume == 0:
             self.volume = 0.000000000000000000000000000000001
         self.mv = self.payload / float(self.volume)
-
 
     def calculate(self):
         self.cost = (sum([i.mass for i in self.assigned]) + self.mass) * \
