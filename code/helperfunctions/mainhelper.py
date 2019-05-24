@@ -63,10 +63,11 @@ def getConstraint():
             "Do you want to make sure Trump's spacecrafts don't launch more often than Poetin's? Choose 'yes' or 'no': ").lower()
     return constraint
 
+
 def getRandom():
     """This function prompts the user for whether they want to solve problem b
     (without extra constraint) randomly"""
     problem = input("Do you want to solve this problem with a random or greedy algorithm? Choose 'r' or 'g': ").lower()
     while problem not in ('r', 'g'):
-            problem = input("Do you want to solve this problem with a random or greedy algorithm? Choose 'r' or 'g': ").lower()
+        problem = input("Do you want to solve this problem with a random or greedy algorithm? Choose 'r' or 'g': ").lower()
     return problem
