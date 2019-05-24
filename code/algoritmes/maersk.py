@@ -1,7 +1,9 @@
-from code.helperfunctions.assign import assign, solution
+from code.helperfunctions.assign import assign
+from code.helperfunctions.assign import solution
 from code.helperfunctions.assign import calculateoptimal
 from code.helperfunctions.assign import calculatetotal
 from code.helperfunctions.possiblemoves import checkmove
+from code.helperfunctions.possiblemoves import possiblemovesA
 from code.classes.spacecraft import Spacecraft
 
 def maersk(shiplist, parcellist):

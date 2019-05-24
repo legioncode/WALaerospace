@@ -4,6 +4,7 @@ from code.algoritmes.dhl import dhlonsteroids
 from code.algoritmes.flessenpost import flessenpost
 from code.algoritmes.hillclimber import hillclimber
 from code.algoritmes.maersk import maersk
+from code.algoritmes.random2 import ns
 from code.algoritmes.planetexpress import planetexpress
 from code.algoritmes.postnl import postnl
 from code.algoritmes.ups import randomsolver
@@ -62,7 +63,8 @@ def main():
         if constraint == 'no':
             solution = maersk(shiplist, parcellist)
         else:
-            solution = planetexpress(shiplist, parcellist)
+            #solution = planetexpress(shiplist, parcellist)
+            solution = ns(shiplist, parcellist)
         # shipsbynation(solution) MOET NOG AAN GEWERKT WORDEN!
         shipsparcels(solution)
         nationsparcels(solution)
