@@ -64,7 +64,10 @@ def ups(shiplist, cargolist):
         clearships(shiplist)
     labels, values = zip(*sorted(Counter(allsolutions).items()))
     data = [go.Bar(x=labels, y=values)]
-    layout = go.Layout(title=f'Randomplotter')
+    layout = go.Layout(title=go.layout.Title(
+        text=f'Histogram of random generated solutions'),
+        xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Number of parcels in Spacecrafts')),
+        yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='N times the solution of parcels')))
     fig = go.Figure(data=data, layout=layout)
     filenamehisto = input("Please name how you want to save the histogram \
                           visualization: ")

@@ -16,7 +16,10 @@ def visualpackages(shiplist, algorithm):
     shipbars = [i.name for i in shiplist]
     shipheight = [len(i.assigned) for i in shiplist]
     data = [go.Bar(x=shipbars, y=shipheight)]
-    layout = go.Layout(title=f'Number of parcels in ships of {algorithm} algorithm')
+    layout = go.Layout(title=go.layout.Title(
+        text=f'Number of parcels in ships of {algorithm} algorithm'),
+        xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Ships')),
+        yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='Number of parcels')))
     fig = go.Figure(data=data, layout=layout)
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
 
@@ -31,7 +34,10 @@ def massvolumeperc(shiplist, algorithm):
     Payload = go.Bar(x=shipbars, y=payloadbar, name='Payload')
     Volume = go.Bar(x=shipbars, y=volumebar, name='Volume')
     data = [Payload, Volume]
-    layout = go.Layout(title=f'Percentage that is left in ships of {algorithm} alogrithm')
+    layout = go.Layout(title=go.layout.Title(
+        text=f'Percentage that is left in ships of {algorithm} alogrithm'),
+        xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Ships')),
+        yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='Percentage')))
     fig = go.Figure(data=data, layout=layout)
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
 
@@ -48,8 +54,12 @@ def progressb(shiplist):
     progresssteps = [i for i in range(1, len(progresslist))]
     trace = go.Scatter(x=progresssteps, y=progresslist)
     data = [trace]
-    layout = go.Layout(title=f'Progress of sending all parcels')
-    po.plot(data, filename=f"results/Newvisualizations/{filename}.html")
+    layout = go.Layout(title=go.layout.Title(
+        text=f'Progress of sending all parcels'),
+        xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Ships sent')),
+        yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='Parcels sent')))
+    fig = go.Figure(data=data, layout=layout)
+    po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
 
 
 def nationsparcels(shiplist):
@@ -63,18 +73,22 @@ def nationsparcels(shiplist):
     uniquenat = df.Nation.unique()
     numparcels = [sum(df[df.Nation == i].Parcels) for i in uniquenat]
     data = [go.Bar(x=uniquenat, y=numparcels)]
-    layout = go.Layout(title=f'Number of parcels by nation')
+    layout = go.Layout(title=go.layout.Title(
+        text=f'Number of parcels by nation'),
+        xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Nations')),
+        yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='Parcels sent')))
     fig = go.Figure(data=data, layout=layout)
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")
 
 
-def shipsbynation(shiplist):  # MOET NOG AAN GEWERKT WORDEN
+'''def shipsbynation(shiplist):  # MOET NOG AAN GEWERKT WORDEN
     shipdict = {}
     for i in shiplist:
         newshipnumber = shipdict[i.nation]
         newshipnumber += 1
         shipdict[i.nation] = newshipnumber
     print(shipdict)
+'''
 
 
 def shipsparcels(shiplist):
@@ -88,6 +102,9 @@ def shipsparcels(shiplist):
     uniquenat = df.Nation.unique()
     numparcels = [sum(df[df.Nation == i].Parcels) for i in uniquenat]
     data = [go.Bar(x=uniquenat, y=numparcels)]
-    layout = go.Layout(title=f'Number of parcels by ships')
+    layout = go.Layout(title=go.layout.Title(
+        text=f'Number of parcels by ships'),
+        xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Ships')),
+        yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='Parcels sent')))
     fig = go.Figure(data=data, layout=layout)
     po.plot(fig, filename=f"results/Newvisualizations/{filename}.html")

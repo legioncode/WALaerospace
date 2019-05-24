@@ -21,7 +21,7 @@ from code.helperfunctions.readers import loadships
 from code.helperfunctions.visualization import massvolumeperc
 from code.helperfunctions.visualization import nationsparcels
 from code.helperfunctions.visualization import progressb
-from code.helperfunctions.visualization import shipsbynation
+#from code.helperfunctions.visualization import shipsbynation
 from code.helperfunctions.visualization import shipsparcels
 from code.helperfunctions.visualization import visualpackages
 import numpy as np
