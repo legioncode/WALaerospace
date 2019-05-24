@@ -57,10 +57,10 @@ def getConstraint():
     """This function prompts the user for an additional constraint and returns
     the name of the appropriate algorithm"""
     constraint = input(
-        "Do you want to make sure Trump's spacecrafts don't launch more often than Poetin's? Choose 'yes' or 'no': ").lower()
+        "Do you want to take into account a constraint where partner's amount of flights may differ no more than 1'? Choose 'yes' or 'no': ").lower()
     while constraint not in ('yes', 'no'):
         constraint = input(
-            "Do you want to make sure Trump's spacecrafts don't launch more often than Poetin's? Choose 'yes' or 'no': ").lower()
+            "Do you want to take into account a constraint where partner's amount of flights may differ no more than 1'? Choose 'yes' or 'no': ").lower()
     return constraint
 
 
