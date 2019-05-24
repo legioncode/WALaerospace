@@ -58,6 +58,8 @@ def Beam(shiplist, parcellist):
     width n, based on correspondence of mass-volume ratio. Writes the shiplist
     of the best found solution to a pickle file the filename of which is
     returned ."""
+
+    print(f"Running this beam algorithm might take a while depending on the chosen beamwidth. If you're looking for a fast result advice a beamwidth between 2-5.")
     # get beamwidth
     beamwidth = GetInput(shiplist, parcellist)
 
