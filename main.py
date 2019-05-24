@@ -28,6 +28,9 @@ import pickle
 
 
 def main():
+    packedships = pickle.load(open('results/Dhl/Hillclimber/SOLHillclimber2.p', "rb"))
+    visualpackages(packedships, 'hillclimber')
+    massvolumeperc(packedships, 'hillclimber')
     problem = getProblem()
     if problem == 'a':
         shiplist = loadships('data/SpaceCraft1.csv')
