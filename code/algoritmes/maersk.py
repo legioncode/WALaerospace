@@ -36,21 +36,22 @@ def maersk(shiplist, parcellist):
         country = input(
             "What country do you want to remove? options: 'Russia', 'Europe', 'USA', 'China' or 'Japan'. (Removing 'USA' gives best solution): ")
         if country in countrylist:
-            for i in timelist:  # progress is removed beceause it
-                                            # the solution is a lot better without it
+            for i in timelist:
                 if i.nation == country:
                     shiplist.remove(i)
 
-    shipmv = [x.mv for x in shiplist]  # the list that gets the MV from all
-    # spaceship classes
+    # the list that gets the MV from all spacecship classes
+    shipmv = [x.mv for x in shiplist]
     for i in parcellist:
         bool = False
         shipname = calculateoptimal(i, shiplist)
         namelist = [i.name for i in selectedlist]
 
         if shipname.name not in namelist:
-            spacecraft = Spacecraft(shipname.name, shipname.nation, shipname.payload,
-                                    shipname.volume, shipname.mass, shipname.basecost, shipname.ftw)
+            spacecraft = Spacecraft(shipname.name, shipname.nation,
+                                    shipname.payload, shipname.volume,
+                                    shipname.mass, shipname.basecost,
+                                    shipname.ftw)
             assign(spacecraft, i)
             selectedlist.append(spacecraft)
 
@@ -62,15 +63,17 @@ def maersk(shiplist, parcellist):
 
             for y in indexes:
                 if checkmove(i, selectedlist[z]):
-                    if bool == False:
+                    if bool is False:
                         assign(selectedlist[z], i)
 
                     bool = True
                     break
 
-            if bool == False:
-                spacecraft = Spacecraft(shipname.name, shipname.nation, shipname.payload,
-                                        shipname.volume, shipname.mass, shipname.basecost, shipname.ftw)
+            if bool is False:
+                spacecraft = Spacecraft(shipname.name, shipname.nation,
+                                        shipname.payload, shipname.volume,
+                                        shipname.mass, shipname.basecost,
+                                        shipname.ftw)
                 assign(spacecraft, i)
                 selectedlist.append(spacecraft)
 

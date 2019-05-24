@@ -4,7 +4,7 @@ from code.algoritmes.dhl import dhlonsteroids
 from code.algoritmes.flessenpost import flessenpost
 from code.algoritmes.hillclimber import hillclimber
 from code.algoritmes.maersk import maersk
-from code.algoritmes.random2 import ns
+from code.algoritmes.ns import nsrunner
 from code.algoritmes.planetexpress import planetexpress
 from code.algoritmes.postnl import postnl
 from code.algoritmes.ups import randomsolver
@@ -61,18 +61,22 @@ def main():
         shiplist = loadships('data/SpaceCraft2.csv')
         parcellist = loadparcels('data/CargoList3.csv')
         constraint = getConstraint()
+        visualize = False
         if constraint == 'no':
             random = getRandom()
             if random == 'r':
-                picklefile = ns(shiplist, parcellist)
+                nsrunner(shiplist, parcellist)
             else:
                 picklefile = maersk(shiplist, parcellist)
+                visualize is True
         else:
             picklefile = planetexpress(shiplist, parcellist)
-        solution = pickle.load(open(picklefile, "rb"))
-        shipsparcels(solution)
-        nationsparcels(solution)
-        progressb(solution)
+            visualize is True
+        if visualize is True:
+            solution = pickle.load(open(picklefile, "rb"))
+            shipsparcels(solution)
+            nationsparcels(solution)
+            progressb(solution)
 
 
 if __name__ == "__main__":

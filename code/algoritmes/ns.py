@@ -48,10 +48,10 @@ def nsrunner(shiplist, cargolist):
     filename = input("Please name how you want to save this solution: ")
     while filename == "":
         filename = input("Please name how you want to save this solution: ")
-    picklename = str(f"results/Newsolutions/{filename}") + '.p'
+    picklename = str(f"results/Newsolutions/{filename}.p")
 
     # keep track of the best solution
-    topsolutionnumber = 0
+    topsolutionnumber = 30000000000
     topsolution = {}
     allsolutions = []
     # run randomsolver n amount times, save the best solution
@@ -64,6 +64,7 @@ def nsrunner(shiplist, cargolist):
             topsolution = shiplist
             pickle.dump(topsolution, open(picklename, 'wb'))
         clearships(shiplist)
+    print(f"This solution costs ${topsolutionnumber}")
     labels, values = zip(*sorted(Counter(allsolutions).items()))
     data = [go.Bar(x=labels, y=values)]
     layout = go.Layout(title=go.layout.Title(
@@ -71,10 +72,8 @@ def nsrunner(shiplist, cargolist):
         xaxis=go.layout.XAxis(title=go.layout.xaxis.Title(text='Cost of solution')),
         yaxis=go.layout.YAxis(title=go.layout.yaxis.Title(text='N times the solution of cost')))
     fig = go.Figure(data=data, layout=layout)
-    filenamehisto = input("Please name how you want to save the histogram \
-                          visualization: ")
+    filenamehisto = input("Please name how you want to save the histogram visualization: ")
     while filenamehisto == "":
-        filenamehisto = input("Please name how you want to save histogram \
-                              visualization: ")
+        filenamehisto = input("Please name how you want to save histogram visualization: ")
     po.plot(fig, filename=f"results/Newvisualizations/{filenamehisto}.html")
     return picklename
