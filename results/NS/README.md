@@ -1,7 +1,7 @@
 # Results
 
-This folder contains the results per algorithm. For each algorithm there is a pickle document containing the solution in the form of a shiplist: a list of the used spacecrafts and their attributes. Furthermore several html formatted visualisations are available, which can be opened only after download because of github constraints regarding documents' size. To open the pickle file use the following code, where filename is the name of the pickle file you want to open:
+NS is a random algorithm for part of the problem where there is an unlimited access to ships and no political constraint. A short summary of a random result of the NS algorithm:
 
-```python
-solution = pickle.load(open(filename, "rb"))
-```
+> Spacecrafts: 51\
+> Costs: $ 23.609.429.585,84
+
